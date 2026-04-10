@@ -4,8 +4,9 @@ import { featuredSizes, sizeToSlug } from "../lib/siteData";
 
 const navLinks = [
   { href: `/tire-size/${sizeToSlug(featuredSizes[0].size)}`, label: "Popular Sizes" },
-  { href: "/search?size=225/65R17", label: "Search Demo" },
-  { href: "/vehicle/toyota/camry/2024", label: "Vehicle Fitment" },
+  { href: "/guides/best-all-season-tires", label: "Buying Guides" },
+  { href: "/vehicle/toyota/rav4/2024", label: "Shop by Vehicle" },
+  { href: "/brands/michelin", label: "Top Brands" },
 ];
 
 export default function SiteHeader() {

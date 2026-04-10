@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { featuredSizes, sizeToSlug } from "../lib/siteData";
+import {
+  featuredBrandPages,
+  featuredSizes,
+  seoGuides,
+  sizeToSlug,
+} from "../lib/siteData";
 
 export default function SiteFooter() {
   return (
@@ -24,9 +29,23 @@ export default function SiteFooter() {
 
         <div className="footer-column">
           <h3>Explore</h3>
-          <Link href="/search?size=205/55R16">Search results</Link>
-          <Link href="/vehicle/ford/f-150/2024">Vehicle route</Link>
-          <a href="mailto:partners@tiresearchengine.com">Affiliate and ad partnerships</a>
+          <Link href="/guides/best-all-season-tires">Best all-season tires</Link>
+          <Link href="/brands/michelin">Michelin tires</Link>
+          <Link href="/search?size=205/55R16">Compare tire deals</Link>
+        </div>
+
+        <div className="footer-column">
+          <h3>More guides</h3>
+          {seoGuides.slice(0, 3).map((guide) => (
+            <Link key={guide.slug} href={`/guides/${guide.slug}`}>
+              {guide.title}
+            </Link>
+          ))}
+          {featuredBrandPages.slice(0, 2).map((brand) => (
+            <Link key={brand.slug} href={`/brands/${brand.slug}`}>
+              {brand.name} tires
+            </Link>
+          ))}
         </div>
       </div>
     </footer>

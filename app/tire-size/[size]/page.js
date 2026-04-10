@@ -1,11 +1,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AmazonOfferRail from "../../components/AmazonOfferRail";
 import JsonLd from "../../components/JsonLd";
 import PriceTable from "../../components/PriceTable";
+import { getAmazonOffersForSize } from "../../lib/amazonOfferCatalog";
 import {
+  featuredBrandPages,
   featuredSizes,
   getFeaturedSizeBySlug,
   homeFaqs,
+  seoGuides,
   siteUrl,
   slugToSize,
   sizeToSlug,
@@ -43,6 +47,11 @@ export default async function TireSizeLandingPage({ params }) {
   }
 
   const { rows, brands, suppliers } = await getSearchResults(page.size);
+  const amazonOffers = getAmazonOffersForSize(page.size);
+  const relatedBrands = featuredBrandPages.filter((brand) =>
+    brands.includes(brand.name)
+  );
+  const relatedGuides = seoGuides.slice(0, 3);
   const faqItems = [
     {
       question: `What vehicles commonly use ${page.size} tires?`,
@@ -134,6 +143,53 @@ export default async function TireSizeLandingPage({ params }) {
           ) : (
             <PriceTable rows={rows} />
           )}
+        </section>
+
+        <AmazonOfferRail
+          title={`Amazon ${page.size} tire links`}
+          intro={`Imported Amazon tire links for ${page.size} can publish here automatically once they are added to the catalog.`}
+          items={amazonOffers}
+        />
+
+        <section className="category-section">
+          <div className="section-heading">
+            <span className="eyebrow">Related links</span>
+            <h2>Keep exploring this tire size</h2>
+            <p>
+              These related brand and guide pages help shoppers compare options
+              before clicking through to buy.
+            </p>
+          </div>
+          <div className="category-grid">
+            {relatedBrands.map((brand) => (
+              <Link key={brand.slug} href={`/brands/${brand.slug}`} className="category-card">
+                <h3>{brand.name} tires</h3>
+                <p>{brand.description}</p>
+                <span>View brand guide</span>
+              </Link>
+            ))}
+            {relatedBrands.slice(0, 2).map((brand) => (
+              <Link
+                key={`${brand.slug}-${page.size}`}
+                href={`/compare/${brand.slug}/${sizeToSlug(page.size)}`}
+                className="category-card"
+              >
+                <h3>{brand.name} {page.size} tires</h3>
+                <p>
+                  More specific landing page for shoppers comparing this brand
+                  and tire size together.
+                </p>
+                <span>View comparison page</span>
+              </Link>
+            ))}
+            {relatedGuides.map((guide) => (
+              <Link key={guide.slug} href={`/guides/${guide.slug}`} className="category-card">
+                <h3>{guide.title}</h3>
+                <p>{guide.intro}</p>
+                <span>Read buying guide</span>
+              </Link>
+            ))}
+          </div>
         </section>
 
         <section className="faq-section">
