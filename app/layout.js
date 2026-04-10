@@ -3,6 +3,7 @@ import JsonLd from "./components/JsonLd";
 import SiteFooter from "./components/SiteFooter";
 import SiteHeader from "./components/SiteHeader";
 import { siteUrl } from "./lib/siteData";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
@@ -42,6 +43,7 @@ export default function RootLayout({ children }) {
         <SiteHeader />
         {children}
         <SiteFooter />
+        <SpeedInsights />
       </body>
     </html>
   );
