@@ -29,8 +29,11 @@ export default function SiteFooter() {
 
         <div className="footer-column">
           <h3>Explore</h3>
-          <Link href="/guides/best-all-season-tires">Best all-season tires</Link>
-          <Link href="/brands/michelin">Michelin tires</Link>
+          <Link href="/guides">Buying guides</Link>
+          <Link href="/brands">Tire brands</Link>
+          <Link href="/tire-sizes">Tire sizes</Link>
+          <Link href="/vehicles">Shop by vehicle</Link>
+          <Link href="/deals/amazon-tires">Top Amazon tire deals</Link>
           <Link href="/search?size=205/55R16">Compare tire deals</Link>
         </div>
 

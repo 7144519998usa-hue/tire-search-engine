@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AmazonOfferRail from "../../components/AmazonOfferRail";
+import Breadcrumbs from "../../components/Breadcrumbs";
 import JsonLd from "../../components/JsonLd";
+import { buildBreadcrumbSchema } from "../../lib/breadcrumbs";
 import { getAmazonOffersForGuide } from "../../lib/amazonOfferCatalog";
 import {
   featuredBrandPages,
@@ -49,13 +51,21 @@ export default function GuidePage({ params }) {
     description: guide.intro,
     mainEntityOfPage: `${siteUrl}/guides/${guide.slug}`,
   };
+  const breadcrumbItems = [
+    { label: "Home", href: "/" },
+    { label: "Guides", href: "/guides/best-all-season-tires" },
+    { label: guide.title },
+  ];
+  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems);
   const amazonOffers = getAmazonOffersForGuide(guide.slug);
   const relatedBrands = featuredBrandPages.slice(0, 3);
 
   return (
     <>
       <JsonLd data={articleSchema} />
+      <JsonLd data={breadcrumbSchema} />
       <main className="page-shell guide-shell">
+        <Breadcrumbs items={breadcrumbItems} />
         <section className="size-hero">
           <div className="size-hero-copy">
             <span className="eyebrow">Tire buying guide</span>
@@ -119,6 +129,14 @@ export default function GuidePage({ params }) {
                 <span>Read brand guide</span>
               </Link>
             ))}
+            <Link href="/deals/amazon-tires" className="category-card">
+              <h3>Top Amazon tire deals</h3>
+              <p>
+                Move from informational intent into a curated Amazon deal hub
+                built for stronger commercial click paths.
+              </p>
+              <span>View Amazon deals</span>
+            </Link>
           </div>
         </section>
       </main>

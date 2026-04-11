@@ -65,6 +65,8 @@ function addAssociateTag(url) {
 
 function normalizeCsvOffer(record) {
   const specialLink = record.specialLink || addAssociateTag(record.productUrl);
+  const priority = Number.parseInt(record.priority || "50", 10);
+  const score = Number.parseInt(record.score || "50", 10);
 
   if (!specialLink || !record.title) {
     return null;
@@ -79,6 +81,9 @@ function normalizeCsvOffer(record) {
     badge: record.badge || "Amazon pick",
     imageUrl: record.imageUrl || "",
     specialLink,
+    priority: Number.isNaN(priority) ? 50 : priority,
+    score: Number.isNaN(score) ? 50 : score,
+    pageTypes: parsePipeList(record.pageTypes),
     guideSlugs: parsePipeList(record.guideSlugs),
     vehicleKeys: parsePipeList(record.vehicleKeys),
     compareKeys: parsePipeList(record.compareKeys),
@@ -177,66 +182,94 @@ function uniqueOffers(items) {
   });
 }
 
+function sortOffers(items) {
+  return [...items].sort((left, right) => {
+    if (left.priority !== right.priority) {
+      return right.priority - left.priority;
+    }
+
+    if (left.score !== right.score) {
+      return right.score - left.score;
+    }
+
+    return left.title.localeCompare(right.title);
+  });
+}
+
 export function getAmazonOfferCatalog() {
   const csvOffers = parseAmazonOfferCsv();
 
   if (csvOffers.length > 0) {
-    return uniqueOffers(csvOffers);
+    return sortOffers(uniqueOffers(csvOffers));
   }
 
-  return uniqueOffers(flattenLegacyPlacements().filter(Boolean));
+  return sortOffers(uniqueOffers(flattenLegacyPlacements().filter(Boolean)));
 }
 
 export function getAmazonOffersForHome(limit = 6) {
-  return getAmazonOfferCatalog()
+  return sortOffers(
+    getAmazonOfferCatalog()
     .filter((offer) => offer.homepage)
-    .slice(0, limit);
+  ).slice(0, limit);
 }
 
 export function getAmazonOffersForSize(size, limit = 6) {
-  return getAmazonOfferCatalog()
+  return sortOffers(
+    getAmazonOfferCatalog()
     .filter((offer) => offer.size === String(size || "").toUpperCase())
-    .slice(0, limit);
+  ).slice(0, limit);
 }
 
 export function getAmazonOffersForBrand(brandSlug, limit = 6) {
-  return getAmazonOfferCatalog()
+  return sortOffers(
+    getAmazonOfferCatalog()
     .filter((offer) => offer.brand === String(brandSlug || "").toLowerCase())
-    .slice(0, limit);
+  ).slice(0, limit);
 }
 
 export function getAmazonOffersForGuide(guideSlug, limit = 6) {
-  return getAmazonOfferCatalog()
+  return sortOffers(
+    getAmazonOfferCatalog()
     .filter((offer) => offer.guideSlugs.includes(guideSlug))
-    .slice(0, limit);
+  ).slice(0, limit);
 }
 
 export function getAmazonOffersForVehicle(make, model, year, limit = 6) {
   const vehicleKey = `${make}/${model}/${year}`;
 
-  return getAmazonOfferCatalog()
+  return sortOffers(
+    getAmazonOfferCatalog()
     .filter((offer) => offer.vehicleKeys.includes(vehicleKey))
-    .slice(0, limit);
+  ).slice(0, limit);
 }
 
 export function getAmazonOffersForBrandSize(brandSlug, sizeSlug, limit = 6) {
   const normalizedSize = slugToSize(sizeSlug);
   const compareKey = `${String(brandSlug || "").toLowerCase()}/${sizeSlug}`;
 
-  return getAmazonOfferCatalog()
+  return sortOffers(
+    getAmazonOfferCatalog()
     .filter(
       (offer) =>
         offer.compareKeys.includes(compareKey) ||
         (offer.brand === String(brandSlug || "").toLowerCase() &&
           offer.size === normalizedSize)
     )
-    .slice(0, limit);
+  ).slice(0, limit);
+}
+
+export function getTopAmazonOffers(limit = 12) {
+  return sortOffers(
+    getAmazonOfferCatalog().filter(
+      (offer) => offer.homepage || offer.priority >= 90 || offer.score >= 90
+    )
+  ).slice(0, limit);
 }
 
 export function getAmazonOfferImportTemplate() {
   return [
-    "asin,title,description,brand,size,badge,productUrl,specialLink,imageUrl,guideSlugs,vehicleKeys,compareKeys,homepage,tags",
-    `B000000001,Michelin Defender 2 205/55R16,High-intent commuter tire offer,michelin,205/55R16,Amazon pick,https://www.amazon.com/dp/B000000001,,,"best-all-season-tires","toyota/camry/2024|honda/civic/2024","michelin/${sizeToSlug("205/55R16")}",true,all-season|commuter`,
+    "asin,title,description,brand,size,badge,productUrl,specialLink,imageUrl,priority,score,pageTypes,guideSlugs,vehicleKeys,compareKeys,homepage,tags",
+    `B000000001,Michelin Defender 2 205/55R16,High-intent commuter tire offer,michelin,205/55R16,Amazon pick,https://www.amazon.com/dp/B000000001,,,95,92,home|size|brand|guide|vehicle|compare,best-all-season-tires,toyota/camry/2024|honda/civic/2024,michelin/${sizeToSlug("205/55R16")},true,all-season|commuter`,
   ].join("\n");
 }
 

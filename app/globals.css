@@ -479,6 +479,29 @@ svg {
   box-shadow: var(--shadow);
 }
 
+.amazon-card {
+  border-color: rgba(255, 168, 111, 0.28);
+  background:
+    radial-gradient(circle at top right, rgba(255, 122, 61, 0.12), transparent 30%),
+    linear-gradient(180deg, rgba(20, 37, 48, 0.9), rgba(13, 24, 32, 0.84));
+}
+
+.amazon-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.amazon-rank {
+  color: var(--brand-2);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .brand-card h3,
 .category-card h3,
 .amazon-card h3 {
@@ -713,6 +736,26 @@ svg {
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   padding: 26px 0 42px;
   background: rgba(8, 15, 20, 0.8);
+}
+
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+}
+
+.breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb-separator {
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .footer-grid {

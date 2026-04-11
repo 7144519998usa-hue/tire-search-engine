@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AmazonOfferRail from "../../../../components/AmazonOfferRail";
+import Breadcrumbs from "../../../../components/Breadcrumbs";
 import JsonLd from "../../../../components/JsonLd";
+import { buildBreadcrumbSchema } from "../../../../lib/breadcrumbs";
 import { getAmazonOffersForVehicle } from "../../../../lib/amazonOfferCatalog";
 import { siteUrl, sizeToSlug } from "../../../../lib/siteData";
 import {
@@ -58,11 +60,19 @@ export default async function VehiclePage({ params }) {
     name: `${vehicle.displayName} tire guide`,
     description: vehicle.summary,
   };
+  const breadcrumbItems = [
+    { label: "Home", href: "/" },
+    { label: "Vehicles", href: "/vehicle/toyota/rav4/2024" },
+    { label: vehicle.displayName },
+  ];
+  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems);
 
   return (
     <>
       <JsonLd data={vehicleSchema} />
+      <JsonLd data={breadcrumbSchema} />
       <main className="page-shell guide-shell">
+        <Breadcrumbs items={breadcrumbItems} />
         <section className="size-hero">
           <div className="size-hero-copy">
             <span className="eyebrow">Vehicle fitment page</span>
@@ -175,6 +185,14 @@ export default async function VehiclePage({ params }) {
                 <span>Read guide</span>
               </Link>
             ))}
+            <Link href="/deals/amazon-tires" className="category-card">
+              <h3>Top Amazon tire deals</h3>
+              <p>
+                Add a curated commercial path for {vehicle.displayName} shoppers
+                who are ready to compare featured Amazon tire offers.
+              </p>
+              <span>View Amazon deals</span>
+            </Link>
           </div>
         </section>
       </main>

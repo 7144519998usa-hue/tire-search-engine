@@ -3,10 +3,11 @@ import Logo from "./Logo";
 import { featuredSizes, sizeToSlug } from "../lib/siteData";
 
 const navLinks = [
-  { href: `/tire-size/${sizeToSlug(featuredSizes[0].size)}`, label: "Popular Sizes" },
-  { href: "/guides/best-all-season-tires", label: "Buying Guides" },
-  { href: "/vehicle/toyota/rav4/2024", label: "Shop by Vehicle" },
-  { href: "/brands/michelin", label: "Top Brands" },
+  { href: "/tire-sizes", label: "Tire Sizes" },
+  { href: "/guides", label: "Buying Guides" },
+  { href: "/vehicles", label: "Shop by Vehicle" },
+  { href: "/brands", label: "Top Brands" },
+  { href: "/deals/amazon-tires", label: "Amazon Deals" },
 ];
 
 export default function SiteHeader() {

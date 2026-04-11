@@ -22,6 +22,8 @@ export function normalizeAmazonOffer(offer) {
     specialLink: offer.specialLink,
     asin: offer.asin || "",
     imageUrl: offer.imageUrl || "",
+    priority: offer.priority || 0,
+    score: offer.score || 0,
   };
 }
 

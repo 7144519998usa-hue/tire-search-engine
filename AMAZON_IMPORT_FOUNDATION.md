@@ -55,3 +55,33 @@ Good next step:
 1. Move this CSV into Supabase storage or tables.
 2. Build an importer that writes the same fields.
 3. Add API sync once your Amazon-approved product data access is ready.
+
+## First live rollout
+
+Fill these rows first in `data/amazon-offers.csv` because they map to the strongest commercial pages:
+
+1. Michelin Defender 2 205/55R16
+2. Goodyear Assurance All-Season 205/55R16
+3. Michelin CrossClimate2 225/65R17
+4. Goodyear Assurance WeatherReady 225/65R17
+5. BFGoodrich All-Terrain T/A KO2 245/75R16
+6. Michelin Defender LTX M/S2 275/55R20
+
+These rows give the best early coverage across:
+
+- homepage
+- `/deals/amazon-tires`
+- top tire-size pages
+- top brand pages
+- top guide pages
+- top vehicle pages
+- top compare pages
+
+## What to paste
+
+For each first-live row, paste one of these:
+
+- `specialLink`: preferred when you already have the full Amazon Associate link
+- `productUrl`: acceptable fallback if it is a valid Amazon product URL, because the app will append the Associates tag `tiresearch-20`
+
+If both fields are blank, the offer will not render.

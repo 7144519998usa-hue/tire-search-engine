@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AmazonOfferRail from "../../components/AmazonOfferRail";
+import Breadcrumbs from "../../components/Breadcrumbs";
 import JsonLd from "../../components/JsonLd";
 import PriceTable from "../../components/PriceTable";
+import { buildBreadcrumbSchema } from "../../lib/breadcrumbs";
 import { getAmazonOffersForSize } from "../../lib/amazonOfferCatalog";
 import {
   featuredBrandPages,
@@ -76,11 +78,19 @@ export default async function TireSizeLandingPage({ params }) {
       name: `${row.tires?.brand || "Tire"} ${row.tires?.model || ""}`.trim(),
     })),
   };
+  const breadcrumbItems = [
+    { label: "Home", href: "/" },
+    { label: "Tire Sizes", href: `/tire-size/${sizeToSlug(featuredSizes[0].size)}` },
+    { label: page.size },
+  ];
+  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems);
 
   return (
     <>
       <JsonLd data={itemListSchema} />
+      <JsonLd data={breadcrumbSchema} />
       <main className="page-shell size-landing">
+        <Breadcrumbs items={breadcrumbItems} />
         <section className="size-hero">
           <div className="size-hero-copy">
             <span className="eyebrow">Tire size landing page</span>
@@ -189,6 +199,14 @@ export default async function TireSizeLandingPage({ params }) {
                 <span>Read buying guide</span>
               </Link>
             ))}
+            <Link href="/deals/amazon-tires" className="category-card">
+              <h3>Top Amazon tire deals</h3>
+              <p>
+                Browse a curated Amazon deal hub that supports this tire size
+                with stronger commercial internal linking.
+              </p>
+              <span>View Amazon deals</span>
+            </Link>
           </div>
         </section>
 

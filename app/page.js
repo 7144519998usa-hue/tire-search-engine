@@ -19,7 +19,7 @@ import {
 } from "./lib/siteData";
 
 export default function HomePage() {
-  const amazonOffers = getAmazonOffersForHome();
+  const amazonOffers = getAmazonOffersForHome(4);
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -139,7 +139,29 @@ export default function HomePage() {
           title="Popular Amazon tire deals"
           intro="Featured Amazon tire links can be imported here in bulk and matched to the most commercial pages on the site."
           items={amazonOffers}
+          limit={4}
         />
+
+        <section className="category-section">
+          <div className="section-heading">
+            <span className="eyebrow">Amazon deals</span>
+            <h2>Shop the strongest Amazon tire deal path</h2>
+            <p>
+              Use the dedicated Amazon deals hub to move from research content
+              into the site’s highest-priority Amazon offer placements.
+            </p>
+          </div>
+          <div className="category-grid">
+            <Link href="/deals/amazon-tires" className="category-card">
+              <h3>Top Amazon tire deals</h3>
+              <p>
+                Curated Amazon tire offers tied to high-intent size, brand,
+                vehicle, and buying-guide pages.
+              </p>
+              <span>View Amazon deals</span>
+            </Link>
+          </div>
+        </section>
 
         <section className="category-section">
           <div className="section-heading">
