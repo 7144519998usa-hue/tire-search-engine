@@ -2,13 +2,21 @@ import Link from "next/link";
 import FaqSection from "./components/FaqSection";
 import FeaturedSizeGrid from "./components/FeaturedSizeGrid";
 import AmazonOfferRail from "./components/AmazonOfferRail";
+import ComparisonSpotlightSection from "./components/ComparisonSpotlightSection";
+import HomeSearchTabs from "./components/HomeSearchTabs";
+import HowItWorksSection from "./components/HowItWorksSection";
 import JsonLd from "./components/JsonLd";
-import SearchBar from "./components/SearchBar";
+import NewsletterCaptureSection from "./components/NewsletterCaptureSection";
+import TrustLogoStrip from "./components/TrustLogoStrip";
 import { getAmazonOffersForHome } from "./lib/amazonOfferCatalog";
+import { buildFaqSchema } from "./lib/structuredData";
 import {
   featuredSizes,
   featuredBrandPages,
   homeFaqs,
+  homepageComparisonSpotlights,
+  homepageHowItWorks,
+  homepageTrustPoints,
   partnerSuppliers,
   shoppingCategories,
   seoGuides,
@@ -35,24 +43,24 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={websiteSchema} />
+      <JsonLd data={buildFaqSchema(homeFaqs)} />
       <main className="page-shell home-shell">
         <section className="hero-panel">
           <div className="hero-copy">
-            <span className="eyebrow">TireSearchEngine.com</span>
-            <h1>Find the best tires for your vehicle from the brands and suppliers drivers trust most.</h1>
+            <span className="eyebrow">Compare prices from trusted tire suppliers</span>
+            <h1>Compare Tire Prices Fast. Find the Right Tire With Confidence.</h1>
             <p className="hero-text">
-              Search by tire size, compare prices across suppliers, and explore
-              top brands like Michelin, Goodyear, BFGoodrich, and Pirelli. When
-              you find the right match, click straight to the supplier to buy.
+              Search by tire size, vehicle, or brand to compare popular options
+              across trusted suppliers and move into the best-fit tire faster.
             </p>
-            <SearchBar />
+            <HomeSearchTabs />
 
             <div className="chip-row" aria-label="Popular tire sizes">
               {featuredSizes.map((item) => (
                 <Link
                   key={item.size}
                   className="size-chip"
-                  href={`/tire-size/${sizeToSlug(item.size)}`}
+                  href={`/tires/${sizeToSlug(item.size)}`}
                 >
                   {item.size}
                 </Link>
@@ -61,23 +69,27 @@ export default function HomePage() {
           </div>
 
           <aside className="hero-card">
-            <div className="hero-badge">Popular tires and brands</div>
+            <div className="hero-badge">Fast comparison preview</div>
             <div className="stat-grid">
               <div>
-                <strong>Search by size</strong>
-                <span>Start with the exact tire size on your sidewall and see matching options quickly.</span>
+                <strong>Search by size or vehicle</strong>
+                <span>Start with the fitment path that feels fastest and narrow into the strongest options quickly.</span>
               </div>
               <div>
                 <strong>Compare top brands</strong>
-                <span>Review popular choices for all-season, touring, highway, and all-terrain driving needs.</span>
+                <span>Review consumer, SUV, truck, and premium tire paths without bouncing across retailer tabs.</span>
               </div>
               <div>
-                <strong>Buy from suppliers</strong>
-                <span>Click through to the retailer or supplier that offers the tire you want at the best price.</span>
+                <strong>Find the best route to checkout</strong>
+                <span>See the best next step for pricing, brand comparison, and deal-driven purchase paths.</span>
               </div>
             </div>
           </aside>
         </section>
+
+        <TrustLogoStrip items={homepageTrustPoints} />
+
+        <HowItWorksSection steps={homepageHowItWorks} />
 
         <section className="pillar-grid">
           {seoPillars.map((pillar) => (
@@ -88,6 +100,8 @@ export default function HomePage() {
             </article>
           ))}
         </section>
+
+        <ComparisonSpotlightSection items={homepageComparisonSpotlights} />
 
         <section className="brand-section">
           <div className="section-heading">
@@ -119,7 +133,7 @@ export default function HomePage() {
             <h2>Popular tire shopping paths</h2>
             <p>
               These high-intent shopper journeys mirror how real buyers compare
-              tires before clicking through to a supplier.
+              tires before continuing to a trusted checkout path.
             </p>
           </div>
           <div className="category-grid">
@@ -133,11 +147,39 @@ export default function HomePage() {
           </div>
         </section>
 
+        <section className="category-section">
+          <div className="section-heading">
+            <span className="eyebrow">Application paths</span>
+            <h2>Compare tires by size, vehicle, and application</h2>
+            <p>
+              Explore clear shopping paths for passenger, SUV, pickup, off-road,
+              winter, and commercial tire needs from one marketplace.
+            </p>
+          </div>
+          <div className="category-grid">
+            <Link href="/truck-tires" className="category-card">
+              <h3>Truck & commercial</h3>
+              <p>
+                Explore approved truck application, position, and heavy-duty size pages
+                within the larger tire marketplace.
+              </p>
+              <span>Explore truck pages</span>
+            </Link>
+            <Link href="/tire-university/fleet-resources" className="category-card">
+              <h3>Fleet resources</h3>
+              <p>
+                Read fleet and replacement-planning education for commercial tire buyers.
+              </p>
+              <span>Read fleet resources</span>
+            </Link>
+          </div>
+        </section>
+
         <FeaturedSizeGrid />
 
         <AmazonOfferRail
           title="Popular Amazon tire deals"
-          intro="Featured Amazon tire links can be imported here in bulk and matched to the most commercial pages on the site."
+          intro="Featured Amazon tire links can be matched to the most relevant size, brand, and guide pages on the site."
           items={amazonOffers}
           limit={4}
         />
@@ -163,13 +205,15 @@ export default function HomePage() {
           </div>
         </section>
 
+        <NewsletterCaptureSection />
+
         <section className="category-section">
           <div className="section-heading">
             <span className="eyebrow">Buying guides</span>
             <h2>High-intent pages built around the searches tire shoppers actually make</h2>
             <p>
               These guide pages target common commercial searches and funnel
-              visitors into supplier comparisons and buy clicks.
+              visitors into marketplace comparisons and clearer buying paths.
             </p>
           </div>
           <div className="category-grid">
@@ -189,14 +233,14 @@ export default function HomePage() {
             <h2>Vehicle pages that can scale into make, model, and year SEO demand</h2>
             <p>
               These fitment pages create a bridge between vehicle-based search
-              intent and the tire-size, brand, and comparison pages that convert.
+              intent and the tire-size, brand, and comparison pages shoppers use next.
             </p>
           </div>
           <div className="category-grid">
             {featuredVehicleLinks.map((vehicle) => (
               <Link
                 key={`${vehicle.make}-${vehicle.model}-${vehicle.year}`}
-                href={`/vehicle/${vehicle.make}/${vehicle.model}/${vehicle.year}`}
+                href={`/vehicles/${vehicle.make}/${vehicle.model}/${vehicle.year}`}
                 className="category-card"
               >
                 <h3>{vehicle.label}</h3>
@@ -216,10 +260,10 @@ export default function HomePage() {
             <h2>Shop popular tire sizes, compare leading brands, and go straight to checkout</h2>
             <p>
               From commuter cars to SUVs and trucks, TireSearchEngine helps you
-              compare common tire sizes and buy from the supplier that best fits
+              compare common tire sizes and buy from the retailer that best fits
               your budget and driving needs.
             </p>
-            <div className="supplier-pill-row" aria-label="Popular tire suppliers">
+            <div className="supplier-pill-row" aria-label="Popular tire retailers">
               {partnerSuppliers.map((supplier) => (
                 <span key={supplier} className="supplier-pill">
                   {supplier}

@@ -1,0 +1,22 @@
+{
+  "cloudflareZone": "TireSearchEngine.com",
+  "cloudflareWafEnabled": "",
+  "cloudflareDdosProtectionEnabled": "",
+  "cloudflareBotProtectionEnabled": "",
+  "cloudflareRateLimitEvidence": "",
+  "antiScrapingRuleEvidence": "",
+  "serverFirewallEvidence": "",
+  "sshLockdownEvidence": "",
+  "secretsManager": "",
+  "environmentEncryptionMethod": "Encrypted environment backups plus managed secrets platform",
+  "trafficAlertDestinations": [],
+  "mfaAdminMethod": "",
+  "originLockdownMethod": "",
+  "weeklyVulnerabilityScanEvidence": "",
+  "latestVulnerabilityScanAt": "",
+  "monthlyRestoreSimulationAt": "",
+  "monthlyRestoreSimulationEvidence": "",
+  "monthlyPenTestSimulationAt": "",
+  "monthlyPenTestSimulationEvidence": "",
+  "notes": ""
+}

@@ -1,10 +1,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AmazonOfferRail from "../../components/AmazonOfferRail";
+import AuthorMetaRow from "../../components/AuthorMetaRow";
 import Breadcrumbs from "../../components/Breadcrumbs";
+import DisclosurePill from "../../components/DisclosurePill";
 import JsonLd from "../../components/JsonLd";
+import MethodologyCard from "../../components/MethodologyCard";
+import TrustStatsBar from "../../components/TrustStatsBar";
 import { buildBreadcrumbSchema } from "../../lib/breadcrumbs";
 import { getAmazonOffersForGuide } from "../../lib/amazonOfferCatalog";
+import { defaultTrustStats, editorialTeam } from "../../lib/editorial";
 import {
   featuredBrandPages,
   getSeoGuideBySlug,
@@ -12,9 +17,7 @@ import {
   siteUrl,
 } from "../../lib/siteData";
 
-export async function generateStaticParams() {
-  return seoGuides.map((guide) => ({ slug: guide.slug }));
-}
+export const dynamicParams = true;
 
 export async function generateMetadata({ params }) {
   const guide = getSeoGuideBySlug(params.slug);
@@ -53,7 +56,7 @@ export default function GuidePage({ params }) {
   };
   const breadcrumbItems = [
     { label: "Home", href: "/" },
-    { label: "Guides", href: "/guides/best-all-season-tires" },
+    { label: "Guides", href: "/guides" },
     { label: guide.title },
   ];
   const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems);
@@ -68,8 +71,14 @@ export default function GuidePage({ params }) {
         <Breadcrumbs items={breadcrumbItems} />
         <section className="size-hero">
           <div className="size-hero-copy">
+            <DisclosurePill type="affiliate" />
             <span className="eyebrow">Tire buying guide</span>
             <h1>{guide.heroTitle}</h1>
+            <AuthorMetaRow
+              author={editorialTeam.leadWriter}
+              reviewer={editorialTeam.reviewer}
+            />
+            <TrustStatsBar items={defaultTrustStats} />
             <p>{guide.intro}</p>
             <div className="hero-actions">
               <Link className="search-button" href={guide.ctaHref}>
@@ -84,7 +93,7 @@ export default function GuidePage({ params }) {
             <span className="panel-kicker">What shoppers care about</span>
             <ul className="bullet-list">
               <li>Brand trust and real-world reputation.</li>
-              <li>Current price differences across suppliers.</li>
+              <li>Current price differences across major retailers.</li>
               <li>Matching the tire category to the vehicle and driving style.</li>
             </ul>
           </aside>
@@ -97,6 +106,8 @@ export default function GuidePage({ params }) {
             </article>
           ))}
         </section>
+
+        <MethodologyCard />
 
         <AmazonOfferRail
           title={`Amazon picks for ${guide.title.toLowerCase()}`}
@@ -117,8 +128,8 @@ export default function GuidePage({ params }) {
             <Link href={guide.ctaHref} className="category-card">
               <h3>Compare live offers</h3>
               <p>
-                Move from research into current supplier pricing for a relevant
-                high-intent tire search.
+                Move from research into current offer comparisons for a
+                relevant high-intent tire search.
               </p>
               <span>View deals</span>
             </Link>

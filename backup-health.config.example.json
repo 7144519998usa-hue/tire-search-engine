@@ -1,0 +1,21 @@
+{
+  "repositoryBackupLocation": "GitHub private repository: https://github.com/<org-or-user>/<repo>",
+  "databaseBackupMethod": "Managed PostgreSQL snapshots plus pg_dump SQL dumps",
+  "databaseBackupSchedule": "Hourly incremental, daily full, weekly, monthly",
+  "databaseBackupLocation": "Primary database backup location or provider",
+  "databaseLastSuccessfulBackupAt": "",
+  "databaseBackupSize": "",
+  "databaseRetentionDays": "",
+  "databaseRestorePoints": [],
+  "assetsBackupLocation": "Storage bucket backup or archive location for public/media assets",
+  "environmentBackupEncryptionMethod": "GPG AES-256 encrypted environment backup",
+  "environmentBackupLocation": "Encrypted environment backup location",
+  "offsiteBackupLocation": "Separate cloud or offline media location",
+  "restoreProcedure": "docs/disaster-recovery.md",
+  "firstSuccessfulBackupAt": "",
+  "schedulerEvidence": "Cron entry, platform scheduler, or Windows Task Scheduler export",
+  "dnsBackupLocation": "Registrar, DNS zone export, or Cloudflare backup location",
+  "businessLogicBackupLocation": "Backup location for SEO architecture, templates, mappings, and strategy docs",
+  "latestStagingRestoreTestAt": "",
+  "stagingRestoreEvidence": ""
+}

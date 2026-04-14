@@ -74,6 +74,21 @@ svg {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.utility-bar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.utility-bar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 10px 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
 .header-inner {
   display: flex;
   align-items: center;
@@ -219,6 +234,7 @@ svg {
 .hero-panel,
 .results-page,
 .size-hero,
+.trust-strip,
 .content-grid,
 .guide-grid,
 .amazon-grid,
@@ -238,6 +254,48 @@ svg {
 .hero-panel {
   grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.78fr);
   align-items: stretch;
+}
+
+.trust-strip {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 24px;
+}
+
+.trust-pill,
+.home-search-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+  color: #edf8fb;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.home-search-shell {
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.home-search-tab-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.home-search-tab {
+  cursor: pointer;
+}
+
+.home-search-tab.is-active {
+  color: #1a1008;
+  background: linear-gradient(135deg, var(--brand-2), var(--brand));
 }
 
 .hero-copy,
@@ -519,6 +577,12 @@ svg {
   line-height: 1.7;
 }
 
+.category-card small {
+  color: var(--muted);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
 .amazon-disclosure {
   margin: 16px 0 0;
   color: var(--muted);
@@ -712,6 +776,298 @@ svg {
   align-items: stretch;
 }
 
+.disclosure-pill-row,
+.author-meta-row,
+.trust-stats-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.disclosure-pill-row,
+.author-meta-row {
+  margin-bottom: 14px;
+}
+
+.trust-stats-bar {
+  margin-bottom: 16px;
+}
+
+.disclosure-pill,
+.disclosure-link,
+.trust-stat-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 0.86rem;
+}
+
+.disclosure-pill {
+  color: #f1dfcf;
+}
+
+.disclosure-link {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.author-meta-row {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.trust-stat-chip {
+  gap: 8px;
+  color: #e8f3f6;
+}
+
+.trust-stat-chip strong {
+  color: var(--accent);
+  font-size: 0.88rem;
+}
+
+.methodology-card {
+  margin-top: 28px;
+}
+
+.fitment-summary-band,
+.email-capture-shell,
+.recommendation-card,
+.cost-explainer-card,
+.installer-module-shell,
+.save-confirmation {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, rgba(20, 37, 48, 0.88), rgba(13, 24, 32, 0.82));
+  box-shadow: var(--shadow);
+}
+
+.fitment-summary-band,
+.cost-explainer-card,
+.installer-module-shell,
+.email-capture-shell {
+  margin-top: 28px;
+  padding: 28px;
+}
+
+.fitment-summary-band {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  align-items: center;
+}
+
+.fitment-summary-band h2,
+.recommendation-card h3,
+.installer-card-stack h3 {
+  margin: 0 0 10px;
+  font-size: 1.6rem;
+  letter-spacing: -0.03em;
+}
+
+.fitment-summary-band p,
+.recommendation-outcome,
+.recommendation-bestfor,
+.form-confirmation,
+.save-confirmation,
+.email-capture-shell p,
+.installer-form label,
+.installer-card-stack p {
+  margin: 0;
+  color: var(--muted);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.7;
+}
+
+.fitment-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.fitment-pill,
+.recommendation-badge,
+.recommendation-fitment,
+.decision-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.88rem;
+}
+
+.fitment-pill,
+.recommendation-fitment {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.recommendation-badge {
+  color: #102220;
+  background: linear-gradient(135deg, var(--accent), #bbf7e7);
+  font-weight: 700;
+}
+
+.recommendation-experience {
+  margin-top: 28px;
+}
+
+.decision-tab-row,
+.recommendation-grid,
+.cost-breakdown-grid,
+.installer-module-grid,
+.email-capture-form {
+  display: grid;
+  gap: 18px;
+}
+
+.decision-tab-row {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin-top: 18px;
+}
+
+.decision-tab {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+  color: #e8f3f6;
+  cursor: pointer;
+}
+
+.decision-tab.is-active {
+  color: #1a1008;
+  background: linear-gradient(135deg, var(--brand-2), var(--brand));
+}
+
+.recommendation-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 18px;
+}
+
+.recommendation-card {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+}
+
+.recommendation-card-top,
+.recommendation-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.recommendation-outcome {
+  font-size: 1rem;
+}
+
+.recommendation-bestfor {
+  margin-top: 8px;
+  color: #e8f3f6;
+}
+
+.rating-stack {
+  display: grid;
+  gap: 10px;
+}
+
+.rating-row {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) 40px;
+  gap: 10px;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.88rem;
+}
+
+.rating-track {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.rating-track span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--brand-2));
+}
+
+.installed-total-card {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.installed-total-card strong {
+  font-size: 1.6rem;
+}
+
+.installed-total-card small,
+.recommendation-meta,
+.form-confirmation,
+.save-confirmation {
+  color: var(--muted);
+}
+
+.cost-breakdown-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 18px;
+}
+
+.installer-module-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.9fr);
+  margin-top: 18px;
+}
+
+.installer-form {
+  display: grid;
+  gap: 14px;
+}
+
+.installer-form label {
+  display: grid;
+  gap: 8px;
+}
+
+.installer-card-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.email-capture-shell {
+  display: grid;
+  gap: 18px;
+}
+
+.email-capture-form {
+  grid-template-columns: minmax(220px, 0.8fr) minmax(220px, 1fr) auto;
+  align-items: center;
+}
+
+.save-confirmation {
+  margin-top: 18px;
+  padding: 16px 18px;
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -788,6 +1144,7 @@ svg {
   .hero-panel,
   .results-page,
   .size-hero,
+  .trust-strip,
   .footer-grid,
   .size-card-grid,
   .faq-grid,
@@ -795,12 +1152,22 @@ svg {
   .pillar-grid,
   .summary-grid,
   .results-copy-grid,
-  .content-grid {
+  .content-grid,
+  .recommendation-grid,
+  .cost-breakdown-grid,
+  .installer-module-grid,
+  .fitment-summary-band,
+  .decision-tab-row,
+  .email-capture-form {
     grid-template-columns: 1fr;
   }
 
   .top-nav {
     display: none;
+  }
+
+  .utility-bar-inner {
+    justify-content: center;
   }
 
   .cta-band {
@@ -818,6 +1185,10 @@ svg {
     flex-wrap: wrap;
   }
 
+  .utility-bar {
+    display: none;
+  }
+
   .hero-copy,
   .hero-card,
   .results-header,
@@ -831,7 +1202,13 @@ svg {
   .pillar-card,
   .faq-card,
   .size-card,
-  .empty-state {
+  .empty-state,
+  .fitment-summary-band,
+  .cost-explainer-card,
+  .installer-module-shell,
+  .email-capture-shell,
+  .recommendation-card,
+  .save-confirmation {
     padding: 22px;
     border-radius: 24px;
   }
@@ -849,7 +1226,15 @@ svg {
     font-size: 0.92rem;
   }
 
+  .rating-row {
+    grid-template-columns: 82px minmax(0, 1fr) 36px;
+  }
+
   .logo-type small {
     display: none;
+  }
+
+  .home-search-tab-row {
+    grid-template-columns: 1fr;
   }
 }

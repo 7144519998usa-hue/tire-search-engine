@@ -40,8 +40,8 @@ export function getBrandSizePageData(brandSlug, sizeSlug) {
     size,
     title: `${brand.name} ${size.size} Tires`,
     headline: `${brand.name} ${size.size} tires for shoppers comparing brand trust, fitment, and price.`,
-    description: `${brand.name} ${size.size} tires are a strong comparison target for drivers researching quality, supplier pricing, and whether this brand-size combination matches their vehicle and budget.`,
-    intro: `This landing page gives TireSearchEngine a scalable template for high-intent searches around ${brand.name} ${size.size} tires. It helps shoppers compare known brands with a specific size in mind, then move into supplier offers and purchase links.`,
+    description: `${brand.name} ${size.size} tires are a strong comparison target for drivers researching quality, current offers, and whether this brand-size combination matches their vehicle and budget.`,
+    intro: `This landing page gives TireSearchEngine a scalable template for high-intent searches around ${brand.name} ${size.size} tires. It helps shoppers compare known brands with a specific size in mind, then move into live offers and purchase links.`,
     highlights: [
       `${brand.name} is commonly searched by drivers who care about ${brand.bestFor[0].toLowerCase()}.`,
       `${size.size} is a high-interest fitment because it appears on vehicles where buyers compare comfort, traction, and price carefully.`,
@@ -53,19 +53,19 @@ export function getBrandSizePageData(brandSlug, sizeSlug) {
         answer: `${size.vehicleFit} Shoppers usually confirm the exact size on the tire sidewall or driver-door placard before buying.`,
       },
       {
-        question: `Why compare ${brand.name} ${size.size} tire prices across suppliers?`,
-        answer: "Supplier pricing can vary meaningfully for the same tire category, so comparison pages help shoppers identify the best buying path faster.",
+        question: `Why compare ${brand.name} ${size.size} tire prices across retailers?`,
+        answer: "Retail pricing and availability can vary meaningfully for the same tire category, so comparison pages help shoppers identify the best buying path faster.",
       },
       {
         question: `What should shoppers compare beyond price?`,
         answer: "Brand reputation, tread life, seasonal use, road comfort, traction, and the intended driving style all matter alongside the current deal.",
       },
     ],
-    canonicalPath: `/compare/${brand.slug}/${sizeToSlug(size.size)}`,
+    canonicalPath: `/brands/${brand.slug}/${sizeToSlug(size.size)}`,
     searchHref: `/search?size=${encodeURIComponent(size.size)}`,
   };
 }
 
 export function getBrandSizePageUrl(brandSlug, sizeSlug) {
-  return `${siteUrl}/compare/${brandSlug}/${sizeSlug}`;
+  return `${siteUrl}/brands/${brandSlug}/${sizeSlug}`;
 }

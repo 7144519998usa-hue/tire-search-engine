@@ -7,7 +7,7 @@ import { featuredBrandPages, siteUrl } from "../lib/siteData";
 export const metadata = {
   title: "Tire Brands",
   description:
-    "Browse top tire brands and move into brand pages built for commercial research, comparison intent, and internal linking.",
+    "Browse top tire brands and compare their strengths, popular models, and exact-size shopping paths.",
   alternates: {
     canonical: "/brands",
   },
@@ -30,7 +30,7 @@ export default function BrandsHubPage() {
     "@type": "CollectionPage",
     name: "Tire Brands",
     description:
-      "A hub page linking to popular tire-brand pages and commercial research paths.",
+      "A hub page linking to popular tire-brand pages and brand-led shopping paths.",
     url: `${siteUrl}/brands`,
   };
 
@@ -45,16 +45,16 @@ export default function BrandsHubPage() {
             <span className="eyebrow">Brand hub</span>
             <h1>Compare the tire brands shoppers trust most.</h1>
             <p>
-              This hub page connects the strongest tire brands to their own
-              dedicated guides and size-specific commercial pages.
+              Compare the strongest tire brands through dedicated brand guides
+              and exact-size pages built for faster shopping decisions.
             </p>
           </div>
           <aside className="size-hero-panel">
             <span className="panel-kicker">Best use</span>
             <ul className="bullet-list">
-              <li>Brand-level SEO hub.</li>
-              <li>Supports research and comparison intent.</li>
-              <li>Feeds users into commercial pages cleanly.</li>
+              <li>Brand overviews built for fast comparison.</li>
+              <li>Helpful for shoppers narrowing by trust, warranty, and use case.</li>
+              <li>Direct paths into size-specific brand pages.</li>
             </ul>
           </aside>
         </section>

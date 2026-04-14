@@ -84,7 +84,7 @@ export const featuredVehicles = [
     year: "2024",
     displayName: "2024 BMW X5",
     summary:
-      "A premium SUV fitment page for buyers comparing larger premium-brand tire options and supplier price gaps.",
+      "A premium SUV fitment page for buyers comparing larger premium-brand tire options and retail price gaps.",
     tireSizes: ["275/55R20"],
     brandSlugs: ["pirelli", "michelin"],
     guideSlugs: ["premium-20-inch-tires", "best-suv-tires"],
@@ -166,18 +166,114 @@ export function getVehiclePageData(make, model, year) {
     return null;
   }
 
+  const sizes = featuredSizes.filter((size) => vehicle.tireSizes.includes(size.size));
+  const brands = featuredBrandPages.filter((brand) => vehicle.brandSlugs.includes(brand.slug));
+  const guides = seoGuides.filter((guide) => vehicle.guideSlugs.includes(guide.slug));
+  const primarySize = sizes[0]?.size || vehicle.tireSizes[0];
+  const recommendationBlueprint = [
+    {
+      tabKey: "overall",
+      heroBadge: "Best overall",
+      bestFor: "Balanced comfort, wet confidence, and everyday value.",
+      outcomeSummary: "A dependable starting point if you want one tire recommendation to cover the most common daily driving needs.",
+      ratings: { quietRide: 8.4, wetTraction: 8.7, treadLife: 8.5, comfort: 8.6, value: 8.2 },
+      priceModifier: 0,
+      brandIndex: 0,
+    },
+    {
+      tabKey: "quiet",
+      heroBadge: "Quiet commute",
+      bestFor: "Long commutes, rough pavement, and drivers who notice cabin noise.",
+      outcomeSummary: "Worth paying a little more if road noise and smooth highway comfort matter most.",
+      ratings: { quietRide: 9.2, wetTraction: 8.4, treadLife: 8.1, comfort: 9.1, value: 7.7 },
+      priceModifier: 14,
+      brandIndex: 1,
+    },
+    {
+      tabKey: "wet",
+      heroBadge: "Wet confidence",
+      bestFor: "Rain-heavy driving and drivers who want more confidence during braking and standing water.",
+      outcomeSummary: "Better for rainy conditions and all-season confidence without going full winter-specific.",
+      ratings: { quietRide: 8.0, wetTraction: 9.3, treadLife: 8.2, comfort: 8.1, value: 8.0 },
+      priceModifier: 10,
+      brandIndex: 0,
+    },
+    {
+      tabKey: "treadlife",
+      heroBadge: "Longer life",
+      bestFor: "High yearly mileage and drivers trying to stretch replacement intervals.",
+      outcomeSummary: "A smart choice if tread life and fewer replacements are more important than sharper handling.",
+      ratings: { quietRide: 7.8, wetTraction: 8.1, treadLife: 9.4, comfort: 8.0, value: 8.5 },
+      priceModifier: 6,
+      brandIndex: 1,
+    },
+    {
+      tabKey: "value",
+      heroBadge: "Best value",
+      bestFor: "Budget-aware shoppers who still want a legitimate fitment-safe option.",
+      outcomeSummary: "Useful if staying under budget is the main goal and you still want a confident daily-driver recommendation.",
+      ratings: { quietRide: 7.5, wetTraction: 7.9, treadLife: 8.0, comfort: 7.8, value: 9.3 },
+      priceModifier: -18,
+      brandIndex: 2,
+    },
+    {
+      tabKey: "winter",
+      heroBadge: "Winter capable",
+      bestFor: "Drivers who need better cold-weather confidence and seasonal versatility.",
+      outcomeSummary: "A stronger option when winter traction and cold-weather stability matter more than year-round efficiency.",
+      ratings: { quietRide: 7.6, wetTraction: 8.8, treadLife: 7.7, comfort: 7.8, value: 7.9 },
+      priceModifier: 12,
+      brandIndex: 0,
+    },
+  ];
+
+  const recommendations = recommendationBlueprint.map((item, index) => {
+    const brand = brands[item.brandIndex] || brands[0] || featuredBrandPages[0];
+    const basePrice = 154 + index * 9 + item.priceModifier;
+    const tireCost = basePrice * 4;
+    const installAndBalance = 96 + index * 6;
+    const fees = 22;
+
+    return {
+      id: `${vehicle.make}-${vehicle.model}-${vehicle.year}-${item.tabKey}`,
+      tabKey: item.tabKey,
+      title: `${brand.name} ${primarySize}`,
+      brand: brand.name,
+      primarySize,
+      primaryHref: `/search?size=${encodeURIComponent(primarySize)}`,
+      heroBadge: item.heroBadge,
+      bestFor: item.bestFor,
+      outcomeSummary: item.outcomeSummary,
+      ratings: item.ratings,
+      estimatedPricePerTire: basePrice,
+      estimatedInstalledTotal: tireCost + installAndBalance + fees,
+      offerCount: Math.max(2, brands.length + 1),
+      installAvailable: true,
+    };
+  });
+
+  const installedCostEstimate = {
+    tireCost: recommendations[0].estimatedPricePerTire * 4,
+    installAndBalance: 118,
+    fees: 24,
+    total: recommendations[0].estimatedPricePerTire * 4 + 118 + 24,
+  };
+
   return {
     ...vehicle,
-    sizes: featuredSizes.filter((size) => vehicle.tireSizes.includes(size.size)),
-    brands: featuredBrandPages.filter((brand) => vehicle.brandSlugs.includes(brand.slug)),
-    guides: seoGuides.filter((guide) => vehicle.guideSlugs.includes(guide.slug)),
+    sizes,
+    brands,
+    guides,
+    recommendations,
+    installedCostEstimate,
+    focusBadges: ["Quiet ride", "Wet confidence", "Long life", "Best value"],
   };
 }
 
 export function getVehicleCompareLinks(vehicle) {
   return vehicle.brands.flatMap((brand) =>
     vehicle.sizes.map((size) => ({
-      href: `/compare/${brand.slug}/${sizeToSlug(size.size)}`,
+      href: `/brands/${brand.slug}/${sizeToSlug(size.size)}`,
       label: `${brand.name} ${size.size} tires`,
     }))
   );

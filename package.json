@@ -4,7 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build"
+    "build": "next build",
+    "check:security": "node scripts/check-security-guardrails.js",
+    "security:health": "node scripts/security-health-report.js",
+    "backup:db": "bash scripts/db-backup.sh",
+    "backup:full": "bash scripts/full-backup.sh",
+    "backup:offsite": "bash scripts/offsite-sync.sh",
+    "backup:health": "node scripts/backup-health-report.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.30.0",

@@ -1,4 +1,6 @@
-export const siteUrl = "https://www.tiresearchengine.com";
+import { publicEnv } from "./env";
+
+export const siteUrl = publicEnv.siteUrl;
 
 export const featuredSizes = [
   {
@@ -28,6 +30,13 @@ export const featuredSizes = [
     vehicleFit: "Found on premium SUVs and full-size trucks.",
     summary:
       "A high-demand size for premium SUVs and trucks where buyers usually compare top brands, ride quality, and price.",
+  },
+  {
+    size: "275/70R18",
+    title: "275/70R18 tires",
+    vehicleFit: "Common on trucks, larger SUVs, and off-road-oriented replacement setups.",
+    summary:
+      "A truck and SUV size where shoppers often compare all-terrain traction, towing confidence, and rugged everyday value.",
   },
   {
     size: "215/60R16",
@@ -179,7 +188,7 @@ export const seoGuides = [
     sections: [
       "Look for strong treadwear, low road noise, and wet-road confidence if your vehicle spends most of its time commuting or highway cruising.",
       "Top all-season comparisons often start with Michelin, Goodyear, Continental, and Bridgestone because those brands consistently rank high in consumer searches.",
-      "Start your comparison with common commuter sizes like 205/55R16, then click through to the supplier offering the best mix of price and brand trust.",
+      "Start your comparison with common commuter sizes like 205/55R16, then click through to the retailer offering the best mix of price and brand trust.",
     ],
     ctaHref: "/search?size=205/55R16",
     ctaLabel: "Compare all-season tire deals",
@@ -193,7 +202,7 @@ export const seoGuides = [
     sections: [
       "Popular SUV comparisons usually center around all-season touring tires that balance quiet highway manners with stable year-round handling.",
       "225/65R17 is a strong starting point because it appears on many high-volume crossovers and family SUVs.",
-      "Compare major brands side by side, then use the supplier links to buy from the retailer offering the best deal.",
+      "Compare major brands side by side, then use the offer links to buy from the retailer offering the best deal.",
     ],
     ctaHref: "/search?size=225/65R17",
     ctaLabel: "Shop SUV tire deals",
@@ -205,7 +214,7 @@ export const seoGuides = [
     intro:
       "Truck shoppers often search for affordable replacements without sacrificing the durability and traction needed for daily driving or light work use.",
     sections: [
-      "Value-focused truck tire pages should compare all-terrain and highway options across multiple suppliers, not just one store.",
+      "Value-focused truck tire pages should compare all-terrain and highway options across multiple retailers, not just one store.",
       "245/75R16 is a strong size to merchandize because it serves trucks, older SUVs, and budget-conscious buyers looking for rugged options.",
       "The best way to save is to compare brand, tread style, and delivered price before clicking out to buy.",
     ],
@@ -217,11 +226,11 @@ export const seoGuides = [
     title: "Premium 20-Inch Tires",
     heroTitle: "Premium 20-inch tires for luxury SUVs, trucks, and larger wheel fitments.",
     intro:
-      "Drivers shopping larger premium sizes usually compare top-tier brands, road comfort, handling, and how much price varies between suppliers.",
+      "Drivers shopping larger premium sizes usually compare top-tier brands, road comfort, handling, and how much price varies between retailers.",
     sections: [
       "275/55R20 is a high-intent size for premium SUV and truck buyers who often search by brand as much as by price.",
       "Pages in this category should highlight premium brands like Michelin and Pirelli while still surfacing the best current deal.",
-      "When the right fit appears, direct supplier links help move the shopper straight to checkout.",
+      "When the right fit appears, direct offer links help move the shopper straight to checkout.",
     ],
     ctaHref: "/search?size=275/55R20",
     ctaLabel: "View 20-inch tire offers",
@@ -230,28 +239,40 @@ export const seoGuides = [
 
 export const shoppingCategories = [
   {
-    title: "Best all-season tires",
+    title: "Passenger tires",
     description:
-      "Popular with daily drivers looking for year-round grip, low road noise, and long mileage.",
-    href: "/search?size=205/55R16",
+      "Compare everyday replacement tires for sedans and commuter vehicles through a broad marketplace path.",
+    href: "/tires/car",
   },
   {
-    title: "SUV and crossover tires",
+    title: "SUV tires",
     description:
-      "Ideal for family vehicles where comfort, wet traction, and confidence matter most.",
-    href: "/search?size=225/65R17",
+      "Browse crossover and SUV tire paths built around comfort, wet traction, and family-use confidence.",
+    href: "/tires/suv-4x4",
   },
   {
-    title: "Truck and all-terrain tires",
+    title: "Pickup truck tires",
     description:
-      "Compare highway-friendly truck tires and rugged all-terrain options in one place.",
-    href: "/search?size=245/75R16",
+      "Compare highway, towing, and all-terrain pickup truck options inside the larger marketplace.",
+    href: "/tires/truck",
   },
   {
-    title: "Premium 20-inch tires",
+    title: "Off-road tires",
     description:
-      "Shop high-demand premium SUV and truck tires from leading brands and suppliers.",
-    href: "/search?size=275/55R20",
+      "Explore all-terrain and off-road tire paths for drivers who need traction beyond everyday pavement.",
+    href: "/tires/all-terrain",
+  },
+  {
+    title: "Winter tires",
+    description:
+      "Shop seasonal tire paths for winter traction, cold-weather control, and region-specific readiness.",
+    href: "/tires/winter",
+  },
+  {
+    title: "Truck & commercial",
+    description:
+      "Move from broad truck demand into approved commercial truck and fleet-focused buying pages.",
+    href: "/truck-tires",
   },
 ];
 
@@ -279,7 +300,7 @@ export const homeFaqs = [
   {
     question: "How do I find the right tires for my vehicle?",
     answer:
-      "Start with your tire size, then compare prices, brands, and suppliers in one place. TireSearchEngine is built to help shoppers move from search to checkout faster.",
+      "Start with your tire size, then compare prices, brands, and live offers in one place. TireSearchEngine is built to help shoppers move from search to checkout faster.",
   },
   {
     question: "Which tire brands are most popular?",
@@ -289,7 +310,7 @@ export const homeFaqs = [
   {
     question: "Where do the buy links go?",
     answer:
-      "Each result links directly to a retailer or supplier where you can review the product and complete your purchase.",
+      "Each result links directly to a retailer where you can review the product and complete your purchase.",
   },
 ];
 
@@ -297,7 +318,7 @@ export const seoPillars = [
   {
     title: "Shop top tire sizes",
     description:
-      "Browse some of the most searched tire sizes for sedans, SUVs, and trucks with direct paths to live supplier pricing.",
+      "Browse some of the most searched tire sizes for sedans, SUVs, and trucks with direct paths to live pricing and current offers.",
   },
   {
     title: "Compare trusted brands",
@@ -305,9 +326,58 @@ export const seoPillars = [
       "Quickly compare popular brands like Michelin, Goodyear, BFGoodrich, and Pirelli across common fitments and price points.",
   },
   {
-    title: "Buy from leading suppliers",
+    title: "Buy from leading retailers",
     description:
-      "Find the tire you want, click through to the supplier, and finish your purchase with the retailer that has the best fit and price.",
+      "Find the tire you want, compare checkout paths, and finish your purchase with the retailer that has the best fit and price.",
+  },
+];
+
+export const homepageTrustPoints = [
+  "Trusted tire brands",
+  "Supplier comparison",
+  "Fast search paths",
+  "Easy click-through",
+];
+
+export const homepageHowItWorks = [
+  {
+    title: "Enter your tire size or vehicle",
+    description: "Start with the exact size on your sidewall or move into a vehicle-fitment path.",
+    href: "/search?size=205/55R16",
+  },
+  {
+    title: "Compare brands and pricing paths",
+    description: "Review the most relevant size, brand, and comparison pages before leaving the site.",
+    href: "/brands",
+  },
+  {
+    title: "Continue to the best-fit retailer",
+    description: "Use the strongest pricing or deal route once you have the right tire narrowed down.",
+    href: "/deals/amazon-tires",
+  },
+];
+
+export const homepageComparisonSpotlights = [
+  {
+    title: "Michelin vs Goodyear",
+    description: "Start with a mainstream brand comparison built around comfort, tread life, and everyday value.",
+    href: "/compare",
+    bestFor: "Daily driving",
+    priceCue: "Strong for all-season shoppers",
+  },
+  {
+    title: "Best budget all-season tires",
+    description: "Move into one of the most commercial consumer buying paths without getting buried in retailer clutter.",
+    href: "/guides/best-all-season-tires",
+    bestFor: "Budget pick",
+    priceCue: "High-intent commuter traffic",
+  },
+  {
+    title: "Truck tires by size",
+    description: "Jump into truck and commercial size pages when the shopper already knows the replacement fitment.",
+    href: "/truck-tires",
+    bestFor: "Truck & SUV",
+    priceCue: "Fleet and quote-ready paths",
   },
 ];
 

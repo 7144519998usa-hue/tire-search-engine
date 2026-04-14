@@ -14,9 +14,7 @@ import {
   featuredSizes,
 } from "../../lib/siteData";
 
-export async function generateStaticParams() {
-  return featuredBrandPages.map((brand) => ({ slug: brand.slug }));
-}
+export const dynamicParams = true;
 
 export async function generateMetadata({ params }) {
   const brand = getBrandPageBySlug(params.slug);
@@ -54,7 +52,7 @@ export default function BrandPage({ params }) {
   };
   const breadcrumbItems = [
     { label: "Home", href: "/" },
-    { label: "Brands", href: "/brands/michelin" },
+    { label: "Brands", href: "/brands" },
     { label: brand.name },
   ];
   const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems);
@@ -103,23 +101,23 @@ export default function BrandPage({ params }) {
             <span className="eyebrow">Related buying paths</span>
             <h2>Continue your {brand.name} tire research</h2>
             <p>
-              Jump from brand research into commercial comparisons and buyer
-              guides that support stronger internal linking.
+              Jump from brand research into exact-size pages, comparison paths,
+              and practical buyer guides.
             </p>
           </div>
           <div className="category-grid">
             <Link href={brand.searchHref} className="category-card">
               <h3>Compare {brand.name} tire prices</h3>
               <p>
-                Review available size-based offers and supplier pricing for
-                shoppers ready to buy.
+                Review available size-based offers and current checkout options
+                for shoppers ready to buy.
               </p>
               <span>View live offers</span>
             </Link>
             {relatedComparisons.map((size) => (
               <Link
                 key={size.size}
-                href={`/compare/${brand.slug}/${sizeToSlug(size.size)}`}
+                href={`/brands/${brand.slug}/${sizeToSlug(size.size)}`}
                 className="category-card"
               >
                 <h3>{brand.name} {size.size} tires</h3>
@@ -140,8 +138,8 @@ export default function BrandPage({ params }) {
             <Link href="/deals/amazon-tires" className="category-card">
               <h3>Top Amazon tire deals</h3>
               <p>
-                Give {brand.name} shoppers another commercial path into the
-                site&apos;s strongest Amazon-ready offer hub.
+                Give {brand.name} shoppers another offer path into the
+                site&apos;s current deal hub.
               </p>
               <span>View Amazon deals</span>
             </Link>

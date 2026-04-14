@@ -1,5 +1,7 @@
+import AffiliateLink from "./AffiliateLink";
 import AmazonDisclosure from "./AmazonDisclosure";
 import { hasAmazonOffers, normalizeAmazonOffer } from "../lib/amazonAffiliate";
+import { buildProtectedRedirectHref } from "../lib/outboundRedirect";
 
 export default function AmazonOfferRail({
   title = "Amazon tire picks",
@@ -29,14 +31,22 @@ export default function AmazonOfferRail({
             </div>
             <h3>{offer.title}</h3>
             <p>{offer.description}</p>
-            <a
-              className="buy-link"
-              href={offer.specialLink}
-              target="_blank"
-              rel="sponsored nofollow noreferrer"
+            <AffiliateLink
+              href={buildProtectedRedirectHref({
+                destination: offer.specialLink,
+                merchant: offer.merchant || "Amazon",
+                surface: "amazon-offer-rail",
+                placement: index === 0 ? "featured-amazon-offer" : "amazon-offer",
+                score: offer.score || "",
+              })}
+              merchant={offer.merchant || "Amazon"}
+              surface="amazon-offer-rail"
+              placement={index === 0 ? "featured-amazon-offer" : "amazon-offer"}
+              score={offer.score || ""}
+              ariaLabel={`Check offer for ${offer.title}`}
             >
-              View on Amazon
-            </a>
+              Check Best Offer
+            </AffiliateLink>
           </article>
         ))}
       </div>

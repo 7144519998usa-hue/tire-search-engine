@@ -53,9 +53,9 @@ export default function VehiclesHubPage() {
           <aside className="size-hero-panel">
             <span className="panel-kicker">Best use</span>
             <ul className="bullet-list">
-              <li>Long-tail fitment SEO hub.</li>
-              <li>Supports exact vehicle intent.</li>
-              <li>Feeds deeper commercial pages.</li>
+              <li>Find tires by exact make, model, and year.</li>
+              <li>Start from fitment before comparing sizes and brands.</li>
+              <li>Move into more specific vehicle and category pages.</li>
             </ul>
           </aside>
         </section>
@@ -69,7 +69,7 @@ export default function VehiclesHubPage() {
             {featuredVehicles.map((vehicle) => (
               <Link
                 key={`${vehicle.make}-${vehicle.model}-${vehicle.year}`}
-                href={`/vehicle/${vehicle.make}/${vehicle.model}/${vehicle.year}`}
+                href={`/vehicles/${vehicle.make}/${vehicle.model}/${vehicle.year}`}
                 className="category-card"
               >
                 <h3>{vehicle.displayName} tires</h3>

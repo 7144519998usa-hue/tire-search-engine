@@ -90,7 +90,7 @@ export default function AmazonDealsPage() {
           </div>
           <div className="category-grid">
             {relatedSizes.map((size) => (
-              <Link key={size.size} href={`/tire-size/${sizeToSlug(size.size)}`} className="category-card">
+              <Link key={size.size} href={`/tires/${sizeToSlug(size.size)}`} className="category-card">
                 <h3>{size.size} tires</h3>
                 <p>{size.summary}</p>
                 <span>View size page</span>

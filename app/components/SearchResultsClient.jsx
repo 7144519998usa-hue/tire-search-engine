@@ -9,18 +9,12 @@ export default function SearchResultsClient({
   rows,
   size,
   brands,
-  suppliers,
 }) {
   const [selectedBrand, setSelectedBrand] = useState("");
-  const [selectedSupplier, setSelectedSupplier] = useState("");
 
   const filteredRows = rows.filter((row) => {
     const brandMatch = !selectedBrand || row.tires?.brand === selectedBrand;
-
-    const supplierMatch =
-      !selectedSupplier || row.suppliers?.name === selectedSupplier;
-
-    return brandMatch && supplierMatch;
+    return brandMatch;
   });
 
   const cheapestPrice = filteredRows[0]?.price;
@@ -30,11 +24,8 @@ export default function SearchResultsClient({
       <div className="results-page">
         <FiltersSidebar
           brands={brands}
-          suppliers={suppliers}
           selectedBrand={selectedBrand}
           setSelectedBrand={setSelectedBrand}
-          selectedSupplier={selectedSupplier}
-          setSelectedSupplier={setSelectedSupplier}
         />
 
         <section className="results-main">
@@ -43,8 +34,8 @@ export default function SearchResultsClient({
               <span className="eyebrow">Search results</span>
               <h1>{size || "All tires"}</h1>
               <p>
-                Compare prices, brands, and suppliers to find the right tire for
-                your vehicle and driving style.
+                Compare prices, brands, and best available offers to find the
+                right tire for your vehicle and driving style.
               </p>
             </div>
             <SearchBar initialValue={size} />
@@ -79,8 +70,8 @@ export default function SearchResultsClient({
             <article className="content-card">
               <h2>Ready to buy</h2>
               <p>
-                When you find the tire you want, use the buy link to go directly
-                to the supplier and complete your purchase.
+                When you find the tire you want, use the best-offer button to
+                continue to a secure external checkout.
               </p>
             </article>
           </section>

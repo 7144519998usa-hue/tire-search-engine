@@ -7,7 +7,7 @@ import { seoGuides, siteUrl } from "../lib/siteData";
 export const metadata = {
   title: "Tire Buying Guides",
   description:
-    "Browse tire buying guides built around high-intent shopper questions, category comparisons, and strong internal linking.",
+    "Browse tire buying guides built around common shopper questions, category comparisons, and practical buying advice.",
   alternates: {
     canonical: "/guides",
   },
@@ -30,7 +30,7 @@ export default function GuidesHubPage() {
     "@type": "CollectionPage",
     name: "Tire Buying Guides",
     description:
-      "A hub page linking to tire buying guides and informational-to-commercial SEO paths.",
+      "A hub page linking to tire buying guides and practical research paths.",
     url: `${siteUrl}/guides`,
   };
 
@@ -48,13 +48,21 @@ export default function GuidesHubPage() {
               These guide pages support informational traffic and connect it to
               tire-size, brand, vehicle, and deal pages.
             </p>
+            <div className="hero-actions">
+              <Link className="search-button" href="/guides">
+                Browse buying guides
+              </Link>
+              <Link className="ghost-link" href="/truck-tires">
+                Explore truck tire applications
+              </Link>
+            </div>
           </div>
           <aside className="size-hero-panel">
-            <span className="panel-kicker">Role in the site</span>
+            <span className="panel-kicker">What you will find</span>
             <ul className="bullet-list">
-              <li>Information-to-commercial bridge.</li>
-              <li>Supports internal links into money pages.</li>
-              <li>Targets broader category demand.</li>
+              <li>Clear answers to common pre-purchase questions.</li>
+              <li>Guides that connect naturally to size, brand, and vehicle pages.</li>
+              <li>Research paths for passenger, SUV, and truck shoppers.</li>
             </ul>
           </aside>
         </section>

@@ -20,7 +20,7 @@ export default function FeaturedSizeGrid() {
             <h3>{item.title}</h3>
             <p>{item.summary}</p>
             <small>{item.vehicleFit}</small>
-            <Link href={`/tire-size/${sizeToSlug(item.size)}`}>Shop this tire size</Link>
+            <Link href={`/tires/${sizeToSlug(item.size)}`}>Shop this tire size</Link>
           </article>
         ))}
       </div>
