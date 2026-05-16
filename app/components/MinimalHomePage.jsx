@@ -3,7 +3,9 @@ import JsonLd from "./JsonLd";
 import BrandLinkPanel from "./BrandLinkPanel";
 import MinimalSearchEngine from "./MinimalSearchEngine";
 import PopularSizePanel from "./PopularSizePanel";
-import { searchSiteName, siteUrl } from "../lib/siteConfig";
+
+const searchSiteName = "Tire Search Engine";
+const siteUrl = "https://www.tiresearchengine.com";
 
 const trustPoints = [
   "Size-first results",

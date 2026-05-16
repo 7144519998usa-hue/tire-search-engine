@@ -1,8 +1,7 @@
 import MinimalHomePage from "./components/MinimalHomePage";
-import { getSiteUrlForSurface } from "./lib/siteSurface";
 
 export async function generateMetadata() {
-  const siteUrl = getSiteUrlForSurface("tire");
+  const siteUrl = "https://www.tiresearchengine.com";
 
   return {
     title: "Tire Search Engine | Compare Tires by Size, Vehicle & Brand",
