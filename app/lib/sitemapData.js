@@ -1,4 +1,6 @@
 import { priorityBrands, brandSlug } from "./brandData.js";
+import { commercialStates } from "./commercialMarkets.js";
+import { comparisons } from "./comparisonData.js";
 import { indexableArticles } from "./educationData.js";
 import { legacyLandingPaths } from "./legacyPages.js";
 import { isSitemapEligible } from "./pageQuality.js";
@@ -12,6 +14,7 @@ export const sitemapSections = [
   "brands",
   "commercial",
   "university",
+  "comparisons",
   "deals-pages"
 ];
 
@@ -94,6 +97,7 @@ export function sitemapPathsForSection(section) {
     return unique([
       "/commercial-truck-tires",
       ...Object.keys(commercialPositions).map((position) => `/commercial-truck-tires/positions/${position}`),
+      ...commercialStates.map((state) => `/commercial-truck-tires/states/${state.slug}`),
       ...sizes.flatMap((size) => [
         `/commercial-truck-tires/${sizeToSlug(size)}`,
         `/commercial-truck-tires/${sizeToSlug(size)}/steer`,
@@ -115,6 +119,13 @@ export function sitemapPathsForSection(section) {
       "/about/sources-methodology",
       "/about/commercial-tire-data-policy",
       "/about/vehicle-fitment-disclaimer"
+    ]);
+  }
+
+  if (canonicalSection === "comparisons") {
+    return unique([
+      "/compare",
+      ...comparisons.map((comparison) => `/compare/${comparison.slug}`)
     ]);
   }
 

@@ -4,6 +4,7 @@ import ProductGrid from "../../components/ProductGrid";
 import RetailerSearchFallback from "../../components/RetailerSearchFallback";
 import TireCategoryImage from "../../components/TireCategoryImage";
 import { brandNameFromSlug, getBrandSummary, priorityBrands, brandSlug } from "../../lib/brandData";
+import { brandFaqs } from "../../lib/faqData";
 import { getInternalLinks } from "../../lib/internalLinks";
 import { breadcrumbSchema, faqSchema, itemListSchema } from "../../lib/schema";
 import { descriptionForBrand, robotsForPage, titleForBrand } from "../../lib/seo";
@@ -26,16 +27,7 @@ export function generateMetadata({ params }) {
 export default function BrandPage({ params }) {
   const summary = getBrandSummary(params.brand);
   const links = getInternalLinks({ brand: summary.slug });
-  const faqs = [
-    {
-      question: `How should I compare ${summary.name} tires?`,
-      answer: `Start with the exact tire size, then compare ${summary.name} models by category, load rating, speed rating, installation options, retailer availability, and current price.`
-    },
-    {
-      question: `Can I buy ${summary.name} tires by brand alone?`,
-      answer: "Brand is only one part of the decision. Confirm the size, vehicle fitment, load rating, speed rating, and retailer inventory before purchase."
-    }
-  ];
+  const faqs = brandFaqs(summary.name);
 
   return (
     <>
@@ -85,6 +77,7 @@ export default function BrandPage({ params }) {
           </div>
         </section>
         <InternalLinkPanel links={links} />
+        <p className="fitment-note">Reviewed by TireSearchEngine Editorial Team. Updated June 3, 2026. Sources: retailer inventory paths, manufacturer model information, tire sidewall specifications, and the TireSearchEngine methodology.</p>
       </section>
     </>
   );

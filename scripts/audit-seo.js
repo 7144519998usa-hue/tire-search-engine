@@ -9,6 +9,10 @@ const requiredFiles = [
   "app/lib/sitemapData.js",
   "app/lib/pageQuality.js",
   "app/lib/humanizeCopy.js",
+  "app/lib/entityCoverage.js",
+  "app/lib/faqData.js",
+  "app/lib/comparisonData.js",
+  "app/lib/commercialMarkets.js",
   "app/robots.js",
   "app/commercial-truck-tires/page.js",
   "app/commercial-truck-tires/positions/[position]/page.js",
@@ -17,6 +21,9 @@ const requiredFiles = [
   "app/shop-tires/page.js",
   "app/deals/page.js",
   "app/vehicles/[make]/[model]/[year]/page.js",
+  "app/compare/page.js",
+  "app/compare/[slug]/page.js",
+  "app/commercial-truck-tires/states/[state]/page.js",
   "app/go/[merchant]/route.js"
 ];
 
@@ -40,6 +47,10 @@ const legacySource = fs.readFileSync(path.join(root, "app/lib/legacyPages.js"), 
 const seoSource = fs.readFileSync(path.join(root, "app/lib/seo.js"), "utf8");
 const qualitySource = fs.readFileSync(path.join(root, "app/lib/pageQuality.js"), "utf8");
 const humanizeSource = fs.readFileSync(path.join(root, "app/lib/humanizeCopy.js"), "utf8");
+const entitySource = fs.readFileSync(path.join(root, "app/lib/entityCoverage.js"), "utf8");
+const faqSource = fs.readFileSync(path.join(root, "app/lib/faqData.js"), "utf8");
+const comparisonSource = fs.readFileSync(path.join(root, "app/lib/comparisonData.js"), "utf8");
+const commercialMarketsSource = fs.readFileSync(path.join(root, "app/lib/commercialMarkets.js"), "utf8");
 const educationSource = fs.readFileSync(path.join(root, "app/lib/educationData.js"), "utf8");
 const layoutSource = fs.readFileSync(path.join(root, "app/layout.js"), "utf8");
 const middlewareSource = fs.existsSync(path.join(root, "middleware.js"))
@@ -53,6 +64,10 @@ const assertions = [
   ["canonical sitemap section aliases are supported", sitemapSource.includes('"vehicles"') && sitemapSource.includes("sitemapSectionAliases")],
   ["page quality gate is present", qualitySource.includes("scorePageQuality") && qualitySource.includes("isSitemapEligible")],
   ["AI-language humanizer is present", humanizeSource.includes("blockedAiPhrases") && humanizeSource.includes("humanizeCopy")],
+  ["entity coverage engine is present", entitySource.includes("vehiclesUsingSize") && entitySource.includes("brandsAvailableForSize") && entitySource.includes("tireCategoryLinksForSize")],
+  ["expanded FAQ engine is present", faqSource.includes("tireSizeFaqs") && faqSource.includes("vehicleFaqs") && faqSource.includes("brandFaqs")],
+  ["comparison pages are supported", comparisonSource.includes("michelin-vs-goodyear") && sitemapSource.includes("comparisons")],
+  ["state-level commercial markets are supported", commercialMarketsSource.includes("texas") && sitemapSource.includes("commercialStates")],
   ["Tire University backend expansion is present", educationSource.includes("generatedArticleGroups") && educationSource.includes("indexableArticles")],
   ["Website SearchAction schema is emitted", layoutSource.includes("webSiteSchema")],
   [

@@ -3,6 +3,8 @@ import InternalLinkPanel from "../../components/InternalLinkPanel";
 import ProductGrid from "../../components/ProductGrid";
 import RelatedSizeCards from "../../components/RelatedSizeCards";
 import RetailerSearchFallback from "../../components/RetailerSearchFallback";
+import { entityCoverageForSize } from "../../lib/entityCoverage";
+import { tireSizeFaqs } from "../../lib/faqData";
 import { getTireResults } from "../../lib/getTireResults";
 import { getInternalLinks } from "../../lib/internalLinks";
 import { isCommercialTireSize } from "../../lib/getRelatedSizes";
@@ -33,16 +35,8 @@ export default function TireSizePage({ params }) {
   const relatedSizeCards = getRelatedSizeCards(size, { type: commercialPage ? "commercial" : "passenger", limit: 6 });
   const path = `/tires/${params.size}`;
   const internalLinks = getInternalLinks({ size, commercial: commercialPage });
-  const faqs = [
-    {
-      question: `What should I check before buying ${size} tires?`,
-      answer: "Confirm the tire size, load rating, speed rating, trim, wheel package, installation availability, shipping, and current retailer price before purchase."
-    },
-    {
-      question: `Can I use related tire sizes instead of ${size}?`,
-      answer: "Related sizes are shown for research only. Use the exact size listed on the vehicle placard, tire sidewall, or commercial tire spec unless a qualified installer confirms an alternative."
-    }
-  ];
+  const entities = entityCoverageForSize({ size, relatedSizeCards });
+  const faqs = tireSizeFaqs(size, relatedSizeCards);
 
   return (
     <>
@@ -59,6 +53,47 @@ export default function TireSizePage({ params }) {
           <a href={`/tires/${params.size}/best`}>Best {size} tires</a>
           <a href={`/tires/${params.size}/budget`}>Budget {size} tires</a>
           <a href={`/tires/${params.size}/all-season`}>All-season {size} tires</a>
+        </div>
+        <section className="section compact-section">
+          <div className="section-heading compact-heading">
+            <p className="kicker">Size guide</p>
+          </div>
+          <div className="info-grid">
+            <article>
+              <h2>What {size} means</h2>
+              <p>{size} identifies the tire dimensions used for fitment. Match this size exactly unless a qualified installer confirms an alternative.</p>
+            </article>
+            <article>
+              <h2>Buying considerations</h2>
+              <p>Compare category, load rating, speed rating, installation, shipping, current price, and whether the retailer fitment tool matches your vehicle.</p>
+            </article>
+          </div>
+        </section>
+        <div className="info-grid">
+          <article>
+            <h2>Vehicles using this size</h2>
+            <div className="mini-link-row">
+              {entities.vehicles.length ? entities.vehicles.map((item) => <a key={item.href} href={item.href}>{item.label}</a>) : <a href="/vehicles">Find tires by vehicle</a>}
+            </div>
+          </article>
+          <article>
+            <h2>Brands available in this size</h2>
+            <div className="mini-link-row">
+              {entities.brands.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
+            </div>
+          </article>
+          <article>
+            <h2>Tire categories available</h2>
+            <div className="mini-link-row">
+              {entities.categories.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
+            </div>
+          </article>
+          <article>
+            <h2>Common alternatives</h2>
+            <div className="mini-link-row">
+              {entities.alternatives.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
+            </div>
+          </article>
         </div>
         {products.length ? (
           <ProductGrid products={products} placement="size-page" pageContext={{ size, size_slug: params.size, type: pageType }} />
@@ -101,6 +136,7 @@ export default function TireSizePage({ params }) {
           </div>
         </section>
         <InternalLinkPanel links={internalLinks} />
+        <p className="fitment-note">Reviewed by TireSearchEngine Editorial Team. Updated June 3, 2026. Sources: retailer fitment tools, tire sidewall specifications, manufacturer information, and the TireSearchEngine methodology.</p>
       </section>
     </>
   );

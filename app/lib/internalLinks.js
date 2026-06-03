@@ -45,6 +45,7 @@ export function getInternalLinks({ size = "", make = "", model = "", commercial 
     { href: "/vehicles", label: "Find tires by vehicle" },
     { href: "/brands", label: "Tire brand guide" },
     { href: "/commercial-truck-tires", label: "Commercial truck tires" },
+    { href: "/compare", label: "Tire comparisons" },
     { href: "/shop-tires", label: "Retailer paths" }
   ];
 

@@ -4,6 +4,7 @@ import ProductGrid from "../../../components/ProductGrid";
 import RelatedSizeCards from "../../../components/RelatedSizeCards";
 import RetailerSearchFallback from "../../../components/RetailerSearchFallback";
 import TireCategoryImage from "../../../components/TireCategoryImage";
+import { vehicleFaqs } from "../../../lib/faqData";
 import { getTireResults } from "../../../lib/getTireResults";
 import { getInternalLinks } from "../../../lib/internalLinks";
 import { breadcrumbSchema, faqSchema, itemListSchema } from "../../../lib/schema";
@@ -33,16 +34,7 @@ export default function VehicleModelPage({ params }) {
   const commonSizes = [...new Set(fitments.map((fitment) => fitment.size))];
   const relatedSizeCards = primary ? getRelatedSizeCards(primary.size, { type: "passenger", limit: 5 }) : [];
   const links = getInternalLinks({ size: primary?.size || "", make: params.make, model: params.model });
-  const faqs = [
-    {
-      question: `Can ${vehicleDisplayName(params.make)} ${vehicleDisplayName(params.model)} tire size vary by trim?`,
-      answer: "Yes. Wheel diameter, trim, optional packages, and model year can change tire size. Confirm the driver-side door placard before ordering."
-    },
-    {
-      question: "Should I buy by vehicle or by tire size?",
-      answer: "Use the vehicle page as a starting point, then buy by the exact tire size, load rating, and speed rating shown on your vehicle or retailer fitment tool."
-    }
-  ];
+  const faqs = primary ? vehicleFaqs(primary) : [];
 
   return (
     <>
@@ -85,6 +77,21 @@ export default function VehicleModelPage({ params }) {
           <a href={primary ? `/tires/${sizeToSlug(primary.size)}/price` : "/tires/225-65-r17/price"}>Compare prices</a>
         </div>
       </section>
+      <section className="section compact-section">
+        <div className="section-heading compact-heading">
+          <p className="kicker">Vehicle encyclopedia</p>
+        </div>
+        <div className="info-grid">
+          <article>
+            <h2>OEM and replacement sizes</h2>
+            <p>{commonSizes.length ? `${vehicleDisplayName(params.make)} ${vehicleDisplayName(params.model)} pages currently track ${commonSizes.join(", ")} as common tire size paths.` : "Use the driver-side door placard and retailer fitment tool to confirm tire size."}</p>
+          </article>
+          <article>
+            <h2>Recommended tire types</h2>
+            <p>Most shoppers compare all-season, all-weather, touring, highway, winter, or all-terrain tires depending on climate, road noise, mileage, and vehicle use.</p>
+          </article>
+        </div>
+      </section>
       {products.length ? <ProductGrid products={products} placement="vehicle-model" pageContext={{ size: primary?.size || "" }} /> : <RetailerSearchFallback size={primary?.size || ""} intent={primary?.intent || ""} placement="vehicle-model-empty" />}
       {relatedSizeCards.length ? (
         <section className="related-products" aria-label="Related tire sizes">
@@ -107,6 +114,7 @@ export default function VehicleModelPage({ params }) {
         </div>
       </section>
       <InternalLinkPanel links={links} />
+      <p className="fitment-note">Reviewed by TireSearchEngine Editorial Team. Updated June 3, 2026. Sources: vehicle placard guidance, retailer fitment tools, tire sidewall specifications, and the TireSearchEngine methodology.</p>
     </section>
     </>
   );

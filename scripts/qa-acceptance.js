@@ -1,5 +1,9 @@
 import { getTireResults } from "../app/lib/getTireResults.js";
 import { articles, indexableArticles } from "../app/lib/educationData.js";
+import { comparisons } from "../app/lib/comparisonData.js";
+import { commercialStates } from "../app/lib/commercialMarkets.js";
+import { entityCoverageForSize } from "../app/lib/entityCoverage.js";
+import { tireSizeFaqs } from "../app/lib/faqData.js";
 import { hasAiLanguage, humanizeCopy } from "../app/lib/humanizeCopy.js";
 import { scorePageQuality } from "../app/lib/pageQuality.js";
 import { classifyTireSize } from "../app/lib/classifyTireSize.js";
@@ -59,7 +63,11 @@ assert(!tireSitemapPaths.includes("/tires/235-45-r18/drive"), "Passenger drive U
 assert(sitemapPathsForSection("vehicles").some((path) => path.includes("/vehicles/toyota/rav4/2025")), "Programmatic vehicle expansion missing from vehicles sitemap");
 assert(sitemapPathsForSection("vehicle-pages").some((path) => path.includes("/vehicles/toyota/rav4/2025")), "Legacy vehicle sitemap alias failed");
 assert(sitemapPathsForSection("university").every((path) => !path.includes("toyota-rav4-tire-guide")), "Brief generated article entered indexable sitemap");
+assert(sitemapPathsForSection("comparisons").includes("/compare/michelin-vs-goodyear"), "Comparison page missing from sitemap");
+assert(sitemapPathsForSection("commercial").includes("/commercial-truck-tires/states/texas"), "Commercial state page missing from sitemap");
 assert(articles.length > indexableArticles.length, "Tire University backend expansion is not separated from indexable articles");
+assert(comparisons.length >= 8, "High-value comparison coverage is too small");
+assert(commercialStates.length >= 7, "Commercial state coverage is too small");
 
 const quality = scorePageQuality({
   intro: "This canonical page compares exact tire information, retailer availability, fitment checks, FAQ coverage, and related tire research before purchase.",
@@ -81,6 +89,12 @@ assert(passengerRelatedSizes.includes("275/60R20"), "275/60R20 missing from 275/
 assert(!passengerRelatedSizes.includes("11R22.5"), "11R22.5 leaked into passenger related sizes");
 assert(!passengerRelatedSizes.includes("295/75R22.5"), "295/75R22.5 leaked into passenger related sizes");
 assert(passengerRelated.every((item) => item.badge === "Related Size"), "Passenger related cards use wrong badge");
+
+const sizeEntities = entityCoverageForSize({ size: "225/65R17", relatedSizeCards: passengerRelated });
+assert(sizeEntities.vehicles.some((item) => item.href.includes("/vehicles/toyota/rav4")), "225/65R17 vehicle entity coverage missing RAV4");
+assert(sizeEntities.brands.some((item) => item.href.includes("/brands/michelin")), "225/65R17 brand entity coverage missing Michelin");
+assert(sizeEntities.categories.some((item) => item.href.includes("/all-season")), "225/65R17 category entity coverage missing all-season");
+assert(tireSizeFaqs("225/65R17", passengerRelated).length >= 5, "Tire size FAQ expansion is too small");
 
 const commercialRelated = getRelatedSizeCards("11R22.5", { type: "commercial", limit: 8 });
 assert(commercialRelated.some((item) => item.size === "295/75R22.5"), "Commercial related sizes missing 295/75R22.5");

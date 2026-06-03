@@ -2,6 +2,7 @@ import JsonLd from "../../../../components/JsonLd";
 import InternalLinkPanel from "../../../../components/InternalLinkPanel";
 import ProductGrid from "../../../../components/ProductGrid";
 import RetailerSearchFallback from "../../../../components/RetailerSearchFallback";
+import { vehicleFaqs } from "../../../../lib/faqData";
 import { getInternalLinks } from "../../../../lib/internalLinks";
 import { breadcrumbSchema, faqSchema, itemListSchema } from "../../../../lib/schema";
 import { descriptionForVehicleYear, robotsForPage, titleForVehicleYear } from "../../../../lib/seo";
@@ -46,16 +47,7 @@ export default function VehicleTirePage({ params }) {
   const products = getStrictProducts({ size: fitment.size, intent: fitment.intent });
   const path = `/vehicles/${params.make}/${params.model}/${params.year}`;
   const links = getInternalLinks({ size: fitment.size, make: fitment.make, model: fitment.model });
-  const faqs = [
-    {
-      question: `What tire size does a ${fitment.label} use?`,
-      answer: `This page lists ${fitment.size} as a likely replacement size, but trim and wheel package can vary. Confirm the placard and retailer fitment before buying.`
-    },
-    {
-      question: "What should I confirm before checkout?",
-      answer: "Confirm tire size, load rating, speed rating, trim, wheel package, installation availability, shipping, and current retailer price."
-    }
-  ];
+  const faqs = vehicleFaqs(fitment);
 
   return (
     <>
@@ -86,6 +78,21 @@ export default function VehicleTirePage({ params }) {
         </section>
         <section className="section compact-section">
           <div className="section-heading compact-heading">
+            <p className="kicker">Vehicle tire notes</p>
+          </div>
+          <div className="info-grid">
+            <article>
+              <h2>OEM size path</h2>
+              <p>{fitment.size} is the exact-size research path for this page. Use it to compare tire categories and retailer availability before checkout.</p>
+            </article>
+            <article>
+              <h2>Common replacement checks</h2>
+              <p>Confirm trim, wheel package, load rating, speed rating, TPMS compatibility, installation availability, and current retailer price.</p>
+            </article>
+          </div>
+        </section>
+        <section className="section compact-section">
+          <div className="section-heading compact-heading">
             <p className="kicker">FAQ</p>
           </div>
           <div className="faq-list">
@@ -98,6 +105,7 @@ export default function VehicleTirePage({ params }) {
           </div>
         </section>
         <InternalLinkPanel links={links} />
+        <p className="fitment-note">Reviewed by TireSearchEngine Editorial Team. Updated June 3, 2026. Sources: retailer fitment tools, vehicle placard guidance, tire sidewall specifications, and the TireSearchEngine methodology.</p>
       </section>
     </>
   );
