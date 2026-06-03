@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640" role="img" aria-label="Commercial trailer tire visual for semi trailer comparison">
+  <rect width="900" height="640" fill="#f1f5f9"/>
+  <rect x="118" y="170" width="664" height="210" rx="26" fill="#cbd5e1"/>
+  <rect x="585" y="210" width="130" height="80" rx="18" fill="#e2e8f0"/>
+  <ellipse cx="450" cy="500" rx="270" ry="44" fill="#0f172a" opacity=".14"/>
+  <circle cx="330" cy="390" r="96" fill="#111827"/><circle cx="330" cy="390" r="48" fill="#f8fafc"/>
+  <circle cx="590" cy="390" r="96" fill="#111827"/><circle cx="590" cy="390" r="48" fill="#f8fafc"/>
+  <text x="450" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#334155">Commercial trailer tire paths</text>
+</svg>

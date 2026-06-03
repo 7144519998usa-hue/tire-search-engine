@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640" role="img" aria-label="Passenger tire on a clean light background">
+  <defs><radialGradient id="g" cx="50%" cy="48%" r="58%"><stop offset="0" stop-color="#f8fafc"/><stop offset="1" stop-color="#dbeafe"/></radialGradient></defs>
+  <rect width="900" height="640" fill="url(#g)"/>
+  <ellipse cx="450" cy="500" rx="245" ry="42" fill="#0f172a" opacity=".12"/>
+  <circle cx="450" cy="305" r="205" fill="#111827"/>
+  <circle cx="450" cy="305" r="138" fill="#f8fafc"/>
+  <circle cx="450" cy="305" r="76" fill="#cbd5e1"/>
+  <circle cx="450" cy="305" r="34" fill="#f8fafc"/>
+  <g stroke="#334155" stroke-width="12" stroke-linecap="round" opacity=".8">
+    <path d="M308 161l46 46M450 103v64M592 161l-46 46M652 305h-64M592 449l-46-46M450 507v-64M308 449l46-46M248 305h64"/>
+  </g>
+  <text x="450" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#0f172a">Passenger &amp; SUV tire comparison</text>
+</svg>

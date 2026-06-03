@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" role="img" aria-label="Passenger tire">
+  <ellipse cx="120" cy="90" rx="76" ry="76" fill="#171b18"/>
+  <ellipse cx="120" cy="90" rx="58" ry="58" fill="#252c26"/>
+  <g stroke="#3a443b" stroke-width="6" stroke-linecap="round">
+    <path d="M72 45 92 70"/>
+    <path d="M112 28 116 60"/>
+    <path d="M156 38 138 66"/>
+    <path d="M186 84 154 88"/>
+    <path d="M168 132 142 112"/>
+    <path d="M104 150 112 120"/>
+    <path d="M60 112 88 102"/>
+  </g>
+  <ellipse cx="120" cy="90" rx="31" ry="31" fill="#d8d1c0"/>
+  <ellipse cx="120" cy="90" rx="10" ry="10" fill="#194b35"/>
+</svg>

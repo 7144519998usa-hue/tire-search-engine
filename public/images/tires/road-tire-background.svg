@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-label="Tire on road visual for tire comparison homepage">
+  <defs><linearGradient id="sky" x1="0" x2="1"><stop offset="0" stop-color="#eff6ff"/><stop offset="1" stop-color="#fff7ed"/></linearGradient></defs>
+  <rect width="1200" height="760" fill="url(#sky)"/>
+  <path d="M0 520c230-70 430-80 610-20 166 55 342 58 590 0v240H0z" fill="#334155"/>
+  <path d="M570 536h60l80 224H490z" fill="#f8fafc" opacity=".8"/>
+  <ellipse cx="610" cy="560" rx="240" ry="44" fill="#0f172a" opacity=".2"/>
+  <circle cx="610" cy="360" r="218" fill="#111827"/>
+  <circle cx="610" cy="360" r="136" fill="#f8fafc"/>
+  <circle cx="610" cy="360" r="72" fill="#cbd5e1"/>
+  <text x="600" y="92" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" font-weight="800" fill="#0f172a">Find the right tire, faster.</text>
+</svg>

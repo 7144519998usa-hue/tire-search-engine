@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 640" role="img" aria-label="Clean SUV tire visual">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="45%" r="56%">
+      <stop offset="0" stop-color="#4a5652"/>
+      <stop offset=".54" stop-color="#1d2523"/>
+      <stop offset="1" stop-color="#080b0a"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="640" rx="54" fill="#f8faf6"/>
+  <ellipse cx="450" cy="506" rx="270" ry="38" fill="#14201c" opacity=".14"/>
+  <circle cx="450" cy="310" r="218" fill="url(#g)"/>
+  <circle cx="450" cy="310" r="151" fill="#060908"/>
+  <circle cx="450" cy="310" r="86" fill="#e6ece8"/>
+  <circle cx="450" cy="310" r="42" fill="#b7c1bb"/>
+  <g fill="none" stroke="#303b36" stroke-width="16" stroke-linecap="round">
+    <path d="M300 175 C358 218 386 260 392 323"/>
+    <path d="M349 503 C380 430 425 389 492 368"/>
+    <path d="M523 101 C486 168 473 227 482 293"/>
+    <path d="M660 461 C598 422 562 377 552 312"/>
+    <path d="M675 218 C611 251 575 300 568 367"/>
+  </g>
+</svg>

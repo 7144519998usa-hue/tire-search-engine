@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640" role="img" aria-label="Commercial drive tire tread for truck tire comparison">
+  <rect width="900" height="640" fill="#f8fafc"/>
+  <path d="M0 460h900v180H0z" fill="#e2e8f0"/>
+  <ellipse cx="450" cy="500" rx="275" ry="48" fill="#0f172a" opacity=".16"/>
+  <circle cx="450" cy="300" r="222" fill="#111827"/>
+  <circle cx="450" cy="300" r="122" fill="#f8fafc"/>
+  <g stroke="#fbbf24" stroke-width="22" stroke-linecap="round">
+    <path d="M290 170l65 88M610 170l-65 88M278 300h94M622 300h-94M290 430l65-88M610 430l-65-88"/>
+  </g>
+  <text x="450" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#0f172a">Commercial drive-position tire</text>
+</svg>

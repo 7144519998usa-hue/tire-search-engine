@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640" role="img" aria-label="EV tire visual for electric vehicle tire comparison">
+  <rect width="900" height="640" fill="#ecfeff"/>
+  <path d="M170 410h560l-42 88H212z" fill="#cffafe"/>
+  <ellipse cx="450" cy="495" rx="235" ry="38" fill="#155e75" opacity=".14"/>
+  <circle cx="450" cy="298" r="205" fill="#0f172a"/>
+  <circle cx="450" cy="298" r="132" fill="#ecfeff"/>
+  <path d="M432 176l-50 124h72l-38 120 112-159h-74l48-85z" fill="#22d3ee"/>
+  <text x="450" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#155e75">EV tire replacement paths</text>
+</svg>

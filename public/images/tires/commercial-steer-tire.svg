@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640" role="img" aria-label="Commercial steer tire for highway truck tire comparison">
+  <rect width="900" height="640" fill="#eff6ff"/>
+  <ellipse cx="450" cy="500" rx="260" ry="44" fill="#1e3a8a" opacity=".12"/>
+  <circle cx="450" cy="300" r="214" fill="#111827"/>
+  <circle cx="450" cy="300" r="132" fill="#eff6ff"/>
+  <g stroke="#60a5fa" stroke-width="15" stroke-linecap="round">
+    <path d="M360 110v180M450 88v216M540 110v180M360 490V310M450 512V296M540 490V310"/>
+  </g>
+  <text x="450" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#1e3a8a">Commercial steer tire comparison</text>
+</svg>

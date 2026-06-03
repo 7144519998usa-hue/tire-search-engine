@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" role="img" aria-label="All terrain tire">
+  <ellipse cx="120" cy="90" rx="78" ry="78" fill="#151916"/>
+  <g fill="#2f3a31">
+    <rect x="52" y="30" width="24" height="28" rx="6" transform="rotate(-32 64 44)"/>
+    <rect x="96" y="13" width="24" height="32" rx="6" transform="rotate(-8 108 29)"/>
+    <rect x="142" y="18" width="24" height="32" rx="6" transform="rotate(18 154 34)"/>
+    <rect x="178" y="50" width="24" height="30" rx="6" transform="rotate(48 190 65)"/>
+    <rect x="184" y="102" width="24" height="30" rx="6" transform="rotate(115 196 117)"/>
+    <rect x="144" y="134" width="24" height="32" rx="6" transform="rotate(160 156 150)"/>
+    <rect x="94" y="134" width="24" height="32" rx="6" transform="rotate(190 106 150)"/>
+    <rect x="48" y="102" width="24" height="30" rx="6" transform="rotate(236 60 117)"/>
+  </g>
+  <ellipse cx="120" cy="90" rx="47" ry="47" fill="#242b25"/>
+  <ellipse cx="120" cy="90" rx="25" ry="25" fill="#d4d7ce"/>
+  <circle cx="120" cy="90" r="8" fill="#194b35"/>
+</svg>

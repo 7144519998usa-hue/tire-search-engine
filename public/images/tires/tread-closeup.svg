@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640" role="img" aria-label="Tire tread close-up for tire education guides">
+  <rect width="900" height="640" fill="#0f172a"/>
+  <g fill="#1f2937"><rect x="60" y="0" width="110" height="640"/><rect x="250" y="0" width="120" height="640"/><rect x="465" y="0" width="120" height="640"/><rect x="680" y="0" width="110" height="640"/></g>
+  <g fill="#64748b" opacity=".9"><path d="M170 0l90 120-90 120 90 120-90 120 90 120-30 40H120V0z"/><path d="M585 0l90 120-90 120 90 120-90 120 90 120-30 40H535V0z"/></g>
+  <text x="450" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#f8fafc">Tread pattern and tire fitment guide</text>
+</svg>
