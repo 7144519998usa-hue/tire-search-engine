@@ -17,7 +17,8 @@ export function generateMetadata({ params }) {
   return {
     title: titleForGuide(article.title),
     description: descriptionForGuide(article.title),
-    alternates: { canonical: `/tire-university/${params.slug}` }
+    alternates: { canonical: `/tire-university/${params.slug}` },
+    robots: article.indexable ? { index: true, follow: true } : { index: false, follow: true }
   };
 }
 

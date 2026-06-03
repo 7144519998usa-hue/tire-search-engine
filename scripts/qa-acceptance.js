@@ -1,4 +1,7 @@
 import { getTireResults } from "../app/lib/getTireResults.js";
+import { articles, indexableArticles } from "../app/lib/educationData.js";
+import { hasAiLanguage, humanizeCopy } from "../app/lib/humanizeCopy.js";
+import { scorePageQuality } from "../app/lib/pageQuality.js";
 import { classifyTireSize } from "../app/lib/classifyTireSize.js";
 import { isFakeModel } from "../app/lib/rankTireResults.js";
 import { parseMalformedNearSlug, parseTireSize, canonicalizeSizeUrl } from "../app/lib/tireSizeParser.js";
@@ -53,6 +56,24 @@ assert(getStrictProducts({ size: "11R22.5", intent: "drive", limit: 1 }).length 
 const tireSitemapPaths = sitemapPathsForSection("tire-sizes");
 assert(!tireSitemapPaths.includes("/tires/225-65-r17/drive"), "Passenger drive URL leaked into tire sitemap");
 assert(!tireSitemapPaths.includes("/tires/235-45-r18/drive"), "Passenger drive URL leaked into tire sitemap");
+assert(sitemapPathsForSection("vehicles").some((path) => path.includes("/vehicles/toyota/rav4/2025")), "Programmatic vehicle expansion missing from vehicles sitemap");
+assert(sitemapPathsForSection("vehicle-pages").some((path) => path.includes("/vehicles/toyota/rav4/2025")), "Legacy vehicle sitemap alias failed");
+assert(sitemapPathsForSection("university").every((path) => !path.includes("toyota-rav4-tire-guide")), "Brief generated article entered indexable sitemap");
+assert(articles.length > indexableArticles.length, "Tire University backend expansion is not separated from indexable articles");
+
+const quality = scorePageQuality({
+  intro: "This canonical page compares exact tire information, retailer availability, fitment checks, FAQ coverage, and related tire research before purchase.",
+  faqs: [{}, {}],
+  schemaTypes: ["BreadcrumbList", "FAQPage"],
+  internalLinks: { hubs: [{ href: "/tires" }, { href: "/vehicles" }, { href: "/brands" }, { href: "/tire-university" }] },
+  products: drive,
+  canonical: "/tires/11r22-5/drive",
+  images: [{}]
+});
+assert(quality.indexable, "Useful commercial drive page failed page-quality gate");
+assert(!scorePageQuality({ intro: "Thin page.", products: [], canonical: "/thin" }).indexable, "Thin page passed page-quality gate");
+assert(humanizeCopy("Unlock a premium solution").includes("practical option"), "Humanizer did not replace AI phrasing");
+assert(!hasAiLanguage(humanizeCopy("Unlock a premium solution")), "Humanizer left blocked AI phrasing");
 
 const passengerRelated = getRelatedSizeCards("275/55R20", { type: "passenger", limit: 8 });
 const passengerRelatedSizes = passengerRelated.map((item) => item.size);

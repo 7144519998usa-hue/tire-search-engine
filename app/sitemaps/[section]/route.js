@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { absoluteSitemapUrl, pagePriority, sitemapPathsForSection, sitemapSections } from "../../lib/sitemapData.js";
+import { absoluteSitemapUrl, pagePriority, sitemapPathsForSection, sitemapSectionAliases, sitemapSections } from "../../lib/sitemapData.js";
 
 function xmlEscape(value = "") {
   return String(value)
@@ -15,12 +15,13 @@ export function generateStaticParams() {
 
 export function GET(_request, { params }) {
   const section = String(params.section || "").replace(/\.xml$/i, "");
-  if (!sitemapSections.includes(section)) {
+  const canonicalSection = sitemapSectionAliases[section] || section;
+  if (!sitemapSections.includes(canonicalSection)) {
     notFound();
   }
 
   const lastmod = new Date().toISOString();
-  const paths = sitemapPathsForSection(section);
+  const paths = sitemapPathsForSection(canonicalSection);
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${paths.map((path) => `  <url>

@@ -1,7 +1,7 @@
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import JsonLd from "./components/JsonLd";
-import { organizationSchema } from "./lib/schema";
+import { organizationSchema, webSiteSchema } from "./lib/schema";
 import { gaMeasurementId, isIndexable, siteName, siteUrl } from "./lib/site";
 
 export const metadata = {
@@ -42,6 +42,7 @@ export default function RootLayout({ children }) {
           </nav>
         </header>
         <JsonLd data={organizationSchema()} />
+        <JsonLd data={webSiteSchema()} />
         <main>{children}</main>
         <footer className="site-footer">
           <p><strong>Find the right tire, faster.</strong> Tire Search Engine helps shoppers compare tire categories, retailer options, and replacement choices before visiting a merchant site.</p>

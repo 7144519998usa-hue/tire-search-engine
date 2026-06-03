@@ -7,6 +7,8 @@ const requiredFiles = [
   "app/sitemap.xml/route.js",
   "app/sitemaps/[section]/route.js",
   "app/lib/sitemapData.js",
+  "app/lib/pageQuality.js",
+  "app/lib/humanizeCopy.js",
   "app/robots.js",
   "app/commercial-truck-tires/page.js",
   "app/commercial-truck-tires/positions/[position]/page.js",
@@ -35,14 +37,24 @@ const pageSource = fs.readFileSync(path.join(root, "app/page.js"), "utf8");
 const tireDataSource = fs.readFileSync(path.join(root, "app/lib/tireData.js"), "utf8");
 const siteSource = fs.readFileSync(path.join(root, "app/lib/site.js"), "utf8");
 const legacySource = fs.readFileSync(path.join(root, "app/lib/legacyPages.js"), "utf8");
+const seoSource = fs.readFileSync(path.join(root, "app/lib/seo.js"), "utf8");
+const qualitySource = fs.readFileSync(path.join(root, "app/lib/pageQuality.js"), "utf8");
+const humanizeSource = fs.readFileSync(path.join(root, "app/lib/humanizeCopy.js"), "utf8");
+const educationSource = fs.readFileSync(path.join(root, "app/lib/educationData.js"), "utf8");
+const layoutSource = fs.readFileSync(path.join(root, "app/layout.js"), "utf8");
 const middlewareSource = fs.existsSync(path.join(root, "middleware.js"))
   ? fs.readFileSync(path.join(root, "middleware.js"), "utf8")
   : "";
 
 const assertions = [
   ["sitemap includes commercial truck tire priority", sitemapSource.includes("commercial-truck-tires")],
-  ["sitemap includes all generated tire intent pages", sitemapSource.includes("all-terrain") && sitemapSource.includes("trailer")],
+  ["sitemap includes all generated tire intent pages", seoSource.includes("all-terrain") && seoSource.includes("trailer") && seoSource.includes("performance")],
   ["sitemap index and sub-sitemaps are supported", sitemapSource.includes("sitemapindex") && sitemapSource.includes("sitemapPathsForSection")],
+  ["canonical sitemap section aliases are supported", sitemapSource.includes('"vehicles"') && sitemapSource.includes("sitemapSectionAliases")],
+  ["page quality gate is present", qualitySource.includes("scorePageQuality") && qualitySource.includes("isSitemapEligible")],
+  ["AI-language humanizer is present", humanizeSource.includes("blockedAiPhrases") && humanizeSource.includes("humanizeCopy")],
+  ["Tire University backend expansion is present", educationSource.includes("generatedArticleGroups") && educationSource.includes("indexableArticles")],
+  ["Website SearchAction schema is emitted", layoutSource.includes("webSiteSchema")],
   [
     "homepage links to Tire Rack/Mavis/Amazon product flow",
     pageSource.includes("Tire Rack") &&

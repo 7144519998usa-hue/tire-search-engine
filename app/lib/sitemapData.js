@@ -1,18 +1,26 @@
 import { priorityBrands, brandSlug } from "./brandData.js";
-import { articles } from "./educationData.js";
+import { indexableArticles } from "./educationData.js";
 import { legacyLandingPaths } from "./legacyPages.js";
+import { isSitemapEligible } from "./pageQuality.js";
 import { siteUrl } from "./site.js";
 import { sitemapIntents } from "./seo.js";
 import { commercialPositions, getStrictProducts, sizeToSlug, tireSizes, vehicleFitments } from "./tireData.js";
 
 export const sitemapSections = [
   "tire-sizes",
-  "vehicle-pages",
-  "brand-pages",
-  "commercial-pages",
-  "tire-university",
+  "vehicles",
+  "brands",
+  "commercial",
+  "university",
   "deals-pages"
 ];
+
+export const sitemapSectionAliases = {
+  "vehicle-pages": "vehicles",
+  "brand-pages": "brands",
+  "commercial-pages": "commercial",
+  "tire-university": "university"
+};
 
 function unique(paths = []) {
   return [...new Set(paths)].sort();
@@ -22,40 +30,66 @@ function hasProductsForSize(size, intent = "") {
   return getStrictProducts({ size, intent, limit: 1 }).length > 0;
 }
 
+function productQualityContext({ products = [], path = "", allowWithoutProducts = false } = {}) {
+  return {
+    intro: `This canonical page compares exact tire information, retailer availability, fitment checks, FAQ coverage, and related tire research for ${path}.`,
+    faqs: [{}, {}],
+    schemaTypes: ["BreadcrumbList", "FAQPage"],
+    internalLinks: {
+      hubs: [{ href: "/tires" }, { href: "/vehicles" }, { href: "/brands" }, { href: "/tire-university" }]
+    },
+    products,
+    canonical: path,
+    images: products.length ? [{}] : [],
+    allowWithoutProducts
+  };
+}
+
 function commercialSizes() {
   return tireSizes.filter((size) => /r(17\.5|19\.5|22\.5|24\.5)$/i.test(size) || /^[0-9]{1,2}r/i.test(size));
 }
 
 export function sitemapPathsForSection(section) {
-  if (section === "tire-sizes") {
+  const canonicalSection = sitemapSectionAliases[section] || section;
+
+  if (canonicalSection === "tire-sizes") {
     return unique(tireSizes.flatMap((size) => {
-      const base = hasProductsForSize(size) ? [`/tires/${sizeToSlug(size)}`] : [];
+      const baseProducts = getStrictProducts({ size, limit: 1 });
+      const basePath = `/tires/${sizeToSlug(size)}`;
+      const base = isSitemapEligible(productQualityContext({ products: baseProducts, path: basePath })) ? [basePath] : [];
       const intents = sitemapIntents
-        .filter((intent) => hasProductsForSize(size, intent))
+        .filter((intent) => {
+          const products = getStrictProducts({ size, intent, limit: 1 });
+          return isSitemapEligible(productQualityContext({ products, path: `/tires/${sizeToSlug(size)}/${intent}` }));
+        })
         .map((intent) => `/tires/${sizeToSlug(size)}/${intent}`);
       return [...base, ...intents];
     }));
   }
 
-  if (section === "vehicle-pages") {
+  if (canonicalSection === "vehicles") {
     return unique([
       "/vehicles",
       ...vehicleFitments.map((fitment) => `/vehicles/${fitment.make}`),
       ...vehicleFitments.map((fitment) => `/vehicles/${fitment.make}/${fitment.model}`),
       ...vehicleFitments
-        .filter((fitment) => hasProductsForSize(fitment.size, fitment.intent))
+        .filter((fitment) => {
+          const path = `/vehicles/${fitment.make}/${fitment.model}/${fitment.year}`;
+          const products = getStrictProducts({ size: fitment.size, intent: fitment.intent, limit: 1 });
+          return isSitemapEligible(productQualityContext({ products, path }));
+        })
         .map((fitment) => `/vehicles/${fitment.make}/${fitment.model}/${fitment.year}`)
     ]);
   }
 
-  if (section === "brand-pages") {
+  if (canonicalSection === "brands") {
     return unique([
       "/brands",
       ...priorityBrands.map((brand) => `/brands/${brandSlug(brand)}`)
     ]);
   }
 
-  if (section === "commercial-pages") {
+  if (canonicalSection === "commercial") {
     const sizes = commercialSizes();
     return unique([
       "/commercial-truck-tires",
@@ -69,10 +103,10 @@ export function sitemapPathsForSection(section) {
     ]);
   }
 
-  if (section === "tire-university") {
+  if (canonicalSection === "university") {
     return unique([
       "/tire-university",
-      ...articles.map((article) => `/tire-university/${article.slug}`),
+      ...indexableArticles.map((article) => `/tire-university/${article.slug}`),
       "/about",
       "/about/advertiser-disclosure",
       "/about/how-we-make-money",
@@ -84,7 +118,7 @@ export function sitemapPathsForSection(section) {
     ]);
   }
 
-  if (section === "deals-pages") {
+  if (canonicalSection === "deals-pages") {
     return unique([
       "/",
       "/shop-tires",

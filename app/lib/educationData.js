@@ -42,9 +42,65 @@ export const articleGroups = [
   }
 ];
 
-export const articles = articleGroups.flatMap((group) =>
-  group.articles.map(([title, slug]) => ({ title, slug, group: group.title }))
+const generatedArticleGroups = [
+  {
+    title: "Vehicle Tire Guides",
+    templates: [
+      ["Toyota RAV4 Tire Guide", "toyota-rav4-tire-guide"],
+      ["Toyota Camry Tire Guide", "toyota-camry-tire-guide"],
+      ["Toyota Corolla Tire Guide", "toyota-corolla-tire-guide"],
+      ["Honda Civic Tire Guide", "honda-civic-tire-guide"],
+      ["Honda CR-V Tire Guide", "honda-cr-v-tire-guide"],
+      ["Ford F-150 Tire Guide", "ford-f150-tire-guide"],
+      ["Nissan Rogue Tire Guide", "nissan-rogue-tire-guide"],
+      ["Jeep Wrangler Tire Guide", "jeep-wrangler-tire-guide"],
+      ["Chevrolet Silverado Tire Guide", "chevrolet-silverado-tire-guide"],
+      ["Subaru Outback Tire Guide", "subaru-outback-tire-guide"]
+    ]
+  },
+  {
+    title: "Tire Category Guides",
+    templates: [
+      ["All-Season vs All-Weather Tires", "all-season-vs-all-weather-tires"],
+      ["Touring vs Performance Tires", "touring-vs-performance-tires"],
+      ["Highway vs All-Terrain Tires", "highway-vs-all-terrain-tires"],
+      ["Winter Tires vs Snow-Rated All-Weather Tires", "winter-vs-snow-rated-all-weather-tires"],
+      ["Mud-Terrain vs All-Terrain Tires", "mud-terrain-vs-all-terrain-tires"],
+      ["Quiet Tires for Highway Driving", "quiet-tires-for-highway-driving"],
+      ["Best Tire Types for Wet Roads", "best-tire-types-for-wet-roads"],
+      ["Summer Tires vs All-Season Tires", "summer-vs-all-season-tires"],
+      ["Truck Tires for Towing", "truck-tires-for-towing"],
+      ["Fuel-Efficient Truck Tires", "fuel-efficient-truck-tires"]
+    ]
+  },
+  {
+    title: "Fleet Guides",
+    templates: [
+      ["Fleet Tire Cost Guide", "fleet-tire-cost-guide"],
+      ["Cost Per Mile for Truck Tires", "cost-per-mile-truck-tires-guide"],
+      ["Fleet Tire Maintenance Checklist", "fleet-tire-maintenance-checklist"],
+      ["Pre-Trip Tire Inspection Guide", "pre-trip-tire-inspection-guide"],
+      ["DOT Tire Regulation Basics", "dot-tire-regulation-basics"],
+      ["Commercial Tire Retread Planning", "commercial-tire-retread-planning"],
+      ["Long-Haul Tire Replacement Planning", "long-haul-tire-replacement-planning"],
+      ["Regional Haul Tire Planning", "regional-haul-tire-planning"],
+      ["Mixed-Service Truck Tire Guide", "mixed-service-truck-tire-guide"],
+      ["Commercial Trailer Tire Buying Guide", "commercial-trailer-tire-buying-guide"]
+    ]
+  }
+];
+
+const seedArticles = articleGroups.flatMap((group) =>
+  group.articles.map(([title, slug]) => ({ title, slug, group: group.title, indexable: true, depth: "full" }))
 );
+
+const generatedArticles = generatedArticleGroups.flatMap((group) =>
+  group.templates.map(([title, slug]) => ({ title, slug, group: group.title, indexable: false, depth: "brief" }))
+);
+
+export const articles = [...seedArticles, ...generatedArticles];
+
+export const indexableArticles = articles.filter((article) => article.indexable);
 
 export function getArticle(slug = "") {
   return articles.find((article) => article.slug === slug);

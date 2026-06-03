@@ -7,7 +7,7 @@ import { getTireResults } from "../../../lib/getTireResults";
 import { getInternalLinks } from "../../../lib/internalLinks";
 import { isCommercialTireSize } from "../../../lib/getRelatedSizes";
 import { breadcrumbSchema, faqSchema, itemListSchema } from "../../../lib/schema";
-import { descriptionForTireIntent, labelForIntent, robotsForPage, sitemapIntents, titleForTireIntent } from "../../../lib/seo";
+import { descriptionForTireIntent, faqsForTireIntent, introForTireIntent, labelForIntent, robotsForPage, sitemapIntents, titleForTireIntent } from "../../../lib/seo";
 import { getRelatedSizeCards, getStrictProducts, sizeToSlug, slugToSize, tireSizes } from "../../../lib/tireData";
 
 const intents = sitemapIntents;
@@ -43,16 +43,8 @@ export default function TireIntentPage({ params }) {
   const relatedSizeCards = getRelatedSizeCards(size, { type: commercialPage ? "commercial" : "passenger", limit: 6 });
   const path = `/tires/${params.size}/${params.intent}`;
   const internalLinks = getInternalLinks({ size, commercial: commercialPage });
-  const faqs = [
-    {
-      question: `What makes a ${label.toLowerCase()} ${size} tire page useful?`,
-      answer: "The page should keep exact-size results separate, show retailer paths, explain the use case, and remind shoppers to confirm fitment before buying."
-    },
-    {
-      question: `Are related sizes a direct replacement for ${size}?`,
-      answer: "No. Related sizes are research links only. Confirm the exact tire size, load range, speed rating, and fitment with the placard, sidewall, retailer, or installer."
-    }
-  ];
+  const intro = introForTireIntent(size, params.intent);
+  const faqs = faqsForTireIntent(size, params.intent);
 
   return (
     <>
@@ -63,7 +55,7 @@ export default function TireIntentPage({ params }) {
         <div className="section-heading">
           <p className="kicker">Intent-focused tire comparison</p>
           <h1>{label} {size} tires</h1>
-          <p>Main results only include {size} tires that match this page intent. Related sizes are separated below so shoppers do not confuse them with exact matches.</p>
+          <p>{intro}</p>
         </div>
         {products.length ? (
           <ProductGrid products={products} placement={`intent-${params.intent}`} pageContext={{ size, size_slug: params.size, type: pageType, position: params.intent }} />

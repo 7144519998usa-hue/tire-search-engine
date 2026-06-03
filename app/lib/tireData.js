@@ -28,7 +28,7 @@ export const commercialPriorityPages = [
   "/tires/445-50-r22-5"
 ];
 
-export const vehicleFitments = [
+const seedVehicleFitments = [
   {
     make: "tesla",
     model: "model-3",
@@ -255,6 +255,45 @@ export const vehicleFitments = [
     focus: "pickup all-terrain, highway, and towing tire options"
   }
 ];
+
+const vehicleExpansionModels = [
+  { make: "toyota", model: "rav4", years: ["2019", "2020", "2021", "2022", "2023", "2024", "2025"], size: "225/65R17", intent: "all-season", focus: "SUV replacement tires with trim and wheel-package confirmation" },
+  { make: "toyota", model: "camry", years: ["2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"], size: "235/45R18", intent: "all-season", focus: "commuter touring tires, quiet ride, and installed options" },
+  { make: "toyota", model: "corolla", years: ["2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"], size: "195/65R15", intent: "all-season", focus: "commuter all-season replacement tires and value-focused retailer paths" },
+  { make: "honda", model: "civic", years: ["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"], size: "235/45R18", intent: "all-season", focus: "daily-driver all-season tires and winter tire paths" },
+  { make: "honda", model: "cr-v", years: ["2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"], size: "235/60R18", intent: "all-season", focus: "SUV replacement tires, touring comfort, and all-weather options" },
+  { make: "ford", model: "f-150", years: ["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"], size: "275/60R20", intent: "all-terrain", focus: "pickup truck all-terrain, highway, and towing tire options" },
+  { make: "chevrolet", model: "silverado", years: ["2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"], size: "275/60R20", intent: "all-terrain", focus: "pickup tire options for highway, towing, and all-terrain use" },
+  { make: "nissan", model: "rogue", years: ["2018", "2019", "2020", "2021", "2022", "2023", "2024"], size: "225/65R17", intent: "all-season", focus: "crossover touring and all-weather tire replacement paths" },
+  { make: "tesla", model: "model-3", years: ["2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"], size: "235/45R18", intent: "all-season", focus: "EV tire replacement options and quiet commuting" },
+  { make: "tesla", model: "model-y", years: ["2020", "2021", "2022", "2023", "2024", "2025"], size: "255/45R19", intent: "all-season", focus: "EV SUV tire replacement, quiet highway driving, and long-wear options" },
+  { make: "jeep", model: "wrangler", years: ["2018", "2019", "2020", "2021", "2022", "2023", "2024"], size: "265/70R17", intent: "all-terrain", focus: "all-terrain and mud-terrain tire paths for Wrangler shoppers" },
+  { make: "ram", model: "1500", years: ["2019", "2020", "2021", "2022", "2023", "2024"], size: "275/60R20", intent: "all-terrain", focus: "pickup all-terrain, highway, and towing tire options" }
+];
+
+function generatedVehicleFitments() {
+  const seeded = new Map(seedVehicleFitments.map((fitment) => [`${fitment.make}-${fitment.model}-${fitment.year}`, fitment]));
+  for (const model of vehicleExpansionModels) {
+    for (const year of model.years) {
+      const key = `${model.make}-${model.model}-${year}`;
+      if (!seeded.has(key)) {
+        seeded.set(key, {
+          make: model.make,
+          model: model.model,
+          year,
+          label: `${model.make} ${model.model} ${year}`.replace(/\b\w/g, (letter) => letter.toUpperCase()).replace("F-150", "F-150"),
+          size: model.size,
+          intent: model.intent,
+          focus: model.focus,
+          generated: true
+        });
+      }
+    }
+  }
+  return [...seeded.values()].sort((a, b) => `${a.make}-${a.model}-${a.year}`.localeCompare(`${b.make}-${b.model}-${b.year}`));
+}
+
+export const vehicleFitments = generatedVehicleFitments();
 
 export const tireSizes = [
   "295/75R22.5",
