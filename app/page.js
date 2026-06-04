@@ -122,16 +122,16 @@ export default function HomePage() {
       <section className="section shopping-path-section">
         <div className="section-heading compact-heading">
           <div>
-            <p className="kicker">Shop by the path that fits</p>
-            <h2>Use the homepage to reach useful tire pages faster.</h2>
+            <p className="kicker">Choose your tire shopping path</p>
+            <h2>Find the right tire page faster.</h2>
           </div>
           <a href="/shop-tires">Open shopping hub</a>
         </div>
         <div className="shopping-path-grid">
           <article className="shopping-path-card is-featured">
-            <span>Passenger and SUV</span>
-            <h3>Start with exact tire size pages.</h3>
-            <p>Compare common replacement sizes for Camry, Civic, RAV4, CR-V, Rogue, and daily-driver SUVs before confirming fitment at the retailer.</p>
+            <span>Passenger and SUV tires</span>
+            <h3>Start with your exact tire size.</h3>
+            <p>Compare popular replacement sizes for Camry, Civic, RAV4, CR-V, Rogue, and daily-driver SUVs, then confirm fitment with the retailer.</p>
             <div className="mini-link-row">
               <a href="/tires/235-45-r18">235/45R18 tires</a>
               <a href="/tires/225-65-r17">225/65R17 tires</a>
@@ -139,27 +139,27 @@ export default function HomePage() {
             </div>
           </article>
           <article className="shopping-path-card">
-            <span>Tire Rack path</span>
-            <h3>Go straight to retailer-ready pages.</h3>
-            <p>Use exact-size pages with Tire Rack, SimpleTire, Priority Tire, Mavis, and Amazon fallback links shown in one place.</p>
+            <span>Retailer price paths</span>
+            <h3>Open retailer-ready tire pages.</h3>
+            <p>Use exact-size pages that collect Tire Rack, SimpleTire, Priority Tire, Mavis, and Amazon fallback links in one place.</p>
             <div className="mini-link-row">
               <a href="/tires/265-60-r18">265/60R18 Tire Rack path</a>
               <a href="/tires/275-60-r20">275/60R20 truck tires</a>
             </div>
           </article>
           <article className="shopping-path-card">
-            <span>Commercial priority</span>
-            <h3>Keep truck tire searches separate.</h3>
-            <p>Steer, drive, trailer, and fleet pages stay focused on commercial truck sizing instead of mixing with passenger tire results.</p>
+            <span>Commercial truck tires</span>
+            <h3>Keep heavy-duty searches focused.</h3>
+            <p>Steer, drive, trailer, and fleet pages are built around commercial truck sizing, not mixed with passenger tire results.</p>
             <div className="mini-link-row">
               <a href="/commercial-truck-tires/positions/steer">Steer tires</a>
               <a href="/tires/295-75-r22-5/drive">295/75R22.5 drive</a>
             </div>
           </article>
           <article className="shopping-path-card">
-            <span>Fitment reminder</span>
-            <h3>Confirm before checkout.</h3>
-            <p>Always verify tire size, load rating, speed rating, trim, wheel package, installation, shipping, and current price on the retailer site.</p>
+            <span>Fitment check</span>
+            <h3>Verify details before checkout.</h3>
+            <p>Confirm tire size, load rating, speed rating, trim, wheel package, installation, shipping, and current price on the retailer site.</p>
             <div className="mini-link-row">
               <a href="/tire-university/how-to-read-tire-size">Read tire size guide</a>
               <a href="/about/advertiser-disclosure">Affiliate disclosure</a>

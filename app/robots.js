@@ -16,7 +16,7 @@ export default function robots() {
             disallow: "/"
           }
         ],
-    sitemap: `${siteUrl}/sitemap.xml`,
+    sitemap: [`${siteUrl}/sitemap.xml`, `${siteUrl}/sitemap_index.xml`],
     host: siteUrl
   };
 }
