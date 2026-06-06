@@ -6,11 +6,24 @@ import { gaMeasurementId, isIndexable, siteName, siteUrl } from "./lib/site";
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
+  applicationName: siteName,
   title: {
     default: "Tire Search Engine | Compare Tire Prices, Truck Tires & Deals",
     template: "%s | Tire Search Engine"
   },
   description: "Compare commercial truck tires, passenger tires, Tire Rack options, Mavis installed-service choices, and Amazon marketplace listings by size, position, brand, and vehicle.",
+  openGraph: {
+    siteName,
+    type: "website",
+    url: siteUrl,
+    title: "Tire Search Engine",
+    description: "Compare tire prices, truck tires, vehicle fitment pages, retailer paths, and tire buying guides."
+  },
+  twitter: {
+    card: "summary",
+    title: "Tire Search Engine",
+    description: "Compare tire prices, truck tires, vehicle fitment pages, retailer paths, and tire buying guides."
+  },
   robots: isIndexable
     ? { index: true, follow: true }
     : { index: false, follow: true },
@@ -48,7 +61,7 @@ export default function RootLayout({ children }) {
           <p><strong>Find the right tire, faster.</strong> Tire Search Engine helps shoppers compare tire categories, retailer options, and replacement choices before visiting a merchant site.</p>
           <nav className="footer-links" aria-label="Footer navigation">
             <a href="/about/advertiser-disclosure">Affiliate Disclosure</a>
-            <a href="/about/how-we-make-money">How TireSearchEngine Works</a>
+            <a href="/about/how-we-make-money">How Tire Search Engine Works</a>
             <a href="/about/editorial-policy">Editorial Policy</a>
             <a href="/about/how-we-rank-offers">How We Rank Offers</a>
             <a href="/about/sources-methodology">Sources & Methodology</a>

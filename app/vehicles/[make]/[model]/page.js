@@ -114,7 +114,7 @@ export default function VehicleModelPage({ params }) {
         </div>
       </section>
       <InternalLinkPanel links={links} />
-      <p className="fitment-note">Reviewed by TireSearchEngine Editorial Team. Updated June 3, 2026. Sources: vehicle placard guidance, retailer fitment tools, tire sidewall specifications, and the TireSearchEngine methodology.</p>
+      <p className="fitment-note">Reviewed by the Tire Search Engine editorial team. Updated June 3, 2026. Sources: vehicle placard guidance, retailer fitment tools, tire sidewall specifications, and the Tire Search Engine methodology.</p>
     </section>
     </>
   );

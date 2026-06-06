@@ -87,7 +87,7 @@ export default function CommercialStatePage({ params }) {
           </div>
         </section>
         <InternalLinkPanel links={links} />
-        <p className="fitment-note">Reviewed by TireSearchEngine Editorial Team. Updated June 3, 2026. Sources: commercial tire application data, fleet tire planning guidance, retailer availability paths, and the TireSearchEngine methodology.</p>
+        <p className="fitment-note">Reviewed by the Tire Search Engine editorial team. Updated June 3, 2026. Sources: commercial tire application data, fleet tire planning guidance, retailer availability paths, and the Tire Search Engine methodology.</p>
       </section>
     </>
   );

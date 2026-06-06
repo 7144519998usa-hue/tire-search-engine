@@ -79,7 +79,7 @@ export default function ComparisonPage({ params }) {
           </div>
         </section>
         <InternalLinkPanel links={links} />
-        <p className="fitment-note">Reviewed by TireSearchEngine Editorial Team. Updated June 3, 2026. Sources: retailer fitment tools, manufacturer tire information, commercial tire application notes, and the TireSearchEngine methodology.</p>
+        <p className="fitment-note">Reviewed by the Tire Search Engine editorial team. Updated June 3, 2026. Sources: retailer fitment tools, manufacturer tire information, commercial tire application notes, and the Tire Search Engine methodology.</p>
       </article>
     </>
   );
