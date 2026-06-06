@@ -58,8 +58,8 @@ export function webSiteSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": absoluteUrl("/#website"),
     name: siteName,
-    alternateName: "tiresearchengine.com",
     url: absoluteUrl("/"),
     potentialAction: {
       "@type": "SearchAction",
@@ -73,8 +73,8 @@ export function organizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": absoluteUrl("/#organization"),
     name: siteName,
-    alternateName: "tiresearchengine.com",
     url: absoluteUrl("/"),
     sameAs: []
   };
