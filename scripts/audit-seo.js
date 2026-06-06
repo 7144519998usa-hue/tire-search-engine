@@ -13,6 +13,8 @@ const requiredFiles = [
   "app/lib/faqData.js",
   "app/lib/comparisonData.js",
   "app/lib/commercialMarkets.js",
+  "app/lib/cjProductCatalog.js",
+  "app/lib/cjProductAdapter.js",
   "app/robots.js",
   "app/commercial-truck-tires/page.js",
   "app/commercial-truck-tires/positions/[position]/page.js",
@@ -24,7 +26,8 @@ const requiredFiles = [
   "app/compare/page.js",
   "app/compare/[slug]/page.js",
   "app/commercial-truck-tires/states/[state]/page.js",
-  "app/go/[merchant]/route.js"
+  "app/go/[merchant]/route.js",
+  "scripts/import-cj-products.mjs"
 ];
 
 const missing = requiredFiles.filter((file) => !fs.existsSync(path.join(root, file)));
@@ -52,6 +55,9 @@ const faqSource = fs.readFileSync(path.join(root, "app/lib/faqData.js"), "utf8")
 const comparisonSource = fs.readFileSync(path.join(root, "app/lib/comparisonData.js"), "utf8");
 const commercialMarketsSource = fs.readFileSync(path.join(root, "app/lib/commercialMarkets.js"), "utf8");
 const educationSource = fs.readFileSync(path.join(root, "app/lib/educationData.js"), "utf8");
+const cjAdapterSource = fs.readFileSync(path.join(root, "app/lib/cjProductAdapter.js"), "utf8");
+const cjImportSource = fs.readFileSync(path.join(root, "scripts/import-cj-products.mjs"), "utf8");
+const packageSource = fs.readFileSync(path.join(root, "package.json"), "utf8");
 const layoutSource = fs.readFileSync(path.join(root, "app/layout.js"), "utf8");
 const middlewareSource = fs.existsSync(path.join(root, "middleware.js"))
   ? fs.readFileSync(path.join(root, "middleware.js"), "utf8")
@@ -81,6 +87,9 @@ const assertions = [
   ["Tire Rack env is supported", tireDataSource.includes("TSE_TIRE_RACK_CJ_TEXT_LINK")],
   ["Mavis CJ fallback is supported", tireDataSource.includes("TSE_MAVIS_CJ_TEXT_LINK")],
   ["Amazon backup is supported", tireDataSource.includes("TSE_AMAZON_ASSOCIATE_TAG")],
+  ["CJ product catalog can be imported", tireDataSource.includes("cjProductCatalog") && packageSource.includes("import:cj")],
+  ["CJ product feed normalizer is present", cjAdapterSource.includes("normalizeCjProduct") && cjAdapterSource.includes("parseTireSize")],
+  ["CJ product API/CSV importer is present", cjImportSource.includes("CJ_PERSONAL_ACCESS_TOKEN") && cjImportSource.includes("--csv")],
   ["Preview indexing flag is supported", siteSource.includes("NEXT_PUBLIC_INDEXABLE")],
   ["canonical host redirect is supported", middlewareSource.includes("www.tiresearchengine.com") && middlewareSource.includes("NextResponse.redirect")],
   ["legacy landing pages preserve high-value URLs", legacySource.includes("best-truck-tires") && legacySource.includes("semi-truck-tires") && legacySource.includes("best-winter-tires")]

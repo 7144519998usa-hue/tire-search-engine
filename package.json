@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "import:cj": "node scripts/import-cj-products.mjs",
     "audit:seo": "node scripts/audit-seo.js",
     "qa:acceptance": "node scripts/qa-acceptance.js"
   },

@@ -1,5 +1,6 @@
 import { formatTireSize, normalizeTireSize, parseTireSize } from "./tireSizeParser.js";
 import { getRelatedSizes, isCommercialTireSize } from "./getRelatedSizes.js";
+import cjProductCatalog from "./cjProductCatalog.js";
 
 const tireRackClickBase = process.env.TSE_TIRE_RACK_CJ_CLICK_BASE || "https://www.anrdoezrs.net/click-101740681-13697786";
 const tireRackQuickLink = process.env.TSE_TIRE_RACK_CJ_TEXT_LINK || "";
@@ -973,6 +974,7 @@ function buildRetailerCatalog() {
 
 export const productCatalog = [
   ...seedProductCatalog,
+  ...cjProductCatalog,
   ...buildRetailerCatalog()
 ];
 
