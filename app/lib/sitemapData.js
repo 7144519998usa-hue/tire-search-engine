@@ -137,7 +137,7 @@ export function sitemapPathsForSection(section) {
       "/ev-tires",
       "/models",
       "/contact",
-      ...legacyLandingPaths.slice(0, 30)
+      ...legacyLandingPaths
     ]);
   }
 

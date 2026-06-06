@@ -11,6 +11,7 @@ import { isFakeModel } from "../app/lib/rankTireResults.js";
 import { parseMalformedNearSlug, parseTireSize, canonicalizeSizeUrl } from "../app/lib/tireSizeParser.js";
 import { getRelatedSizeCards, getStrictProducts, productCatalog, sizeToSlug } from "../app/lib/tireData.js";
 import { sitemapPathsForSection } from "../app/lib/sitemapData.js";
+import { legacyLandingPages } from "../app/lib/legacyPages.js";
 import { readFileSync } from "node:fs";
 
 function assert(condition, message) {
@@ -48,6 +49,14 @@ for (const product of exact) {
   assert([product.category, product.position, product.bestFor].join(" ").toLowerCase().includes("all-terrain"), `Wrong intent leaked into all-terrain: ${product.brand} ${product.model}`);
 }
 
+const allTerrain27555 = getStrictProducts({ size: "275/55R20", intent: "all-terrain" });
+assert(allTerrain27555.length >= 2, "275/55R20 all-terrain product coverage is too thin");
+assert(allTerrain27555.some((product) => product.brand === "Nitto" && product.model.includes("Terra Grappler G3")), "Nitto Terra Grappler G3 missing from 275/55R20 all-terrain coverage");
+
+const winter23545 = getStrictProducts({ size: "235/45R18", intent: "winter" });
+assert(winter23545.length >= 2, "235/45R18 winter product coverage is too thin");
+assert(winter23545.some((product) => product.model.includes("Pilot Alpin 5")), "Michelin Pilot Alpin 5 missing from winter coverage");
+
 const drive = getTireResults({ size: "11R22.5", intent: "drive" }).exactProducts;
 for (const product of drive) {
   assert(sizeToSlug(product.size) === "11r22-5", `Wrong size leaked into 11R22.5 drive: ${product.size}`);
@@ -65,6 +74,10 @@ assert(sitemapPathsForSection("vehicle-pages").some((path) => path.includes("/ve
 assert(sitemapPathsForSection("university").every((path) => !path.includes("toyota-rav4-tire-guide")), "Brief generated article entered indexable sitemap");
 assert(sitemapPathsForSection("comparisons").includes("/compare/michelin-vs-goodyear"), "Comparison page missing from sitemap");
 assert(sitemapPathsForSection("commercial").includes("/commercial-truck-tires/states/texas"), "Commercial state page missing from sitemap");
+assert(sitemapPathsForSection("deals-pages").includes("/winter-tires-on-sale"), "Winter sale landing page missing from deals sitemap");
+assert(sitemapPathsForSection("deals-pages").includes("/275-55r20-all-terrain-tires"), "275/55R20 all-terrain landing page missing from deals sitemap");
+assert(legacyLandingPages["best-all-season-truck-tires"], "Best all-season truck tires landing page missing");
+assert(legacyLandingPages["honda-cr-v-tires"], "Honda CR-V spelling variant landing page missing");
 assert(articles.length > indexableArticles.length, "Tire University backend expansion is not separated from indexable articles");
 assert(comparisons.length >= 8, "High-value comparison coverage is too small");
 assert(commercialStates.length >= 7, "Commercial state coverage is too small");

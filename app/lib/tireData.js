@@ -507,6 +507,27 @@ export const productCatalog = [
     image: "https://www.tirerack.com/content/dam/tirerack/desktop/homepage/tireRackLogo.png"
   },
   {
+    id: "michelin-pilot-alpin-5-235-45r18",
+    brand: "Michelin",
+    model: "Pilot Alpin 5",
+    size: "235/45R18",
+    category: "Performance winter passenger",
+    position: "winter",
+    bestFor: "235/45R18 winter tire shoppers comparing cold-weather traction, performance handling, and retailer availability",
+    priceSnapshot: "Live price at retailer checkout",
+    tireRackUrl: "https://www.tirerack.com/tires/tires.jsp?partnum=345VR8PA5XL&tireMake=Michelin&tireModel=Pilot+Alpin+5"
+  },
+  {
+    id: "bridgestone-blizzak-ws90-235-45r18",
+    brand: "Bridgestone",
+    model: "Blizzak WS90",
+    size: "235/45R18",
+    category: "Winter passenger",
+    position: "winter",
+    bestFor: "Snow tire shoppers comparing 235/45R18 winter traction, ice confidence, and retailer price paths",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
     id: "michelin-primacy-tour-as",
     brand: "Michelin",
     model: "Primacy Tour A/S",
@@ -813,6 +834,28 @@ export const productCatalog = [
     position: "all-terrain",
     bestFor: "Daily-driven trucks needing all-terrain traction without giving up highway comfort",
     priceSnapshot: "Live price at retailer checkout"
+  },
+  {
+    id: "nitto-terra-grappler-g3-275-55r20",
+    brand: "Nitto",
+    model: "Terra Grappler G3",
+    size: "275/55R20",
+    category: "All-terrain truck",
+    position: "all-terrain",
+    bestFor: "275/55R20 truck and SUV shoppers comparing all-terrain traction, highway comfort, and retailer price paths",
+    priceSnapshot: "Live price at retailer checkout",
+    tireRackUrl: "https://www.tirerack.com/tires/tires.jsp?partnum=755TR0TEG3XL&tireMake=Nitto&tireModel=Terra+Grappler+G3"
+  },
+  {
+    id: "goodyear-wrangler-workhorse-at2-275-55r20",
+    brand: "Goodyear",
+    model: "Wrangler Workhorse AT2",
+    size: "275/55R20",
+    category: "All-terrain truck",
+    position: "all-terrain",
+    bestFor: "Full-size truck and SUV shoppers comparing 275/55R20 all-terrain tires for daily driving and mixed-road use",
+    priceSnapshot: "Live price at retailer checkout",
+    tireRackUrl: "https://www.tirerack.com/tires/tires.jsp?partnum=755HR0WWAT2XL&tireMake=Goodyear&tireModel=Wrangler+Workhorse+AT2"
   },
   {
     id: "pirelli-scorpion-all-season-plus-3-255-55r20",

@@ -160,6 +160,76 @@ export const legacyLandingPages = {
     intent: "winter",
     canonical: "/snow-tires"
   },
+  "all-season-snow-tires": {
+    title: "All-Season Snow Tires",
+    description: "Compare all-season, all-weather, and winter tire paths for shoppers looking for better cold-weather traction without losing daily-driving comfort.",
+    size: "225/65R17",
+    intent: "all-weather",
+    canonical: "/all-season-snow-tires"
+  },
+  "winter-tires-on-sale": {
+    title: "Winter Tires on Sale",
+    description: "Compare winter tire price paths, snow tire options, retailer checkout links, and fitment checks before buying.",
+    size: "235/45R18",
+    intent: "winter",
+    canonical: "/winter-tires-on-sale"
+  },
+  "winter-tires-for-sale": {
+    title: "Winter Tires for Sale",
+    description: "Compare winter tires for sale by size, vehicle type, retailer path, and current checkout availability.",
+    size: "235/45R18",
+    intent: "winter",
+    canonical: "/winter-tires-for-sale"
+  },
+  "winter-tire-for-sale": {
+    title: "Winter Tire for Sale",
+    description: "Compare winter tire options, snow tire categories, and retailer paths before confirming fitment and price.",
+    size: "235/45R18",
+    intent: "winter",
+    canonical: "/winter-tire-for-sale"
+  },
+  "winter-tires-price": {
+    title: "Winter Tires Price",
+    description: "Compare winter tire price paths, snow tire options, retailer links, and fitment checks by tire size.",
+    size: "235/45R18",
+    intent: "winter",
+    canonical: "/winter-tires-price"
+  },
+  "winter-tire-cost": {
+    title: "Winter Tire Cost",
+    description: "Compare winter tire cost factors, snow tire price paths, installation checks, and retailer options.",
+    size: "235/45R18",
+    intent: "winter",
+    canonical: "/winter-tire-cost"
+  },
+  "cheap-snow-tires": {
+    title: "Cheap Snow Tires",
+    description: "Compare budget snow tire paths, winter tire deals, retailer checkout options, and fitment notes before buying.",
+    size: "235/45R18",
+    intent: "winter",
+    canonical: "/cheap-snow-tires"
+  },
+  "affordable-snow-tires": {
+    title: "Affordable Snow Tires",
+    description: "Compare affordable snow tire options, winter tire retailer paths, and size-specific fitment checks.",
+    size: "235/45R18",
+    intent: "winter",
+    canonical: "/affordable-snow-tires"
+  },
+  "snow-tire-for-sale": {
+    title: "Snow Tire for Sale",
+    description: "Compare snow tire purchase paths, winter tire sizes, retailer links, and fitment checks before checkout.",
+    size: "235/45R18",
+    intent: "winter",
+    canonical: "/snow-tire-for-sale"
+  },
+  "buy-snow-tires": {
+    title: "Buy Snow Tires",
+    description: "Compare snow tire retailer paths, winter tire sizes, installation options, and fitment checks before buying.",
+    size: "235/45R18",
+    intent: "winter",
+    canonical: "/buy-snow-tires"
+  },
   "best-summer-tires": {
     title: "Best Summer Tires",
     description: "Compare summer tires, performance tire options, warm-weather grip, and retailer checkout links.",
@@ -223,6 +293,34 @@ export const legacyLandingPages = {
     intent: "truck",
     canonical: "/f150-truck-tires"
   },
+  "best-all-season-truck-tires": {
+    title: "Best All-Season Truck Tires",
+    description: "Compare all-season truck tires, highway tire options, all-terrain alternatives, and retailer price paths.",
+    size: "275/60R20",
+    intent: "truck",
+    canonical: "/best-all-season-truck-tires"
+  },
+  "best-all-around-truck-tires": {
+    title: "Best All-Around Truck Tires",
+    description: "Compare truck tires for daily driving, all-terrain use, towing, highway comfort, and retailer checkout paths.",
+    size: "275/60R20",
+    intent: "truck",
+    canonical: "/best-all-around-truck-tires"
+  },
+  "best-pickup-truck-tires": {
+    title: "Best Pickup Truck Tires",
+    description: "Compare pickup truck tires for F-150, Silverado, Tacoma, Ram 1500, towing, highway driving, and mixed-road use.",
+    size: "275/60R20",
+    intent: "truck",
+    canonical: "/best-pickup-truck-tires"
+  },
+  "cheap-truck-tires": {
+    title: "Cheap Truck Tires",
+    description: "Compare budget truck tire paths, value-focused all-terrain options, retailer links, and fitment checks.",
+    size: "275/60R20",
+    intent: "budget",
+    canonical: "/cheap-truck-tires"
+  },
   "best-tires-for-toyota-tacoma": {
     title: "Best Tires for Toyota Tacoma",
     description: "Compare Toyota Tacoma tires, all-terrain options, truck tire choices, and retailer deals.",
@@ -279,12 +377,33 @@ export const legacyLandingPages = {
     intent: "all-season",
     canonical: "/best-tires-for-honda-crv"
   },
+  "best-tires-for-honda-cr-v": {
+    title: "Best Tires for Honda CR-V",
+    description: "Compare Honda CR-V tire options for all-season driving, winter use, comfort, and retailer choices.",
+    size: "235/60R18",
+    intent: "all-season",
+    canonical: "/best-tires-for-honda-cr-v"
+  },
   "honda-crv-tires": {
     title: "Honda CR-V Tires",
     description: "Compare Honda CR-V tires by size, all-season value, winter options, and retailer.",
     size: "225/65R17",
     intent: "all-season",
     canonical: "/honda-crv-tires"
+  },
+  "honda-cr-v-tires": {
+    title: "Honda CR-V Tires",
+    description: "Compare Honda CR-V tires by size, all-season value, winter options, and retailer.",
+    size: "235/60R18",
+    intent: "all-season",
+    canonical: "/honda-cr-v-tires"
+  },
+  "tires-for-honda-crv": {
+    title: "Tires for Honda CR-V",
+    description: "Compare tires for Honda CR-V shoppers by size, all-season category, winter needs, and retailer checkout path.",
+    size: "235/60R18",
+    intent: "all-season",
+    canonical: "/tires-for-honda-crv"
   },
   "nissan-rogue-tires": {
     title: "Nissan Rogue Tires",
@@ -306,6 +425,55 @@ export const legacyLandingPages = {
     size: "265/70R17",
     intent: "all-terrain",
     canonical: "/bf-goodrich-tires"
+  },
+  "275-55r20-all-terrain-tires": {
+    title: "275/55R20 All-Terrain Tires",
+    description: "Compare 275/55R20 all-terrain tires for trucks and SUVs with Tire Rack paths, retailer links, and fitment checks.",
+    size: "275/55R20",
+    intent: "all-terrain",
+    canonical: "/275-55r20-all-terrain-tires"
+  },
+  "275-55-r20-all-terrain-tires": {
+    title: "275/55R20 All-Terrain Tires",
+    description: "Compare 275/55R20 all-terrain tires for trucks and SUVs with retailer price paths and fitment checks.",
+    size: "275/55R20",
+    intent: "all-terrain",
+    canonical: "/275-55-r20-all-terrain-tires"
+  },
+  "all-terrain-275-55r20-tires": {
+    title: "All-Terrain 275/55R20 Tires",
+    description: "Compare all-terrain 275/55R20 tire options for light trucks, SUVs, mixed roads, and retailer checkout paths.",
+    size: "275/55R20",
+    intent: "all-terrain",
+    canonical: "/all-terrain-275-55r20-tires"
+  },
+  "275-55r20-tires": {
+    title: "275/55R20 Tires",
+    description: "Compare 275/55R20 tires by all-terrain use, retailer path, size fitment, and current checkout availability.",
+    size: "275/55R20",
+    intent: "all-terrain",
+    canonical: "/275-55r20-tires"
+  },
+  "nitto-terra-grappler-g3-review": {
+    title: "Nitto Terra Grappler G3 Review",
+    description: "Compare Nitto Terra Grappler G3 tire paths, 275/55R20 all-terrain fitment, retailer links, and buying checks.",
+    size: "275/55R20",
+    intent: "all-terrain",
+    canonical: "/nitto-terra-grappler-g3-review"
+  },
+  "goodyear-assurance-all-season": {
+    title: "Goodyear Assurance All-Season",
+    description: "Compare Goodyear Assurance All-Season tire paths, common sizes, retailer links, and fitment checks.",
+    size: "195/65R15",
+    intent: "all-season",
+    canonical: "/goodyear-assurance-all-season"
+  },
+  "is-firestone-tires-good": {
+    title: "Are Firestone Tires Good?",
+    description: "Compare Firestone tire options, SUV touring tires, all-season categories, retailer links, and fitment checks before buying.",
+    size: "225/65R17",
+    intent: "all-season",
+    canonical: "/is-firestone-tires-good"
   }
 };
 
