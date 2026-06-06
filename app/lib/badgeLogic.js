@@ -12,7 +12,7 @@ export function getTireBadges(product, pageContext = {}) {
 
   if (isRelated) {
     badges.push(pageType.includes("commercial") ? "Related Commercial Size" : "Related Size");
-  } else if (pageContext.isFallback) {
+  } else if (pageContext.isFallback || product?.retailerSearch) {
     badges.push("Retailer Search");
   } else if (contextSize && productSizeSlug === contextSize && !(pageType.includes("passenger") && isCommercialProduct)) {
     badges.push("Exact Size Match");

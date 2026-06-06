@@ -373,7 +373,7 @@ export const commercialPositions = {
   }
 };
 
-export const productCatalog = [
+const seedProductCatalog = [
   {
     id: "michelin-x-line-energy-z",
     brand: "Michelin",
@@ -879,6 +879,103 @@ export const productCatalog = [
   }
 ];
 
+const retailerCatalogBrands = [
+  {
+    brand: "Tire Rack",
+    model: "Exact-Size Tire Search",
+    merchant: "Tire Rack",
+    categoryPrefix: "Tire-focused retailer",
+    bestFor: "checking Tire Rack availability, fitment tools, shipping, installation options, and current checkout pricing",
+    urlBuilder: buildTireRackUrl,
+    primary: true
+  },
+  {
+    brand: "Mavis",
+    model: "Installed Tire Search",
+    merchant: "Mavis",
+    categoryPrefix: "Installed-service retailer",
+    bestFor: "checking installed tire options, local service availability, fitment, and current checkout pricing",
+    urlBuilder: buildMavisUrl
+  },
+  {
+    brand: "SimpleTire",
+    model: "Online Tire Search",
+    merchant: "SimpleTire",
+    categoryPrefix: "Online tire retailer",
+    bestFor: "comparing online tire availability, shipped tire options, fitment checks, and current checkout pricing",
+    urlBuilder: buildSimpleTireUrl
+  },
+  {
+    brand: "Priority Tire",
+    model: "Value Tire Search",
+    merchant: "Priority Tire",
+    categoryPrefix: "Value-focused retailer",
+    bestFor: "checking value-focused tire listings, availability, shipping, and current checkout pricing",
+    urlBuilder: buildPriorityTireUrl
+  },
+  {
+    brand: "Amazon",
+    model: "Marketplace Tire Search",
+    merchant: "Amazon",
+    categoryPrefix: "Marketplace tire search",
+    bestFor: "checking marketplace tire selection, seller availability, shipping, and current checkout pricing",
+    urlBuilder: ({ query }) => buildAmazonUrl({ query })
+  }
+];
+
+function categoryForRetailerSize(size = "", retailer = {}) {
+  const commercial = isCommercialTireSize(size);
+  return `${retailer.categoryPrefix} ${commercial ? "commercial truck tires" : "passenger and SUV tires"}`;
+}
+
+function positionForRetailerSize(size = "", retailer = {}) {
+  if (!isCommercialTireSize(size)) {
+    return "all-season";
+  }
+
+  if (retailer.brand === "Mavis" || retailer.brand === "Amazon") {
+    return "commercial";
+  }
+
+  return "drive";
+}
+
+function buildRetailerCatalog() {
+  const existingIds = new Set(seedProductCatalog.map((product) => product.id));
+
+  return tireSizes.flatMap((size) => retailerCatalogBrands.map((retailer) => {
+    const query = `${size} tires`;
+    const id = `${retailer.brand}-${size}-retailer-search`
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    if (existingIds.has(id)) {
+      return null;
+    }
+
+    return {
+      id,
+      brand: retailer.brand,
+      model: retailer.model,
+      size,
+      category: categoryForRetailerSize(size, retailer),
+      position: positionForRetailerSize(size, retailer),
+      bestFor: `${size} shoppers ${retailer.bestFor}.`,
+      priceSnapshot: "Confirm current retailer price",
+      isVerified: false,
+      retailerSearch: true,
+      tireRackUrl: retailer.primary ? retailer.urlBuilder({ query, size }) : undefined,
+      merchantUrl: retailer.urlBuilder({ query, size })
+    };
+  }).filter(Boolean));
+}
+
+export const productCatalog = [
+  ...seedProductCatalog,
+  ...buildRetailerCatalog()
+];
+
 function encode(value = "") {
   return encodeURIComponent(String(value || "").trim());
 }
@@ -1029,12 +1126,22 @@ export function getMerchantOffers(product) {
   const tireRackUrl = product.tireRackUrl || buildTireRackUrl({ query, size: product.size });
   const offers = [];
 
+  if (product.retailerSearch && product.merchantUrl) {
+    offers.push({
+      merchant: product.brand,
+      label: product.brand === "Mavis" ? "Check Installed Options" : `Search ${product.brand}`,
+      href: product.merchantUrl,
+      type: "primary",
+      note: product.brand === "Mavis" ? "Installed and local service" : "Retailer tire search"
+    });
+  }
+
   if (tireRackUrl) {
     offers.push({
       merchant: "Tire Rack",
       label: typeof product.price === "number" ? "Check Tire Rack Price" : "Check Tire Rack Price",
       href: tireRackUrl,
-      type: "primary",
+      type: offers.length ? "secondary" : "primary",
       note: "Tire-focused retailer"
     });
   }
@@ -1071,7 +1178,13 @@ export function getMerchantOffers(product) {
     note: "Marketplace selection"
   });
 
-  return offers;
+  const seen = new Set();
+  return offers.filter((offer) => {
+    const key = `${offer.merchant}-${offer.href}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 export function getProducts({ size = "", intent = "", commercialOnly = false, limit = 24 } = {}) {
