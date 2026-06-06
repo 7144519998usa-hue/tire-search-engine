@@ -3,7 +3,10 @@ const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.tires
 export const siteUrl = configuredSiteUrl.replace(/\/+$/g, "");
 export const siteName = "Tire Search Engine";
 export const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-RVN7E6EE7V";
-export const isIndexable = process.env.NEXT_PUBLIC_INDEXABLE === "true";
+const configuredIndexable = process.env.NEXT_PUBLIC_INDEXABLE;
+export const isIndexable = configuredIndexable
+  ? configuredIndexable === "true"
+  : process.env.VERCEL_ENV === "production";
 export const canonicalHost = new URL(siteUrl).hostname;
 
 export function absoluteUrl(path = "/") {
