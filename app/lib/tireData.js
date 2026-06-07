@@ -627,6 +627,46 @@ const seedProductCatalog = [
     image: "https://www.tirerack.com/content/dam/tirerack/desktop/homepage/tireRackLogo.png"
   },
   {
+    id: "michelin-pilot-sport-4s-225-45r17",
+    brand: "Michelin",
+    model: "Pilot Sport 4S",
+    size: "225/45R17",
+    category: "Max performance summer",
+    position: "summer",
+    bestFor: "Summer tire shoppers comparing dry grip, wet-road confidence, steering response, and retailer checkout paths",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
+    id: "continental-extremecontact-sport-02-225-45r17",
+    brand: "Continental",
+    model: "ExtremeContact Sport 02",
+    size: "225/45R17",
+    category: "Performance summer",
+    position: "summer",
+    bestFor: "Drivers comparing 225/45R17 summer tires for wet grip, warm-weather handling, and daily performance use",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
+    id: "bridgestone-potenza-sport-225-45r17",
+    brand: "Bridgestone",
+    model: "Potenza Sport",
+    size: "225/45R17",
+    category: "Ultra-high-performance summer",
+    position: "summer",
+    bestFor: "Performance tire shoppers comparing warm-weather traction, cornering feel, and retailer price paths",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
+    id: "firestone-firehawk-indy-500-225-45r17",
+    brand: "Firestone",
+    model: "Firehawk Indy 500",
+    size: "225/45R17",
+    category: "Affordable performance summer",
+    position: "summer",
+    bestFor: "Budget-minded summer tire shoppers comparing performance grip, value, and retailer checkout links",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
     id: "continental-extremecontact-dws06-plus",
     brand: "Continental",
     model: "ExtremeContact DWS06 Plus",

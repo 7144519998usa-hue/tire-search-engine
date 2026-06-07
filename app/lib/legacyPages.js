@@ -55,12 +55,40 @@ export const legacyLandingPages = {
     intent: "price",
     canonical: "/best-deals-on-truck-tires"
   },
+  "truck-tire-prices": {
+    title: "Truck Tire Prices",
+    description: "Compare truck tire price paths by tire size, all-terrain use, highway driving, retailer availability, and fitment checks.",
+    size: "275/60R20",
+    intent: "price",
+    canonical: "/truck-tire-prices"
+  },
+  "truck-tire-cost": {
+    title: "Truck Tire Cost",
+    description: "Compare truck tire cost by size, all-terrain category, daily-driving use, retailer path, and checkout availability.",
+    size: "275/60R20",
+    intent: "price",
+    canonical: "/truck-tire-cost"
+  },
   "semi-truck-tires": {
     title: "Semi Truck Tires",
     description: "Compare semi truck tire options for steer, drive, trailer, regional, and long-haul use.",
     size: "295/75R22.5",
     intent: "drive",
     canonical: "/semi-truck-tires"
+  },
+  "semi-tires": {
+    title: "Semi Tires",
+    description: "Compare semi tires by size, axle position, fleet use, retailer path, and current checkout availability.",
+    size: "295/75R22.5",
+    intent: "drive",
+    canonical: "/semi-tires"
+  },
+  "tires-for-semi-truck": {
+    title: "Tires for Semi Truck",
+    description: "Compare semi truck tires for steer, drive, trailer, regional hauling, long-haul use, and retailer checkout paths.",
+    size: "295/75R22.5",
+    intent: "drive",
+    canonical: "/tires-for-semi-truck"
   },
   "best-semi-truck-tires": {
     title: "Best Semi Truck Tires",
@@ -103,6 +131,27 @@ export const legacyLandingPages = {
     size: "295/75R22.5",
     intent: "price",
     canonical: "/semi-truck-tire-cost"
+  },
+  "semi-truck-tires-cost": {
+    title: "Semi Truck Tires Cost",
+    description: "Compare semi truck tire cost by steer, drive, trailer, tire size, replacement timing, and retailer checkout path.",
+    size: "295/75R22.5",
+    intent: "price",
+    canonical: "/semi-truck-tires-cost"
+  },
+  "semi-truck-tire-prices": {
+    title: "Semi Truck Tire Prices",
+    description: "Compare semi truck tire price paths by commercial size, axle position, retailer availability, and fleet replacement needs.",
+    size: "295/75R22.5",
+    intent: "price",
+    canonical: "/semi-truck-tire-prices"
+  },
+  "how-much-are-semi-truck-tires": {
+    title: "How Much Are Semi Truck Tires?",
+    description: "Compare semi truck tire cost ranges by size, axle position, casing value, installation path, and retailer checkout availability.",
+    size: "295/75R22.5",
+    intent: "price",
+    canonical: "/how-much-are-semi-truck-tires"
   },
   "semi-truck-tire-replacement-cost": {
     title: "Semi Truck Tire Replacement Cost",
@@ -244,6 +293,27 @@ export const legacyLandingPages = {
     intent: "summer",
     canonical: "/summer-tires"
   },
+  "summer-tires-for-sale": {
+    title: "Summer Tires for Sale",
+    description: "Compare summer tires for sale by size, performance category, retailer path, and current checkout availability.",
+    size: "225/45R17",
+    intent: "summer",
+    canonical: "/summer-tires-for-sale"
+  },
+  "best-summer-performance-tires": {
+    title: "Best Summer Performance Tires",
+    description: "Compare summer performance tires for warm-weather grip, wet-road control, responsive handling, and retailer checkout paths.",
+    size: "225/45R17",
+    intent: "summer",
+    canonical: "/best-summer-performance-tires"
+  },
+  "cheap-summer-tires": {
+    title: "Cheap Summer Tires",
+    description: "Compare value-focused summer tires, performance tire choices, retailer price paths, and fitment checks.",
+    size: "225/45R17",
+    intent: "summer",
+    canonical: "/cheap-summer-tires"
+  },
   "best-ev-tires": {
     title: "Best EV Tires",
     description: "Compare EV tire options for quiet ride, range, replacement cost, and retailer choices.",
@@ -258,6 +328,27 @@ export const legacyLandingPages = {
     intent: "ev",
     canonical: "/best-tires-for-electric-cars"
   },
+  "best-electric-car-tires": {
+    title: "Best Electric Car Tires",
+    description: "Compare electric car tires for quiet ride, range, EV load needs, all-season use, and retailer checkout paths.",
+    size: "235/45R18",
+    intent: "ev",
+    canonical: "/best-electric-car-tires"
+  },
+  "tires-for-electric-cars": {
+    title: "Tires for Electric Cars",
+    description: "Compare electric car tires for quiet ride, efficiency, all-season use, EV load needs, and retailer checkout paths.",
+    size: "235/45R18",
+    intent: "ev",
+    canonical: "/tires-for-electric-cars"
+  },
+  "electric-car-tires": {
+    title: "Electric Car Tires",
+    description: "Compare electric car tire options for road noise, range, tread wear, EV fitment, and retailer availability.",
+    size: "235/45R18",
+    intent: "ev",
+    canonical: "/electric-car-tires"
+  },
   "new-tesla-tires": {
     title: "New Tesla Tires",
     description: "Compare Tesla replacement tires, EV-friendly options, quiet all-season tires, and retailer choices.",
@@ -271,6 +362,20 @@ export const legacyLandingPages = {
     size: "235/45R18",
     intent: "ev",
     canonical: "/tesla-new-tires"
+  },
+  "tesla-model-3-tires": {
+    title: "Tesla Model 3 Tires",
+    description: "Compare Tesla Model 3 tire options for quiet ride, EV range, all-season use, performance trims, and retailer checkout paths.",
+    size: "235/45R18",
+    intent: "ev",
+    canonical: "/tesla-model-3-tires"
+  },
+  "tesla-model-3-ev-tires": {
+    title: "Tesla Model 3 EV Tires",
+    description: "Compare Tesla Model 3 EV tires by quiet ride, range, replacement cost, performance fitment, and retailer availability.",
+    size: "235/45R18",
+    intent: "ev",
+    canonical: "/tesla-model-3-ev-tires"
   },
   "quietest-tires-for-tesla-model-3": {
     title: "Quietest Tires for Tesla Model 3",
@@ -412,6 +517,41 @@ export const legacyLandingPages = {
     intent: "all-season",
     canonical: "/nissan-rogue-tires"
   },
+  "205-55r16-tires": {
+    title: "205/55R16 Tires",
+    description: "Compare 205/55R16 tires by retailer path, all-season category, budget options, fitment checks, and current checkout availability.",
+    size: "205/55R16",
+    intent: "all-season",
+    canonical: "/205-55r16-tires"
+  },
+  "205-55-r16-tires": {
+    title: "205/55R16 Tires",
+    description: "Compare 205/55R16 tires by retailer path, all-season category, budget options, fitment checks, and current checkout availability.",
+    size: "205/55R16",
+    intent: "all-season",
+    canonical: "/205-55-r16-tires"
+  },
+  "205-55r16": {
+    title: "205/55R16 Tires",
+    description: "Compare 205/55R16 tire options, retailer checkout paths, all-season availability, and fitment details before buying.",
+    size: "205/55R16",
+    intent: "all-season",
+    canonical: "/205-55r16"
+  },
+  "215-60r16-tires": {
+    title: "215/60R16 Tires",
+    description: "Compare 215/60R16 tires by retailer path, all-season availability, budget options, and fitment checks.",
+    size: "215/60R16",
+    intent: "all-season",
+    canonical: "/215-60r16-tires"
+  },
+  "215-60-r16-tires": {
+    title: "215/60R16 Tires",
+    description: "Compare 215/60R16 tires by retailer path, all-season availability, budget options, and fitment checks.",
+    size: "215/60R16",
+    intent: "all-season",
+    canonical: "/215-60-r16-tires"
+  },
   "bfgoodrich-tires": {
     title: "BFGoodrich Tires",
     description: "Compare BFGoodrich tire options, all-terrain truck tires, KO2-style searches, and retailer choices.",
@@ -425,6 +565,20 @@ export const legacyLandingPages = {
     size: "265/70R17",
     intent: "all-terrain",
     canonical: "/bf-goodrich-tires"
+  },
+  "bfgoodrich-all-terrain-tires": {
+    title: "BFGoodrich All-Terrain Tires",
+    description: "Compare BFGoodrich all-terrain tire paths, KO2-style truck tire searches, retailer availability, and fitment checks.",
+    size: "265/70R17",
+    intent: "all-terrain",
+    canonical: "/bfgoodrich-all-terrain-tires"
+  },
+  "bf-goodrich-ko2": {
+    title: "BFGoodrich KO2 Tires",
+    description: "Compare BFGoodrich KO2 tire paths, all-terrain truck sizes, retailer checkout links, and fitment checks.",
+    size: "265/70R17",
+    intent: "all-terrain",
+    canonical: "/bf-goodrich-ko2"
   },
   "275-55r20-all-terrain-tires": {
     title: "275/55R20 All-Terrain Tires",
