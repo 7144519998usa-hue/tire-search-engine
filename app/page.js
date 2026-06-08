@@ -1,10 +1,12 @@
 import JsonLd from "./components/JsonLd";
 import HeroTireVisual from "./components/HeroTireVisual";
 import ProductGrid from "./components/ProductGrid";
+import ProductImage from "./components/ProductImage";
 import SearchBox from "./components/SearchBox";
 import TireCategoryImage from "./components/TireCategoryImage";
+import { buildGoUrl } from "./lib/redirects";
 import { itemListSchema, webSiteSchema } from "./lib/schema";
-import { commercialPriorityPages, getProducts, priorityPages } from "./lib/tireData";
+import { buildAmazonUrl, commercialPriorityPages, getProducts, priorityPages, productCatalog } from "./lib/tireData";
 
 function formatPriorityLabel(href = "") {
   return href
@@ -18,6 +20,76 @@ function formatPriorityLabel(href = "") {
     .join(" - ");
 }
 
+const tireRackDealSizes = ["205/55R16", "265/60R18", "275/60R20"];
+
+function dealTitle(product = {}) {
+  return `${product.brand} ${product.model}`.replace(/\s+/g, " ").trim();
+}
+
+function tireRackDealCards() {
+  return tireRackDealSizes
+    .map((size) => productCatalog.find((product) => (
+      product.size === size &&
+      typeof product.price === "number" &&
+      product.image &&
+      product.tireRackUrl
+    )))
+    .filter(Boolean)
+    .map((product) => ({
+      id: `home-tirerack-${product.id}`,
+      merchant: "Tire Rack",
+      eyebrow: "Tire Rack price",
+      title: dealTitle(product),
+      size: product.size,
+      description: product.bestFor,
+      price: `$${product.price.toFixed(2)}`,
+      priceNote: "Imported Tire Rack feed price",
+      href: product.tireRackUrl,
+      cta: "Check Tire Rack Price",
+      product,
+      type: "tire-rack"
+    }));
+}
+
+function amazonDealCards() {
+  return [
+    {
+      product: productCatalog.find((product) => product.size === "225/65R17" && product.image) || productCatalog[0],
+      title: "225/65R17 SUV Tires",
+      description: "Popular RAV4, CR-V, Rogue, and crossover replacement size.",
+      query: "225/65R17 all season tires"
+    },
+    {
+      product: productCatalog.find((product) => product.size === "275/60R20" && product.image) || productCatalog[0],
+      title: "275/60R20 Truck Tires",
+      description: "A high-interest pickup size for F-150, Silverado, Ram, and truck shoppers.",
+      query: "275/60R20 truck tires"
+    }
+  ].map((deal) => ({
+    id: `home-amazon-${deal.query.replace(/[^a-z0-9]+/gi, "-").toLowerCase()}`,
+    merchant: "Amazon",
+    eyebrow: "Amazon marketplace",
+    title: deal.title,
+    size: deal.product?.size || "",
+    description: deal.description,
+    price: "Check live price",
+    priceNote: "Amazon price appears at checkout",
+    href: buildAmazonUrl({ query: deal.query }),
+    cta: "Search Amazon",
+    product: deal.product,
+    type: "amazon"
+  }));
+}
+
+function homepageDealAds() {
+  return [
+    tireRackDealCards()[1],
+    amazonDealCards()[0],
+    tireRackDealCards()[0],
+    amazonDealCards()[1]
+  ].filter(Boolean);
+}
+
 export const metadata = {
   title: "Compare Tire Prices by Size, Vehicle, Brand, or Truck Application",
   description: "Search passenger, SUV, EV, pickup, and commercial truck tire options before visiting Tire Rack, SimpleTire, Mavis, Priority Tire, or Amazon fallback links.",
@@ -26,6 +98,7 @@ export const metadata = {
 
 export default function HomePage() {
   const homeTruckProducts = getProducts({ commercialOnly: true, limit: 3 });
+  const dealAds = homepageDealAds();
 
   return (
     <>
@@ -80,6 +153,44 @@ export default function HomePage() {
           <span>Installed Tire Options</span>
           <small>Compare retailer links, local-service paths, and marketplace choices.</small>
         </a>
+      </section>
+
+      <section className="section homepage-deal-ads" aria-labelledby="homepage-deal-ads-title">
+        <div className="section-heading compact-heading">
+          <div>
+            <p className="kicker">Clickable tire deals</p>
+            <h2 id="homepage-deal-ads-title">Price-check popular tires before you buy.</h2>
+          </div>
+          <a href="/deals">View all tire deals</a>
+        </div>
+        <div className="deal-ad-grid">
+          {dealAds.map((deal, index) => (
+            <a
+              key={deal.id}
+              className={`deal-ad-card is-${deal.type}`}
+              href={buildGoUrl({
+                merchant: deal.merchant,
+                href: deal.href,
+                placement: "homepage-deal-ad",
+                tireSize: deal.size
+              })}
+              rel="nofollow sponsored noopener"
+            >
+              <div className="deal-ad-media">
+                <ProductImage product={deal.product} index={index} />
+                <span>{deal.merchant}</span>
+              </div>
+              <div className="deal-ad-copy">
+                <small>{deal.eyebrow}</small>
+                <h3>{deal.title}</h3>
+                <p>{deal.description}</p>
+                <strong>{deal.price}</strong>
+                <em>{deal.priceNote}</em>
+                <b>{deal.cta}</b>
+              </div>
+            </a>
+          ))}
+        </div>
       </section>
 
       <section className="section">

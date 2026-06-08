@@ -1004,6 +1004,146 @@ body {
   line-height: 1.45;
 }
 
+.homepage-deal-ads {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255, 201, 77, 0.22), transparent 24rem),
+    linear-gradient(135deg, #ffffff 0%, #fff8ed 52%, #f3faf5 100%);
+}
+
+.deal-ad-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.deal-ad-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100%;
+  overflow: hidden;
+  color: var(--ink);
+  text-decoration: none;
+  background: #ffffff;
+  border: 1px solid rgba(18, 24, 21, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 16px 38px rgba(18, 24, 21, 0.08);
+  transition: transform 170ms ease, box-shadow 170ms ease;
+}
+
+.deal-ad-card:hover,
+.deal-ad-card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 26px 56px rgba(18, 24, 21, 0.14);
+}
+
+.deal-ad-card.is-tire-rack {
+  border-color: rgba(255, 106, 26, 0.24);
+}
+
+.deal-ad-card.is-amazon {
+  border-color: rgba(18, 24, 21, 0.14);
+}
+
+.deal-ad-media {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 180px;
+  padding: 18px;
+  background:
+    radial-gradient(circle at center, rgba(255, 201, 77, 0.2), transparent 58%),
+    linear-gradient(145deg, #ffffff, #f7faf6);
+}
+
+.deal-ad-card.is-tire-rack .deal-ad-media {
+  background:
+    radial-gradient(circle at center, rgba(255, 106, 26, 0.2), transparent 58%),
+    linear-gradient(145deg, #ffffff, #fff3e8);
+}
+
+.deal-ad-media img {
+  width: min(230px, 92%);
+  height: 145px;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 22px rgba(18, 24, 21, 0.16));
+}
+
+.deal-ad-media span {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 7px 10px;
+  color: #ffffff;
+  background: #121815;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.deal-ad-card.is-tire-rack .deal-ad-media span {
+  color: #211104;
+  background: #ffb15f;
+}
+
+.deal-ad-copy {
+  display: grid;
+  align-content: start;
+  gap: 9px;
+  padding: 18px;
+}
+
+.deal-ad-copy small {
+  color: var(--orange);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.deal-ad-copy h3 {
+  margin: 0;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.24rem;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.deal-ad-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.deal-ad-copy strong {
+  color: #0f5132;
+  font-size: 1.22rem;
+  font-weight: 950;
+}
+
+.deal-ad-copy em {
+  color: #64748b;
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.deal-ad-copy b {
+  display: inline-flex;
+  justify-self: start;
+  margin-top: 4px;
+  padding: 9px 12px;
+  color: #211104;
+  background: linear-gradient(135deg, #ffb15f, #ff7a1f);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 950;
+}
+
 .empty-results,
 .related-products {
   margin-top: 18px;
@@ -1062,6 +1202,10 @@ body {
 
   .category-strip {
     grid-template-columns: 1fr;
+  }
+
+  .deal-ad-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -1810,5 +1954,9 @@ body {
 
   .shopping-path-card {
     min-height: auto;
+  }
+
+  .deal-ad-grid {
+    grid-template-columns: 1fr;
   }
 }
