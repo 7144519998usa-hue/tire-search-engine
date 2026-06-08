@@ -1,5 +1,6 @@
 import JsonLd from "../../components/JsonLd";
 import ConversionActionPanel from "../../components/ConversionActionPanel";
+import FeaturedTireDealAds from "../../components/FeaturedTireDealAds";
 import InternalLinkPanel from "../../components/InternalLinkPanel";
 import ProductGrid from "../../components/ProductGrid";
 import RelatedSizeCards from "../../components/RelatedSizeCards";
@@ -62,6 +63,12 @@ export default function TireSizePage({ params }) {
           productCount={products.length}
           pricedCount={pricedCount}
           placement="size-page-top"
+        />
+        <FeaturedTireDealAds
+          size={size}
+          title={`${size} deal-watch links`}
+          summary="Compare approved retailer deal paths for this size. Confirm current price, fitment, stock, shipping, and installation before buying."
+          placementPrefix="size-page-hot-deal"
         />
         <section className="section compact-section">
           <div className="section-heading compact-heading">

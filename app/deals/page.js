@@ -1,3 +1,4 @@
+import FeaturedTireDealAds from "../components/FeaturedTireDealAds";
 import ProductGrid from "../components/ProductGrid";
 import TireCategoryImage from "../components/TireCategoryImage";
 import { getProducts } from "../lib/tireData";
@@ -29,6 +30,11 @@ export default function DealsPage() {
         <h1>Compare tire retailer paths by category.</h1>
         <p>Use these sections to check current retailer price, installation, availability, and fitment without mixing passenger, EV, truck, and commercial tire paths into one confusing grid.</p>
       </div>
+      <FeaturedTireDealAds
+        title="Top price-check ads for popular replacement sizes"
+        summary="Marketing links for 225/65R17, 205/55R16, 215/55R17, 225/60R18, and 195/65R15. Tire Rack feed prices show where available; Amazon links open marketplace price searches."
+        placementPrefix="deals-page-hot-size"
+      />
       {sections.map(([title, imageType, copy, products, href]) => (
         <section className="deal-segment" key={title}>
           <div className="deal-segment-copy">
