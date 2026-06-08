@@ -34,15 +34,15 @@ export const sitemapIntents = Object.keys(tireIntentLabels);
 export function titleForTireSize(size = "") {
   const commercial = isCommercialTireSize(size);
   return humanizeCopy(commercial
-    ? `${size} Truck Tires: Steer, Drive & Fleet Tire Options`
-    : `${size} Tires: Compare Brands, Prices & Retailer Options`);
+    ? `${size} Commercial Truck Tires | Steer, Drive & Fleet Prices`
+    : `${size} Tires | Compare Prices, Brands & Tire Rack Options`);
 }
 
 export function descriptionForTireSize(size = "") {
   const commercial = isCommercialTireSize(size);
   return humanizeCopy(commercial
-    ? `Compare ${size} commercial truck tire options by steer, drive, trailer, haul type, retailer availability, and fitment notes before buying.`
-    : `Compare ${size} tire options, retailer availability, common vehicle applications, and fitment notes before buying.`);
+    ? `Compare ${size} commercial truck tire paths for steer, drive, trailer, fleet replacement, quotes, and retailer availability before buying.`
+    : `Compare ${size} tire prices, Tire Rack options, installed paths, common vehicles, brands, and fitment notes before checkout.`);
 }
 
 export function labelForIntent(intent = "") {
@@ -52,31 +52,31 @@ export function labelForIntent(intent = "") {
 export function titleForTireIntent(size = "", intent = "") {
   const label = labelForIntent(intent);
   if (isCommercialTireSize(size) || ["steer", "drive", "trailer"].includes(intent)) {
-    return humanizeCopy(`${label} ${size} Truck Tires: Compare Commercial Tire Options`);
+    return humanizeCopy(`${label} ${size} Truck Tires | Prices, Quotes & Fleet Options`);
   }
-  return humanizeCopy(`${label} ${size} Tires: Compare Brands, Prices & Retailer Options`);
+  return humanizeCopy(`${label} ${size} Tires | Compare Prices, Deals & Retailers`);
 }
 
 export function descriptionForTireIntent(size = "", intent = "") {
   const label = labelForIntent(intent).toLowerCase();
   if (intent === "price") {
-    return humanizeCopy(`Compare ${size} tire price paths, retailer availability, installation options, and fitment notes before buying.`);
+    return humanizeCopy(`Compare ${size} tire prices, Tire Rack links, installed options, online retailers, and fitment checks before buying.`);
   }
   if (intent === "comparison") {
     return humanizeCopy(`Compare ${size} tire categories, common brands, retailer paths, and fitment notes without mixing unrelated tire sizes.`);
   }
   if (isCommercialTireSize(size) || ["steer", "drive", "trailer"].includes(intent)) {
-    return humanizeCopy(`Compare ${label} ${size} commercial truck tire options by axle position, load range, haul type, and supplier availability.`);
+    return humanizeCopy(`Compare ${label} ${size} commercial truck tires by axle position, load range, haul type, quote path, and supplier availability.`);
   }
-  return humanizeCopy(`Compare ${label} ${size} tire options, common applications, retailer availability, and fitment notes before buying.`);
+  return humanizeCopy(`Compare ${label} ${size} tire prices, brands, Tire Rack paths, installed options, and fitment notes before buying.`);
 }
 
 export function introForTireIntent(size = "", intent = "") {
   const label = labelForIntent(intent).toLowerCase();
   if (isCommercialTireSize(size) || ["steer", "drive", "trailer", "regional-haul", "long-haul", "mixed-service"].includes(intent)) {
-    return humanizeCopy(`${size} ${label} truck tire pages should separate axle position, haul type, load range, casing value, and retailer availability so fleets can compare options without mixing passenger tire results.`);
+    return humanizeCopy(`Compare ${size} ${label} truck tire paths by axle position, haul type, load range, casing value, quote options, and retailer availability without mixing passenger tire results.`);
   }
-  return humanizeCopy(`${size} ${label} tire pages should keep exact-size matches first, identify common vehicle use, separate related sizes, and send shoppers to retailer pages where fitment, load rating, speed rating, and current price can be confirmed.`);
+  return humanizeCopy(`Compare exact-size ${size} ${label} tire matches first, then review Tire Rack prices, installed options, related sizes, and fitment checks before checkout.`);
 }
 
 export function faqsForTireIntent(size = "", intent = "") {

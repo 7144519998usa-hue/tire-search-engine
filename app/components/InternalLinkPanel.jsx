@@ -20,6 +20,7 @@ export default function InternalLinkPanel({ links }) {
         <p className="kicker">Related tire research</p>
       </div>
       <div className="internal-link-grid">
+        <LinkGroup title="Price and buying pages" links={links.moneyPages} />
         <LinkGroup title="Related sizes" links={links.relatedSizes} />
         <LinkGroup title="Vehicle pages" links={links.relatedVehicles} />
         <LinkGroup title="Tire guides" links={links.relatedGuides} />

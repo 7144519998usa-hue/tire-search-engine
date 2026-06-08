@@ -1,4 +1,5 @@
 import JsonLd from "../../components/JsonLd";
+import ConversionActionPanel from "../../components/ConversionActionPanel";
 import InternalLinkPanel from "../../components/InternalLinkPanel";
 import ProductGrid from "../../components/ProductGrid";
 import RelatedSizeCards from "../../components/RelatedSizeCards";
@@ -30,6 +31,7 @@ export function generateMetadata({ params }) {
 export default function TireSizePage({ params }) {
   const size = slugToSize(params.size);
   const { exactProducts: products, relatedProducts } = getTireResults({ size });
+  const pricedCount = products.filter((product) => typeof product.price === "number").length;
   const pageType = isCommercialTireSize(size) ? "commercial" : "passenger";
   const commercialPage = pageType === "commercial";
   const relatedSizeCards = getRelatedSizeCards(size, { type: commercialPage ? "commercial" : "passenger", limit: 6 });
@@ -54,6 +56,13 @@ export default function TireSizePage({ params }) {
           <a href={`/tires/${params.size}/budget`}>Budget {size} tires</a>
           <a href={`/tires/${params.size}/all-season`}>All-season {size} tires</a>
         </div>
+        <ConversionActionPanel
+          size={size}
+          commercial={commercialPage}
+          productCount={products.length}
+          pricedCount={pricedCount}
+          placement="size-page-top"
+        />
         <section className="section compact-section">
           <div className="section-heading compact-heading">
             <p className="kicker">Size guide</p>

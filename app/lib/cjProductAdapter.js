@@ -67,10 +67,14 @@ function inferBrand(title = "", advertiser = "") {
 
 function inferModel(title = "", brand = "") {
   const cleaned = clean(title)
+    .replace(/%2B/gi, "+")
     .replace(new RegExp(`^${brand}\\s+`, "i"), "")
     .replace(/\b(?:LT|P)?\d{3}[\/\s-]?\d{2}\s?R\s?\d{2}(?:\.5)?\b/gi, "")
     .replace(/\b\d{1,2}R\d{2}(?:\.5)?\b/gi, "")
-    .replace(/\b(tire|tyre|radial|xl|sl|load range [a-z]|[0-9]{2,3}[a-z])\b/gi, "")
+    .replace(/\b(tires?|tyres?|radial|xl|sl|load range [a-z]|[0-9]{2,3}[a-z])\b/gi, "")
+    .replace(/\b[A-Z]{2,}\d{5,}[A-Z0-9]*\b/g, "")
+    .replace(/\b\d{5,}\b/g, "")
+    .replace(/\(\s*\)/g, "")
     .trim();
   return cleaned.split(/\s+/).slice(0, 6).join(" ") || "Retailer Product";
 }
@@ -78,11 +82,11 @@ function inferModel(title = "", brand = "") {
 function categoryFor({ title = "", size = "", advertiser = "" } = {}) {
   const source = `${title} ${advertiser}`.toLowerCase();
   const commercial = /\b(22\.5|24\.5|19\.5|17\.5|semi|commercial|steer|drive|trailer)\b/.test(`${size} ${source}`);
-  if (commercial) return "CJ product feed commercial truck tires";
-  if (source.includes("winter") || source.includes("blizzak") || source.includes("snow")) return "CJ product feed winter tires";
-  if (source.includes("all terrain") || source.includes("all-terrain") || source.includes("a/t")) return "CJ product feed all-terrain tires";
-  if (source.includes("performance") || source.includes("sport")) return "CJ product feed performance tires";
-  return "CJ product feed passenger and SUV tires";
+  if (commercial) return "Commercial truck tires";
+  if (source.includes("winter") || source.includes("blizzak") || source.includes("snow")) return "Winter tires";
+  if (source.includes("all terrain") || source.includes("all-terrain") || source.includes("a/t")) return "All-terrain tires";
+  if (source.includes("performance") || source.includes("sport")) return "Performance tires";
+  return "Passenger and SUV tires";
 }
 
 function positionFor(category = "", title = "") {
@@ -110,6 +114,7 @@ export function normalizeCjProduct(record = {}) {
   const clickUrl = clean(firstValue(record, ["clickUrl", "clickURL", "buyUrl", "buy_url", "link", "url", "destination", "destinationUrl"])) || clean(record.linkCode?.clickUrl);
   const image = clean(firstValue(record, ["imageUrl", "imageURL", "image", "thumbnail", "imageLink", "imageLinkUrl"])) || clean(record.linkCode?.imageUrl);
   const sku = clean(firstValue(record, ["sku", "cjsku", "catalogId", "id", "productId", "manufacturerSku"]));
+  const merchantLabel = advertiser || "retailer";
 
   return {
     id: `cj-${slug(advertiser || "retailer")}-${slug(sku || title)}-${slug(size)}`.slice(0, 140),
@@ -120,7 +125,7 @@ export function normalizeCjProduct(record = {}) {
     position: positionFor(category, title),
     bestFor: `${size} shoppers comparing ${brand} ${model} through ${advertiser || "CJ"} product feed availability.`,
     ...(price !== undefined ? { price, priceCurrency: currency } : {}),
-    priceSnapshot: price !== undefined ? `$${price.toFixed(2)} from CJ feed` : "Confirm current retailer price",
+    priceSnapshot: price !== undefined ? `$${price.toFixed(2)} at ${merchantLabel}` : "Confirm current retailer price",
     ...(sku ? { sku, cjsku: sku } : {}),
     ...(clickUrl ? { tireRackUrl: advertiser.toLowerCase().includes("tire rack") ? clickUrl : undefined, merchantUrl: clickUrl } : {}),
     ...(image ? { image } : {}),

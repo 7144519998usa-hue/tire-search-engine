@@ -1,12 +1,16 @@
 import { notFound } from "next/navigation";
 import JsonLd from "../components/JsonLd";
+import ConversionActionPanel from "../components/ConversionActionPanel";
+import InternalLinkPanel from "../components/InternalLinkPanel";
 import ProductGrid from "../components/ProductGrid";
 import RelatedSizeCards from "../components/RelatedSizeCards";
 import RetailerSearchFallback from "../components/RetailerSearchFallback";
 import { isCommercialTireSize } from "../lib/getRelatedSizes";
 import { legacyLandingPages } from "../lib/legacyPages";
-import { breadcrumbSchema, itemListSchema } from "../lib/schema";
+import { breadcrumbSchema, faqSchema, itemListSchema } from "../lib/schema";
+import { faqsForTireIntent } from "../lib/seo";
 import { getRelatedProducts, getRelatedSizeCards, getStrictProducts } from "../lib/tireData";
+import { getInternalLinks } from "../lib/internalLinks";
 
 export function generateStaticParams() {
   return Object.keys(legacyLandingPages).map((slug) => ({ slug }));
@@ -39,20 +43,32 @@ export default function LegacyLandingPage({ params }) {
   }
 
   const products = getStrictProducts({ size: landing.size, intent: landing.intent });
+  const pricedCount = products.filter((product) => typeof product.price === "number").length;
   const commercialPage = ["drive", "steer", "trailer", "truck"].includes(landing.intent) || isCommercialTireSize(landing.size);
   const relatedProducts = getRelatedProducts({ size: landing.size, commercialOnly: commercialPage, limit: 6 });
   const relatedSizeCards = getRelatedSizeCards(landing.size, { type: commercialPage ? "commercial" : "passenger", limit: 6 });
+  const faqs = faqsForTireIntent(landing.size, landing.intent);
+  const internalLinks = getInternalLinks({ size: landing.size, commercial: commercialPage });
 
   return (
     <>
       <JsonLd data={breadcrumbSchema([{ name: "Home", href: "/" }, { name: landing.title, href: landing.canonical }])} />
       {products.length ? <JsonLd data={itemListSchema({ title: landing.title, products, path: landing.canonical })} /> : null}
+      <JsonLd data={faqSchema(faqs)} />
       <section className="section page-shell">
         <div className="section-heading">
           <p className="kicker">Product-first tire comparison</p>
           <h1>{landing.title}</h1>
           <p>{landing.description}</p>
         </div>
+        <ConversionActionPanel
+          size={landing.size}
+          intent={landing.intent}
+          commercial={commercialPage}
+          productCount={products.length}
+          pricedCount={pricedCount}
+          placement={`legacy-${params.slug}-top`}
+        />
         {products.length ? (
           <ProductGrid products={products} placement={`legacy-${params.slug}`} pageContext={{ size: landing.size, position: landing.intent }} />
         ) : (
@@ -75,6 +91,20 @@ export default function LegacyLandingPage({ params }) {
             )}
           </section>
         ) : null}
+        <section className="section compact-section">
+          <div className="section-heading compact-heading">
+            <p className="kicker">FAQ</p>
+          </div>
+          <div className="faq-list">
+            {faqs.map((faq) => (
+              <details key={faq.question}>
+                <summary>{faq.question}</summary>
+                <p>{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+        <InternalLinkPanel links={internalLinks} />
       </section>
     </>
   );

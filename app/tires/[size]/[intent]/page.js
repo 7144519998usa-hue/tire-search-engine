@@ -1,4 +1,5 @@
 import JsonLd from "../../../components/JsonLd";
+import ConversionActionPanel from "../../../components/ConversionActionPanel";
 import InternalLinkPanel from "../../../components/InternalLinkPanel";
 import ProductGrid from "../../../components/ProductGrid";
 import RelatedSizeCards from "../../../components/RelatedSizeCards";
@@ -38,6 +39,7 @@ export default function TireIntentPage({ params }) {
   const size = slugToSize(params.size);
   const label = intentLabel(params.intent);
   const { exactProducts: products, relatedProducts, isCommercialIntent } = getTireResults({ size, intent: params.intent });
+  const pricedCount = products.filter((product) => typeof product.price === "number").length;
   const pageType = isCommercialIntent || isCommercialTireSize(size) ? "commercial" : "passenger";
   const commercialPage = pageType === "commercial";
   const relatedSizeCards = getRelatedSizeCards(size, { type: commercialPage ? "commercial" : "passenger", limit: 6 });
@@ -57,6 +59,14 @@ export default function TireIntentPage({ params }) {
           <h1>{label} {size} tires</h1>
           <p>{intro}</p>
         </div>
+        <ConversionActionPanel
+          size={size}
+          intent={label}
+          commercial={commercialPage}
+          productCount={products.length}
+          pricedCount={pricedCount}
+          placement={`intent-${params.intent}-top`}
+        />
         {products.length ? (
           <ProductGrid products={products} placement={`intent-${params.intent}`} pageContext={{ size, size_slug: params.size, type: pageType, position: params.intent }} />
         ) : (

@@ -342,6 +342,36 @@ a {
   color: var(--green);
 }
 
+.conversion-panel {
+  align-items: center;
+  background: linear-gradient(135deg, #fffdf7, #f0fdfa);
+  border: 1px solid #cdebdc;
+  border-radius: 26px;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  margin: 20px 0 28px;
+  padding: 22px;
+}
+
+.conversion-copy h2 {
+  color: var(--green);
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  margin: 6px 0 10px;
+}
+
+.conversion-copy p:last-child {
+  color: var(--muted);
+  font-weight: 800;
+  margin-bottom: 0;
+}
+
+.conversion-actions {
+  display: grid;
+  gap: 10px;
+}
+
 .link-band,
 .intent-cards {
   width: min(1180px, calc(100% - 32px));
@@ -364,8 +394,13 @@ a {
 @media (max-width: 860px) {
   .site-header,
   .hero,
-  .section-heading {
+  .section-heading,
+  .conversion-panel {
     display: block;
+  }
+
+  .conversion-actions {
+    margin-top: 16px;
   }
 
   .top-nav {

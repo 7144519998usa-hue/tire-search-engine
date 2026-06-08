@@ -1,4 +1,5 @@
 import JsonLd from "../../../components/JsonLd";
+import ConversionActionPanel from "../../../components/ConversionActionPanel";
 import ProductGrid from "../../../components/ProductGrid";
 import RetailerSearchFallback from "../../../components/RetailerSearchFallback";
 import CommercialLeadForm from "../../../components/CommercialLeadForm";
@@ -17,8 +18,8 @@ export function generateMetadata({ params }) {
   const size = slugToSize(params.size);
   const products = getStrictProducts({ size, intent: params.position, commercialOnly: true, position: params.position, limit: 1 });
   return {
-    title: `${size} ${params.position} Truck Tires | Compare Commercial Options`,
-    description: `Compare ${size} ${params.position} commercial truck tire paths, Tire Rack options, supplier search links, and fitment notes.`,
+    title: `${size} ${params.position} Truck Tires | Commercial Prices & Quotes`,
+    description: `Compare ${size} ${params.position} commercial truck tire paths, supplier quote options, load range, casing value, haul type, and fitment notes.`,
     alternates: { canonical: `/commercial-truck-tires/${params.size}/${params.position}` },
     robots: products.length ? { index: true, follow: true } : { index: false, follow: true }
   };
@@ -27,6 +28,7 @@ export function generateMetadata({ params }) {
 export default function CommercialSizePositionPage({ params }) {
   const size = slugToSize(params.size);
   const products = getStrictProducts({ size, intent: params.position, commercialOnly: true, position: params.position });
+  const pricedCount = products.filter((product) => typeof product.price === "number").length;
   const relatedProducts = getRelatedProducts({ size, commercialOnly: true, limit: 6 });
   const label = params.position.replace(/-/g, " ");
   const path = `/commercial-truck-tires/${params.size}/${params.position}`;
@@ -39,8 +41,16 @@ export default function CommercialSizePositionPage({ params }) {
         <div className="section-heading">
           <p className="kicker">Commercial {label} tire comparison</p>
           <h1>{size} {label} Truck Tires</h1>
-          <p>Main results only include {size} tires for the {label} position. Related commercial sizes are separated below.</p>
+          <p>Compare {size} {label} tire paths for commercial trucks, fleets, and owner-operators. Related sizes stay separated so axle position, load range, casing, and route type remain clear.</p>
         </div>
+        <ConversionActionPanel
+          size={size}
+          intent={label}
+          commercial
+          productCount={products.length}
+          pricedCount={pricedCount}
+          placement={`commercial-${params.position}-top`}
+        />
         {products.length ? <ProductGrid products={products} placement={`commercial-${params.position}-size`} pageContext={{ size, position: params.position }} /> : <RetailerSearchFallback size={size} intent={label} commercial placement={`commercial-${params.position}-empty`} />}
         <CommercialLeadForm size={size} position={label} />
         {relatedProducts.length ? (
