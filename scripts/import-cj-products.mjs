@@ -112,18 +112,32 @@ async function fetchApiProductsForKeyword(keyword) {
   const query = queryFile
     ? readFileSync(resolve(queryFile), "utf8")
     : `
-query TireSearchEngineProducts($keywords: String, $advertiserIds: [ID!], $limit: Int) {
-  products: shoppingProducts(keywords: $keywords, advertiserIds: $advertiserIds, limit: $limit) {
+query TireSearchEngineProducts($companyId: ID!, $websiteId: ID!, $keywords: [String!], $partnerIds: [ID!], $limit: Int) {
+  products: shoppingProducts(companyId: $companyId, keywords: $keywords, partnerIds: $partnerIds, limit: $limit) {
     resultList {
       title
       advertiserName
       brand
-      price
-      currency
-      imageUrl
-      clickUrl
-      sku
+      price {
+        amount
+        currency
+      }
+      salePrice {
+        amount
+        currency
+      }
+      imageLink
+      link
+      linkCode(pid: $websiteId) {
+        clickUrl
+        imageUrl
+      }
+      id
+      catalogId
+      mpn
       description
+      productType
+      size
     }
   }
 }`;
@@ -132,6 +146,14 @@ query TireSearchEngineProducts($keywords: String, $advertiserIds: [ID!], $limit:
     .split(",")
     .map((value) => value.trim())
     .filter(Boolean);
+  const companyId = process.env.CJ_COMPANY_ID;
+  if (!companyId) {
+    throw new Error("CJ_COMPANY_ID is required for CJ Product Search imports.");
+  }
+  const websiteId = process.env.CJ_WEBSITE_ID;
+  if (!websiteId) {
+    throw new Error("CJ_WEBSITE_ID is required for CJ Product Search linkCode imports.");
+  }
 
   const limit = Number(process.env.CJ_PRODUCT_LIMIT || 1000);
   const response = await fetch(endpoint, {
@@ -142,7 +164,7 @@ query TireSearchEngineProducts($keywords: String, $advertiserIds: [ID!], $limit:
     },
     body: JSON.stringify({
       query,
-      variables: { keywords: keyword, advertiserIds, limit }
+      variables: { keywords: [keyword], advertiserIds, partnerIds: advertiserIds, companyId, websiteId, limit }
     })
   });
 

@@ -105,10 +105,10 @@ export function normalizeCjProduct(record = {}) {
   const brand = clean(firstValue(record, ["brand", "manufacturer"])) || inferBrand(title, advertiser);
   const model = clean(firstValue(record, ["model", "productModel"])) || inferModel(title, brand);
   const category = clean(firstValue(record, ["category", "productType", "productTypeName"])) || categoryFor({ title, size, advertiser });
-  const price = parsePrice(firstValue(record, ["price", "salePrice", "retailPrice", "amount", "currentPrice"]));
-  const currency = clean(firstValue(record, ["currency", "priceCurrency"])) || clean(record.price?.currency) || "USD";
-  const clickUrl = clean(firstValue(record, ["clickUrl", "clickURL", "buyUrl", "buy_url", "link", "url", "destination", "destinationUrl"]));
-  const image = clean(firstValue(record, ["imageUrl", "imageURL", "image", "thumbnail", "imageLink", "imageLinkUrl"]));
+  const price = parsePrice(firstValue(record, ["salePrice", "price", "retailPrice", "amount", "currentPrice"]));
+  const currency = clean(firstValue(record, ["currency", "priceCurrency"])) || clean(record.salePrice?.currency) || clean(record.price?.currency) || "USD";
+  const clickUrl = clean(firstValue(record, ["clickUrl", "clickURL", "buyUrl", "buy_url", "link", "url", "destination", "destinationUrl"])) || clean(record.linkCode?.clickUrl);
+  const image = clean(firstValue(record, ["imageUrl", "imageURL", "image", "thumbnail", "imageLink", "imageLinkUrl"])) || clean(record.linkCode?.imageUrl);
   const sku = clean(firstValue(record, ["sku", "cjsku", "catalogId", "id", "productId", "manufacturerSku"]));
 
   return {
