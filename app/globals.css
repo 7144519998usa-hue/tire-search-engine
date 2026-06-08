@@ -815,6 +815,15 @@ body {
   box-shadow: 0 12px 24px rgba(255, 106, 26, 0.25);
 }
 
+.top-nav .nav-sale-link,
+.hero-cta.is-orange,
+.merchant-button.is-primary,
+.search-box button,
+.merchant-button.is-primary span,
+.merchant-button.is-primary small {
+  color: #211104;
+}
+
 .hero {
   grid-template-columns: minmax(0, 1fr) minmax(340px, 0.8fr);
   padding-top: 34px;
