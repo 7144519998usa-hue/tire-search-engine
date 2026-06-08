@@ -12,6 +12,7 @@ import { parseMalformedNearSlug, parseTireSize, canonicalizeSizeUrl } from "../a
 import { getRelatedSizeCards, getStrictProducts, productCatalog, sizeToSlug } from "../app/lib/tireData.js";
 import { sitemapPathsForSection } from "../app/lib/sitemapData.js";
 import { legacyLandingPages } from "../app/lib/legacyPages.js";
+import { itemListSchema } from "../app/lib/schema.js";
 import { readFileSync } from "node:fs";
 
 function assert(condition, message) {
@@ -42,6 +43,13 @@ assert(classifyTireSize("11r22-5") === "commercial_truck", "11R22.5 not classifi
 for (const product of productCatalog) {
   assert(!isFakeModel(product), `Fake/generated model found: ${product.brand} ${product.model}`);
 }
+
+const unratedPricedProducts = productCatalog.filter((product) => typeof product.price === "number" && !product.review && !product.aggregateRating);
+const unratedSchema = itemListSchema({ title: "Unrated priced products", products: unratedPricedProducts, path: "/qa" });
+assert(
+  unratedSchema.itemListElement.every((item) => item.item["@type"] !== "Product"),
+  "Unrated products should not emit Product snippet schema"
+);
 
 const exact = getTireResults({ size: "275/60R20", intent: "all-terrain" }).exactProducts;
 for (const product of exact) {

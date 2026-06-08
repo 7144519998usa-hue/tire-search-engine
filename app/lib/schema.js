@@ -1,4 +1,4 @@
-import { absoluteUrl, siteName } from "./site";
+import { absoluteUrl, siteName } from "./site.js";
 
 export function breadcrumbSchema(items = []) {
   const validItems = items.filter((item) => item?.name);
@@ -22,14 +22,16 @@ export function itemListSchema({ title = "Tire offers", products = [], path = "/
     name: title,
     url: absoluteUrl(path),
     itemListElement: products.map((product, index) => {
-      const hasVerifiedPrice = typeof product.price === "number";
-      const item = hasVerifiedPrice
+      const hasProductSnippetData = Boolean(product.aggregateRating || product.review);
+      const item = hasProductSnippetData
         ? {
         "@type": "Product",
         name: `${product.brand} ${product.model} ${product.size}`.trim(),
         brand: { "@type": "Brand", name: product.brand },
         category: product.category,
         description: product.bestFor,
+        ...(product.aggregateRating ? { aggregateRating: product.aggregateRating } : {}),
+        ...(product.review ? { review: product.review } : {}),
         offers: {
           "@type": "Offer",
           priceCurrency: product.priceCurrency || "USD",
