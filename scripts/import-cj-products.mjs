@@ -1,8 +1,28 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { normalizeCjProducts } from "../app/lib/cjProductAdapter.js";
 
 const outputPath = resolve("app/lib/cjProductCatalog.js");
+
+function loadEnvFile(fileName) {
+  const filePath = resolve(fileName);
+  if (!existsSync(filePath)) return;
+
+  const lines = readFileSync(filePath, "utf8").split(/\r?\n/);
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#") || !trimmed.includes("=")) continue;
+    const [rawKey, ...rawValue] = trimmed.split("=");
+    const key = rawKey.trim();
+    const value = rawValue.join("=").trim().replace(/^["']|["']$/g, "");
+    if (key && process.env[key] === undefined) {
+      process.env[key] = value;
+    }
+  }
+}
+
+loadEnvFile(".env.local");
+loadEnvFile(".env");
 
 function argValue(name) {
   const index = process.argv.indexOf(name);
@@ -52,13 +72,42 @@ function extractArrays(value, arrays = []) {
   return arrays;
 }
 
-async function fetchApiProducts() {
+function keywordList() {
+  const raw = process.env.CJ_PRODUCT_BATCH_KEYWORDS || process.env.CJ_PRODUCT_KEYWORDS || [
+    "tires",
+    "truck tires",
+    "semi truck tires",
+    "commercial truck tires",
+    "steer tires",
+    "drive tires",
+    "trailer tires",
+    "winter tires",
+    "all season tires",
+    "all terrain tires",
+    "EV tires",
+    "205/55R16",
+    "225/65R17",
+    "235/45R18",
+    "235/60R18",
+    "245/60R18",
+    "265/60R18",
+    "275/55R20",
+    "275/60R20",
+    "11R22.5",
+    "295/75R22.5",
+    "445/50R22.5"
+  ].join(",");
+
+  return raw.split(",").map((keyword) => keyword.trim()).filter(Boolean);
+}
+
+async function fetchApiProductsForKeyword(keyword) {
   const token = process.env.CJ_PERSONAL_ACCESS_TOKEN;
   if (!token) {
     throw new Error("CJ_PERSONAL_ACCESS_TOKEN is required for API import.");
   }
 
-  const endpoint = process.env.CJ_PRODUCT_SEARCH_ENDPOINT || "https://product-search.api.cj.com/query";
+  const endpoint = process.env.CJ_PRODUCT_SEARCH_ENDPOINT || "https://ads.api.cj.com/query";
   const queryFile = process.env.CJ_PRODUCT_SEARCH_QUERY_FILE;
   const query = queryFile
     ? readFileSync(resolve(queryFile), "utf8")
@@ -84,7 +133,6 @@ query TireSearchEngineProducts($keywords: String, $advertiserIds: [ID!], $limit:
     .map((value) => value.trim())
     .filter(Boolean);
 
-  const keywords = process.env.CJ_PRODUCT_KEYWORDS || "tires";
   const limit = Number(process.env.CJ_PRODUCT_LIMIT || 1000);
   const response = await fetch(endpoint, {
     method: "POST",
@@ -94,7 +142,7 @@ query TireSearchEngineProducts($keywords: String, $advertiserIds: [ID!], $limit:
     },
     body: JSON.stringify({
       query,
-      variables: { keywords, advertiserIds, limit }
+      variables: { keywords: keyword, advertiserIds, limit }
     })
   });
 
@@ -110,6 +158,15 @@ query TireSearchEngineProducts($keywords: String, $advertiserIds: [ID!], $limit:
 
   const arrays = extractArrays(payload.data);
   return arrays.sort((a, b) => b.length - a.length)[0] || [];
+}
+
+async function fetchApiProducts() {
+  const products = [];
+  for (const keyword of keywordList()) {
+    console.log(`Fetching CJ products for "${keyword}"...`);
+    products.push(...await fetchApiProductsForKeyword(keyword));
+  }
+  return products;
 }
 
 async function main() {

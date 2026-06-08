@@ -3,6 +3,10 @@ import { parseTireSize } from "./tireSizeParser.js";
 const knownRetailers = ["Tire Rack", "Mavis", "SimpleTire", "Priority Tire", "Amazon"];
 
 function clean(value = "") {
+  if (value && typeof value === "object") {
+    const nested = value.amount ?? value.value ?? value.displayValue ?? value.formatted ?? value.url ?? "";
+    return clean(nested);
+  }
   return String(value || "").replace(/\s+/g, " ").trim();
 }
 
@@ -21,6 +25,9 @@ function firstValue(record = {}, keys = []) {
 }
 
 function parsePrice(value) {
+  if (value && typeof value === "object") {
+    return parsePrice(value.amount ?? value.value ?? value.displayValue);
+  }
   const cleaned = clean(value).replace(/[^0-9.]/g, "");
   if (!cleaned) return undefined;
   const price = Number(cleaned);
@@ -90,18 +97,19 @@ function positionFor(category = "", title = "") {
 }
 
 export function normalizeCjProduct(record = {}) {
-  const title = clean(firstValue(record, ["title", "name", "productName", "linkName"]));
+  const title = clean(firstValue(record, ["title", "name", "productName", "linkName", "productTitle"]));
   const advertiser = clean(firstValue(record, ["advertiserName", "advertiser_name", "advertiser", "merchant", "programName"]));
   const size = sizeFromRecord(record);
   if (!title || !size) return null;
 
   const brand = clean(firstValue(record, ["brand", "manufacturer"])) || inferBrand(title, advertiser);
   const model = clean(firstValue(record, ["model", "productModel"])) || inferModel(title, brand);
-  const category = clean(firstValue(record, ["category", "productType"])) || categoryFor({ title, size, advertiser });
-  const price = parsePrice(firstValue(record, ["price", "salePrice", "retailPrice", "amount"]));
-  const clickUrl = clean(firstValue(record, ["clickUrl", "clickURL", "buyUrl", "buy_url", "link", "url", "destination"]));
-  const image = clean(firstValue(record, ["imageUrl", "imageURL", "image", "thumbnail", "imageLink"]));
-  const sku = clean(firstValue(record, ["sku", "cjsku", "catalogId", "id", "productId"]));
+  const category = clean(firstValue(record, ["category", "productType", "productTypeName"])) || categoryFor({ title, size, advertiser });
+  const price = parsePrice(firstValue(record, ["price", "salePrice", "retailPrice", "amount", "currentPrice"]));
+  const currency = clean(firstValue(record, ["currency", "priceCurrency"])) || clean(record.price?.currency) || "USD";
+  const clickUrl = clean(firstValue(record, ["clickUrl", "clickURL", "buyUrl", "buy_url", "link", "url", "destination", "destinationUrl"]));
+  const image = clean(firstValue(record, ["imageUrl", "imageURL", "image", "thumbnail", "imageLink", "imageLinkUrl"]));
+  const sku = clean(firstValue(record, ["sku", "cjsku", "catalogId", "id", "productId", "manufacturerSku"]));
 
   return {
     id: `cj-${slug(advertiser || "retailer")}-${slug(sku || title)}-${slug(size)}`.slice(0, 140),
@@ -111,7 +119,7 @@ export function normalizeCjProduct(record = {}) {
     category,
     position: positionFor(category, title),
     bestFor: `${size} shoppers comparing ${brand} ${model} through ${advertiser || "CJ"} product feed availability.`,
-    ...(price !== undefined ? { price, priceCurrency: clean(firstValue(record, ["currency", "priceCurrency"])) || "USD" } : {}),
+    ...(price !== undefined ? { price, priceCurrency: currency } : {}),
     priceSnapshot: price !== undefined ? `$${price.toFixed(2)} from CJ feed` : "Confirm current retailer price",
     ...(sku ? { sku, cjsku: sku } : {}),
     ...(clickUrl ? { tireRackUrl: advertiser.toLowerCase().includes("tire rack") ? clickUrl : undefined, merchantUrl: clickUrl } : {}),
