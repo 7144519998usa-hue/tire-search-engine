@@ -1,6 +1,7 @@
 import JsonLd from "./components/JsonLd";
 import HeroTireVisual from "./components/HeroTireVisual";
 import FeaturedTireDealAds from "./components/FeaturedTireDealAds";
+import HeroDealStrip from "./components/HeroDealStrip";
 import ProductGrid from "./components/ProductGrid";
 import SearchBox from "./components/SearchBox";
 import TireCategoryImage from "./components/TireCategoryImage";
@@ -49,6 +50,7 @@ export default function HomePage() {
             <a className="hero-cta" href="/commercial-truck-tires">Commercial truck tires</a>
             <a className="hero-cta" href="/deals">Browse tire deals</a>
           </div>
+          <HeroDealStrip />
         </div>
         <div className="hero-panel hero-deal-panel">
           <HeroTireVisual />

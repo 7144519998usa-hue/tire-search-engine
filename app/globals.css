@@ -1944,6 +1944,129 @@ body {
   box-shadow: 0 22px 54px rgba(21, 25, 31, 0.08);
 }
 
+.hero-deal-strip {
+  margin-top: 18px;
+  padding: 14px;
+  border: 1px solid rgba(233, 111, 44, 0.28);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 201, 77, 0.28), transparent 38%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 249, 241, 0.96));
+  box-shadow: 0 20px 42px rgba(21, 25, 31, 0.12);
+}
+
+.hero-deal-strip-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.hero-deal-strip-heading span {
+  color: var(--ink);
+  font-size: 0.84rem;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-deal-strip-heading a {
+  color: #1f5b49;
+  font-size: 0.86rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.hero-deal-strip-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.hero-deal-card {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.hero-deal-image-link {
+  display: grid;
+  place-items: center;
+  min-height: 82px;
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at center, rgba(31, 91, 73, 0.08), transparent 56%),
+    #f8faf7;
+}
+
+.hero-deal-image-link img {
+  width: 100%;
+  max-width: 112px;
+  height: 76px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 12px rgba(18, 24, 21, 0.16));
+}
+
+.hero-deal-card-copy {
+  display: grid;
+  gap: 2px;
+}
+
+.hero-deal-card-copy strong {
+  color: var(--ink);
+  font-size: 0.96rem;
+  font-weight: 950;
+}
+
+.hero-deal-card-copy span {
+  color: #0f5132;
+  font-size: 1.02rem;
+  font-weight: 950;
+}
+
+.hero-deal-card-copy small {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 760;
+}
+
+.hero-deal-card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.hero-deal-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  border-radius: 999px;
+  background: #e96f2c;
+  color: #1b130b;
+  font-size: 0.72rem;
+  font-weight: 950;
+  text-decoration: none;
+}
+
+.hero-deal-button.is-secondary {
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  background: #ffffff;
+  color: var(--ink);
+}
+
+.hero-deal-strip p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
 .featured-tire-deal-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -2100,5 +2223,17 @@ body {
 
   .featured-tire-deal-grid {
     grid-template-columns: 1fr;
+  }
+
+  .hero-deal-strip-grid {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scroll-snap-type: x proximity;
+  }
+
+  .hero-deal-card {
+    min-width: 188px;
+    scroll-snap-align: start;
   }
 }
