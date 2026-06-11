@@ -25,16 +25,16 @@ If Windows blocks local builds with `spawn EPERM`, use Vercel/GitHub Linux build
 
 ```bash
 NEXT_PUBLIC_SITE_URL=https://www.tiresearchengine.com
-NEXT_PUBLIC_GA_MEASUREMENT_ID=G-RVN7E6EE7V
-NEXT_PUBLIC_INDEXABLE=false
+GA_MEASUREMENT_ID=
+INDEXABLE=false
 TSE_TIRE_RACK_CJ_TEXT_LINK=
-TSE_TIRE_RACK_CJ_CLICK_BASE=https://www.anrdoezrs.net/click-101740681-13697786
+TSE_TIRE_RACK_CJ_CLICK_BASE=
 TSE_TIRE_RACK_AFFILIATE_URL_TEMPLATE=
 TSE_MAVIS_CJ_TEXT_LINK=
 TSE_AMAZON_ASSOCIATE_TAG=
 ```
 
-Set `NEXT_PUBLIC_INDEXABLE=true` only when the production domain is ready. Preview deployments default to noindex so they do not compete with the live TireSearchEngine domain.
+Set `INDEXABLE=true` only when the production domain is ready. Preview deployments default to noindex so they do not compete with the live TireSearchEngine domain. Keep analytics, affiliate, and API credentials server-side; do not use `NEXT_PUBLIC_` unless the value is intentionally public.
 
 ## CJ Product Catalog Import
 

@@ -2,12 +2,15 @@
   "name": "tire-search-engine-clean",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/build-next.cjs",
     "start": "next start",
+    "lint": "node scripts/audit-seo.cjs",
+    "typecheck": "node scripts/typecheck-js-project.cjs",
     "import:cj": "node scripts/import-cj-products.mjs",
-    "audit:seo": "node scripts/audit-seo.js",
+    "audit:seo": "node scripts/audit-seo.cjs",
     "qa:acceptance": "node scripts/qa-acceptance.js"
   },
   "dependencies": {

@@ -1,5 +1,5 @@
 import ImageWithFallback from "./ImageWithFallback";
-import { localTireFallbacks, realTireImages } from "../lib/tireImageSources";
+import { localTireFallbacks, tireImages } from "../lib/tireImageSources";
 
 const imageAliases = {
   steer: "commercialSteer",
@@ -12,7 +12,7 @@ export default function TireCategoryImage({ type = "passenger", alt = "Tire comp
 
   return (
     <ImageWithFallback
-      src={realTireImages[imageType] || realTireImages.passenger}
+      src={tireImages[imageType] || tireImages.passenger}
       fallbackSrc={localTireFallbacks[imageType] || localTireFallbacks.passenger}
       alt={alt}
       width={900}

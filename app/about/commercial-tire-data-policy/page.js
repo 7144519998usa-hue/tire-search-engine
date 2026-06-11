@@ -21,6 +21,14 @@ export default function CommercialTireDataPolicyPage() {
           <h2>Why related sizes are separated</h2>
           <p>Related commercial sizes are research paths, not direct replacements. Fleet requirements and legal load limits must be verified before purchase.</p>
         </article>
+        <article>
+          <h2>Fleet and owner-operator context</h2>
+          <p>Commercial pages are written for comparison and planning, not final fitment approval. Buying decisions should account for route type, axle weight, casing program, retread policy, downtime risk, and supplier availability.</p>
+        </article>
+        <article>
+          <h2>Supplier confirmation</h2>
+          <p>Before ordering, confirm steer, drive, trailer, regional, long-haul, or mixed-service use with a qualified tire supplier. The correct commercial tire depends on more than the printed size alone.</p>
+        </article>
       </div>
     </section>
   );

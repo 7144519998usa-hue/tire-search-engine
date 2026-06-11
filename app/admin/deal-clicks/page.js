@@ -1,4 +1,5 @@
 import { getOutboundClicks } from "../../lib/clickStore";
+import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -8,7 +9,14 @@ export const metadata = {
   robots: { index: false, follow: false }
 };
 
-export default async function DealClicksPage() {
+export default async function DealClicksPage({ searchParams }) {
+  const expectedToken = process.env.ADMIN_REPORT_TOKEN;
+  const providedToken = searchParams?.token;
+
+  if (!expectedToken || providedToken !== expectedToken) {
+    notFound();
+  }
+
   const clicks = await getOutboundClicks(250);
   const totalsBySize = clicks.reduce((accumulator, click) => {
     const key = click.tireSize || "Unknown";

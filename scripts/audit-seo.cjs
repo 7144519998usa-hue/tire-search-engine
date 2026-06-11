@@ -90,7 +90,7 @@ const assertions = [
   ["CJ product catalog can be imported", tireDataSource.includes("cjProductCatalog") && packageSource.includes("import:cj")],
   ["CJ product feed normalizer is present", cjAdapterSource.includes("normalizeCjProduct") && cjAdapterSource.includes("parseTireSize")],
   ["CJ product API/CSV importer is present", cjImportSource.includes("CJ_PERSONAL_ACCESS_TOKEN") && cjImportSource.includes("--csv")],
-  ["Preview indexing flag is supported", siteSource.includes("NEXT_PUBLIC_INDEXABLE")],
+  ["Preview indexing flag is supported", siteSource.includes("process.env.INDEXABLE")],
   ["canonical host redirect is supported", middlewareSource.includes("www.tiresearchengine.com") && middlewareSource.includes("NextResponse.redirect")],
   ["legacy landing pages preserve high-value URLs", legacySource.includes("best-truck-tires") && legacySource.includes("semi-truck-tires") && legacySource.includes("best-winter-tires")]
 ];

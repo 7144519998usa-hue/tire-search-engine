@@ -6,8 +6,7 @@ export function categoryImageFor(product = {}) {
 }
 
 export default function ProductImage({ product, index = 0, className = "" }) {
-  const hasVerifiedRemote = product?.image && !product.image.includes("tireRackLogo");
-  const src = hasVerifiedRemote ? product.image : categoryImageFor(product);
+  const src = categoryImageFor(product);
   const alt = `${product?.brand || "Tire"} ${product?.model || "model"} ${product?.size || ""} tire`.trim();
 
   return (

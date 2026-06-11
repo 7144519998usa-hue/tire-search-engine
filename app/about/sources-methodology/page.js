@@ -21,6 +21,14 @@ export default function SourcesMethodologyPage() {
           <h2>Retailer data</h2>
           <p>Retailer links may show current inventory, installation options, shipping, price, and promotions. Those details can change and must be checked on the retailer site.</p>
         </article>
+        <article>
+          <h2>Product and category signals</h2>
+          <p>Product cards are organized by tire size, category, axle position, retailer path, and available catalog details. We separate exact matches from related research paths to reduce fitment confusion.</p>
+        </article>
+        <article>
+          <h2>Editorial review</h2>
+          <p>Pages are reviewed for grammar, internal links, indexability, basic structured data, and buyer usefulness. Thin or duplicate pages should be improved before they are treated as priority SEO pages.</p>
+        </article>
       </div>
     </section>
   );

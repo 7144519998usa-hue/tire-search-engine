@@ -1,5 +1,5 @@
 import ImageWithFallback from "./ImageWithFallback";
-import { localTireFallbacks, realTireImages } from "../lib/tireImageSources";
+import { localTireFallbacks, tireImages } from "../lib/tireImageSources";
 
 export default function HeroTireVisual() {
   return (
@@ -7,7 +7,7 @@ export default function HeroTireVisual() {
       <div className="hero-image-card">
         <ImageWithFallback
           className="hero-tire-image"
-          src={realTireImages.road}
+          src={tireImages.road}
           fallbackSrc={localTireFallbacks.road}
           alt="Real tire product photo for tire comparison search"
           width={1200}

@@ -1,17 +1,3 @@
-export const realTireImages = {
-  passenger: "https://static.tirerack.com/content/dam/tires/michelin/mi_primacy_tour_as_full.jpg?impolicy=tow-pdp-thumb&imwidth=600",
-  suv: "https://static.tirerack.com/content/dam/tires/bfgoodrich/bfg_allterrain_ta_ko2_full.jpg?impolicy=tow-pdp-thumb&imwidth=600",
-  allTerrain: "https://static.tirerack.com/content/dam/tires/bfgoodrich/bfg_allterrain_ta_ko2_full.jpg?impolicy=tow-pdp-thumb&imwidth=600",
-  ev: "https://static.tirerack.com/content/dam/tires/michelin/mi_primacy_tour_as_full.jpg?impolicy=tow-pdp-thumb&imwidth=600",
-  commercial: "https://www.tirerack.com/content/dam/tires/mickey_thompson/mt_baja_boss_at_full.jpg",
-  commercialSteer: "https://www.tirerack.com/content/dam/tires/mickey_thompson/mt_baja_boss_at_full.jpg",
-  commercialDrive: "https://static.tirerack.com/content/dam/tires/bfgoodrich/bfg_allterrain_ta_ko2_full.jpg?impolicy=tow-pdp-thumb&imwidth=600",
-  commercialTrailer: "https://www.tirerack.com/content/dam/tires/mickey_thompson/mt_baja_boss_at_full.jpg",
-  tread: "https://static.tirerack.com/content/dam/tires/bfgoodrich/bfg_allterrain_ta_ko2_full.jpg?impolicy=tow-pdp-thumb&imwidth=600",
-  road: "https://static.tirerack.com/content/dam/tires/michelin/mi_primacy_tour_as_full.jpg?impolicy=tow-pdp-thumb&imwidth=900",
-  default: "https://static.tirerack.com/content/dam/tires/michelin/mi_primacy_tour_as_full.jpg?impolicy=tow-pdp-thumb&imwidth=600"
-};
-
 export const localTireFallbacks = {
   passenger: "/images/tires/generic-passenger-tire.svg",
   suv: "/images/tires/generic-suv-tire.svg",
@@ -26,6 +12,8 @@ export const localTireFallbacks = {
   default: "/images/tires/generic-passenger-tire.svg"
 };
 
+export const tireImages = localTireFallbacks;
+
 export function imageTypeForProduct(product = {}) {
   const category = `${product.category || ""} ${product.position || ""} ${product.bestFor || ""}`.toLowerCase();
   if (category.includes("steer")) return "commercialSteer";
@@ -39,7 +27,7 @@ export function imageTypeForProduct(product = {}) {
 }
 
 export function realImageForProduct(product = {}) {
-  return realTireImages[imageTypeForProduct(product)] || realTireImages.default;
+  return localTireFallbacks[imageTypeForProduct(product)] || localTireFallbacks.default;
 }
 
 export function localFallbackForProduct(product = {}) {

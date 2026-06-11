@@ -1,4 +1,5 @@
 import TireCategoryImage from "../components/TireCategoryImage";
+import VehicleFinderForm from "../components/VehicleFinderForm";
 import { sizeToSlug, vehicleFitments } from "../lib/tireData";
 import { vehicleDisplayName } from "../lib/vehicleNames";
 
@@ -39,6 +40,8 @@ export const metadata = {
 
 export default function VehiclesPage() {
   const knownMakes = new Set(vehicleFitments.map((fitment) => fitment.make));
+  const makeOptions = priorityMakes.map((make) => ({ value: make, label: vehicleDisplayName(make) }));
+  const yearOptions = ["2026", "2025", "2024", "2023", "2021", "2020", "2018"];
 
   return (
     <section className="section page-shell">
@@ -48,31 +51,7 @@ export default function VehiclesPage() {
         <p>Browse common tire sizes by make, model, and year. Always confirm your exact size on the driver-side door placard or retailer site before buying.</p>
       </div>
 
-      <form className="vehicle-finder-form" action="/vehicles">
-        <label>
-          Year
-          <select name="year" defaultValue="">
-            <option value="">Select year</option>
-            {["2026", "2025", "2024", "2023", "2021", "2020", "2018"].map((year) => <option key={year}>{year}</option>)}
-          </select>
-        </label>
-        <label>
-          Make
-          <select name="make" defaultValue="">
-            <option value="">Select make</option>
-            {priorityMakes.map((make) => <option key={make} value={make}>{vehicleDisplayName(make)}</option>)}
-          </select>
-        </label>
-        <label>
-          Model
-          <input name="model" placeholder="Example: RAV4, Civic, F-150" />
-        </label>
-        <label>
-          Trim optional
-          <input name="trim" placeholder="Example: XLE, Touring, Lariat" />
-        </label>
-        <button type="submit">Find tire sizes</button>
-      </form>
+      <VehicleFinderForm makes={makeOptions} years={yearOptions} />
 
       <div className="vehicle-make-grid">
         {priorityMakes.map((make) => (
