@@ -92,6 +92,7 @@ const assertions = [
   ["CJ product API/CSV importer is present", cjImportSource.includes("CJ_PERSONAL_ACCESS_TOKEN") && cjImportSource.includes("--csv")],
   ["Preview indexing flag is supported", siteSource.includes("process.env.INDEXABLE")],
   ["canonical host redirect is supported", middlewareSource.includes("www.tiresearchengine.com") && middlewareSource.includes("NextResponse.redirect")],
+  ["redirected legacy pages are excluded from sitemap", sitemapSource.includes("redirectedLegacySitemapPaths") && sitemapSource.includes("!redirectedLegacySitemapPaths.has(path)")],
   ["legacy landing pages preserve high-value URLs", legacySource.includes("best-truck-tires") && legacySource.includes("semi-truck-tires") && legacySource.includes("best-winter-tires")]
 ];
 

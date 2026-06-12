@@ -25,6 +25,23 @@ export const sitemapSectionAliases = {
   "tire-university": "university"
 };
 
+const redirectedLegacySitemapPaths = new Set([
+  "/-0",
+  "/bf-goodrich-all-terrain",
+  "/bf-goodrich-all-terrain-tires",
+  "/bridgestone-weatherpeak-review",
+  "/continental-purecontact-ls",
+  "/tesla-model-3-ev-tires",
+  "/tires-for-snow",
+  "/yokohama-avid-ascend-review",
+  "/tires/all-terrain/truck",
+  "/tires/michelin-defender-ltx-ms2",
+  "/tires/michelin-245-70-r19-5",
+  "/tires/nitto",
+  "/tires/295-75-r22-5-near-atlanta-ga",
+  "/tires/315-80-r22-5-near-chicago-il"
+]);
+
 function unique(paths = []) {
   return [...new Set(paths)].sort();
 }
@@ -138,7 +155,7 @@ export function sitemapPathsForSection(section) {
       "/models",
       "/contact",
       ...legacyLandingPaths
-    ]);
+    ].filter((path) => !redirectedLegacySitemapPaths.has(path)));
   }
 
   return [];
