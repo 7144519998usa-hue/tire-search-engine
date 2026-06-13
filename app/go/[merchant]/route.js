@@ -1,27 +1,35 @@
-import { NextResponse } from "next/server";
-import { recordOutboundClick } from "../../lib/clickStore";
-import { validateMerchantTarget } from "../../lib/redirects";
+import { recordOutboundClick } from "../../lib/clickStore.js";
+import { validateMerchantTarget } from "../../lib/redirects.js";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function GET(request, { params }) {
-  const url = new URL(request.url);
-  const target = url.searchParams.get("target") || "";
-  const validTarget = validateMerchantTarget(params.merchant, target);
+  try {
+    const url = new URL(request.url);
+    const merchant = params?.merchant || "";
+    const target = url.searchParams.get("target") || "";
+    const validTarget = validateMerchantTarget(merchant, target);
 
-  if (!validTarget) {
-    return NextResponse.redirect(new URL("/shop-tires", request.url), 302);
+    if (!validTarget) {
+      return Response.redirect(new URL("/shop-tires", request.url), 302);
+    }
+
+    await recordOutboundClick({
+      merchant,
+      placement: url.searchParams.get("placement") || "",
+      tireSize: url.searchParams.get("tireSize") || "",
+      destination: validTarget,
+      path: url.pathname,
+      referrer: request.headers.get("referer") || "",
+      userAgent: request.headers.get("user-agent") || ""
+    }).catch((error) => {
+      console.error("tse_outbound_click_record_failed", error?.message || String(error));
+    });
+
+    return Response.redirect(validTarget, 302);
+  } catch (error) {
+    console.error("tse_go_redirect_failed", error?.message || String(error));
+    return Response.redirect(new URL("/shop-tires", request.url), 302);
   }
-
-  await recordOutboundClick({
-    merchant: params.merchant,
-    placement: url.searchParams.get("placement") || "",
-    tireSize: url.searchParams.get("tireSize") || "",
-    destination: validTarget,
-    path: url.pathname,
-    referrer: request.headers.get("referer") || "",
-    userAgent: request.headers.get("user-agent") || ""
-  }).catch(() => null);
-
-  return NextResponse.redirect(validTarget, 302);
 }
