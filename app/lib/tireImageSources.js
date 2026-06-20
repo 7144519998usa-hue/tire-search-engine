@@ -46,6 +46,7 @@ function isUsableProductImage(src = "") {
 
   const lower = image.toLowerCase();
   if (lower.includes("tireracklogo")) return false;
+  if (lower.includes("tirerack.com/content/dam/tires")) return false;
   if (lower.includes("/logos/")) return false;
   if (lower.endsWith(".svg")) return false;
 
