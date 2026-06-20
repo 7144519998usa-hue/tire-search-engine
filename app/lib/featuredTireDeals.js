@@ -1,5 +1,5 @@
-import { buildGoUrl } from "./redirects";
-import { buildAmazonUrl, buildTireRackUrl, productCatalog } from "./tireData";
+import { buildGoUrl } from "./redirects.js";
+import { buildAmazonUrl, buildTireRackUrl, ensureTireRackAffiliateUrl, productCatalog } from "./tireData.js";
 
 export const featuredDealSizes = ["225/65R17", "205/55R16", "215/55R17", "225/60R18", "195/65R15"];
 
@@ -92,7 +92,7 @@ export const featuredTireDeals = baseFeaturedTireDeals.map((deal) => {
       ? "Feed prices can change. Confirm final price, stock, shipping, installation, and fitment on the retailer page."
       : "Confirm current pricing directly with the retailer before buying.",
     primaryMerchant: "Tire Rack",
-    primaryUrl: product?.tireRackUrl || buildTireRackUrl({ query: `${deal.size} tires`, size: deal.size }) || tireRackSearchUrl(deal.size),
+    primaryUrl: ensureTireRackAffiliateUrl(product?.tireRackUrl || buildTireRackUrl({ query: `${deal.size} tires`, size: deal.size }) || tireRackSearchUrl(deal.size)),
     primaryCta: price ? `Check Tire Rack ${price}` : "Compare Tire Rack deals",
     secondaryMerchant: "Amazon",
     secondaryUrl: amazonSearchUrl(`${deal.size} tire`),
