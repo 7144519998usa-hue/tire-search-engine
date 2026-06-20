@@ -31,6 +31,12 @@ export default function ImageWithFallback({
     }
   }
 
+  function handleLoad(event) {
+    if (event.currentTarget.naturalWidth === 0) {
+      handleError();
+    }
+  }
+
   return (
     <img
       className={className}
@@ -41,6 +47,7 @@ export default function ImageWithFallback({
       sizes={sizes}
       loading={priority ? "eager" : "lazy"}
       decoding="async"
+      onLoad={handleLoad}
       onError={handleError}
     />
   );
