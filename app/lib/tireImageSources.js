@@ -13,17 +13,17 @@ export const localTireFallbacks = {
 };
 
 export const publicTirePhotoFallbacks = {
-  passenger: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Car_tires.jpg",
-  suv: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Assorted_stacked_automotive_tires.jpg",
-  allTerrain: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tire_tread.jpg",
-  ev: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Car_tires.jpg",
-  commercial: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Assorted_stacked_automotive_tires.jpg",
-  commercialSteer: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Assorted_stacked_automotive_tires.jpg",
-  commercialDrive: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tire_tread.jpg",
-  commercialTrailer: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Assorted_stacked_automotive_tires.jpg",
-  tread: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tire_tread.jpg",
-  road: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tire_tread.jpg",
-  default: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Car_tires.jpg"
+  passenger: "https://upload.wikimedia.org/wikipedia/commons/1/14/Car_tires.jpg",
+  suv: "https://upload.wikimedia.org/wikipedia/commons/6/6c/Assorted_stacked_automotive_tires.jpg",
+  allTerrain: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Tire_tread.jpg",
+  ev: "https://upload.wikimedia.org/wikipedia/commons/1/14/Car_tires.jpg",
+  commercial: "https://upload.wikimedia.org/wikipedia/commons/6/6c/Assorted_stacked_automotive_tires.jpg",
+  commercialSteer: "https://upload.wikimedia.org/wikipedia/commons/6/6c/Assorted_stacked_automotive_tires.jpg",
+  commercialDrive: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Tire_tread.jpg",
+  commercialTrailer: "https://upload.wikimedia.org/wikipedia/commons/6/6c/Assorted_stacked_automotive_tires.jpg",
+  tread: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Tire_tread.jpg",
+  road: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Tire_tread.jpg",
+  default: "https://upload.wikimedia.org/wikipedia/commons/1/14/Car_tires.jpg"
 };
 
 export const tireImages = publicTirePhotoFallbacks;
