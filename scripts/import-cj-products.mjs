@@ -202,9 +202,21 @@ query TireSearchEngineProducts($companyId: ID!, $websiteId: ID!, $keywords: [Str
 
 async function fetchApiProducts() {
   const products = [];
+  const failures = [];
+  const failFast = process.env.CJ_PRODUCT_FAIL_FAST === "1";
   for (const keyword of keywordList()) {
     console.log(`Fetching CJ products for "${keyword}"...`);
-    products.push(...await fetchApiProductsForKeyword(keyword));
+    try {
+      products.push(...await fetchApiProductsForKeyword(keyword));
+    } catch (error) {
+      failures.push({ keyword, message: error.message });
+      console.warn(`Skipped CJ keyword "${keyword}": ${error.message.slice(0, 500)}`);
+      if (failFast) throw error;
+    }
+  }
+
+  if (failures.length) {
+    console.warn(`CJ import skipped ${failures.length} keyword batch${failures.length === 1 ? "" : "es"} because CJ returned an error.`);
   }
   return products;
 }
