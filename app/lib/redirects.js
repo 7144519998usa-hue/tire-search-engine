@@ -1,5 +1,20 @@
 const allowedHostsByMerchant = {
-  "tire-rack": ["tirerack.com", "www.tirerack.com", "anrdoezrs.net", "www.anrdoezrs.net", "kqzyfj.com", "www.kqzyfj.com", "pjatr.com", "www.pjatr.com"],
+  "tire-rack": [
+    "tirerack.com",
+    "www.tirerack.com",
+    "anrdoezrs.net",
+    "www.anrdoezrs.net",
+    "jdoqocy.com",
+    "www.jdoqocy.com",
+    "kqzyfj.com",
+    "www.kqzyfj.com",
+    "pjatr.com",
+    "www.pjatr.com",
+    "tkqlhce.com",
+    "www.tkqlhce.com",
+    "tqlkg.com",
+    "www.tqlkg.com"
+  ],
   simpletire: ["simpletire.com", "www.simpletire.com"],
   "priority-tire": ["prioritytire.com", "www.prioritytire.com"],
   mavis: ["mavis.com", "www.mavis.com", "dpbolvw.net", "www.dpbolvw.net"],

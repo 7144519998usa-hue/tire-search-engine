@@ -1184,6 +1184,26 @@ function buildTireRackFallbackSearchUrl(query = "") {
   return `${tireRackClickBase}?url=${encodeURIComponent(destination)}`;
 }
 
+function isTireRackAffiliateUrl(url = "") {
+  return /\/\/(www\.)?(anrdoezrs|jdoqocy|kqzyfj|pjatr|tkqlhce|tqlkg)\.com\//i.test(url);
+}
+
+function isDirectTireRackUrl(url = "") {
+  return /^https:\/\/(www\.)?tirerack\.com\//i.test(url);
+}
+
+export function ensureTireRackAffiliateUrl(url = "") {
+  if (!url || isTireRackAffiliateUrl(url)) {
+    return url;
+  }
+
+  if (isDirectTireRackUrl(url)) {
+    return `${tireRackClickBase}?url=${encodeURIComponent(url)}`;
+  }
+
+  return url;
+}
+
 export function buildTireRackUrl({ query = "", size = "" } = {}) {
   if (tireRackTemplate) {
     const parsed = parseSize(size);
@@ -1241,14 +1261,16 @@ export function buildMavisUrl({ query = "", size = "" } = {}) {
 
 export function getMerchantOffers(product) {
   const query = `${product.brand} ${product.model} ${product.size} tire`.trim();
-  const tireRackUrl = product.tireRackUrl || buildTireRackUrl({ query, size: product.size });
+  const tireRackUrl = ensureTireRackAffiliateUrl(product.tireRackUrl || buildTireRackUrl({ query, size: product.size }));
   const offers = [];
 
   if (product.retailerSearch && product.merchantUrl) {
+    const merchantUrl = product.brand === "Tire Rack" ? ensureTireRackAffiliateUrl(product.merchantUrl) : product.merchantUrl;
+
     offers.push({
       merchant: product.brand,
       label: product.brand === "Mavis" ? "Check Installed Options" : `Search ${product.brand}`,
-      href: product.merchantUrl,
+      href: merchantUrl,
       type: "primary",
       note: product.brand === "Mavis" ? "Installed and local service" : "Retailer tire search"
     });
