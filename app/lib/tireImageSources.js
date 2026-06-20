@@ -12,7 +12,21 @@ export const localTireFallbacks = {
   default: "/images/tires/generic-passenger-tire.svg"
 };
 
-export const tireImages = localTireFallbacks;
+export const publicTirePhotoFallbacks = {
+  passenger: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Car_tires.jpg",
+  suv: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Assorted_stacked_automotive_tires.jpg",
+  allTerrain: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tire_tread.jpg",
+  ev: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Car_tires.jpg",
+  commercial: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Assorted_stacked_automotive_tires.jpg",
+  commercialSteer: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Assorted_stacked_automotive_tires.jpg",
+  commercialDrive: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tire_tread.jpg",
+  commercialTrailer: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Assorted_stacked_automotive_tires.jpg",
+  tread: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tire_tread.jpg",
+  road: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tire_tread.jpg",
+  default: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Car_tires.jpg"
+};
+
+export const tireImages = publicTirePhotoFallbacks;
 
 export function imageTypeForProduct(product = {}) {
   const category = `${product.category || ""} ${product.position || ""} ${product.bestFor || ""}`.toLowerCase();
@@ -26,10 +40,27 @@ export function imageTypeForProduct(product = {}) {
   return "default";
 }
 
+function isUsableProductImage(src = "") {
+  const image = String(src || "").trim();
+  if (!image) return false;
+
+  const lower = image.toLowerCase();
+  if (lower.includes("tireracklogo")) return false;
+  if (lower.includes("/logos/")) return false;
+  if (lower.endsWith(".svg")) return false;
+
+  return lower.startsWith("https://") || lower.startsWith("http://") || lower.startsWith("/");
+}
+
 export function realImageForProduct(product = {}) {
-  return localTireFallbacks[imageTypeForProduct(product)] || localTireFallbacks.default;
+  if (isUsableProductImage(product.image)) return product.image;
+  return publicTirePhotoFallbacks[imageTypeForProduct(product)] || publicTirePhotoFallbacks.default;
 }
 
 export function localFallbackForProduct(product = {}) {
+  return publicTirePhotoFallbacks[imageTypeForProduct(product)] || publicTirePhotoFallbacks.default;
+}
+
+export function svgFallbackForProduct(product = {}) {
   return localTireFallbacks[imageTypeForProduct(product)] || localTireFallbacks.default;
 }

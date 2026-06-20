@@ -1,5 +1,5 @@
 import ImageWithFallback from "./ImageWithFallback";
-import { localFallbackForProduct, realImageForProduct } from "../lib/tireImageSources";
+import { localFallbackForProduct, realImageForProduct, svgFallbackForProduct } from "../lib/tireImageSources";
 
 export function categoryImageFor(product = {}) {
   return realImageForProduct(product);
@@ -14,6 +14,7 @@ export default function ProductImage({ product, index = 0, className = "" }) {
       className={className}
       src={src}
       fallbackSrc={localFallbackForProduct(product)}
+      finalFallbackSrc={svgFallbackForProduct(product)}
       alt={alt}
       width={900}
       height={640}

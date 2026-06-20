@@ -14,6 +14,7 @@ export default function TireCategoryImage({ type = "passenger", alt = "Tire comp
     <ImageWithFallback
       src={tireImages[imageType] || tireImages.passenger}
       fallbackSrc={localTireFallbacks[imageType] || localTireFallbacks.passenger}
+      finalFallbackSrc={localTireFallbacks[imageType] || localTireFallbacks.passenger}
       alt={alt}
       width={900}
       height={640}

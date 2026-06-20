@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ImageWithFallback({
   src,
   fallbackSrc = "/images/tires/generic-passenger-tire.svg",
+  finalFallbackSrc = "/images/tires/generic-passenger-tire.svg",
   alt,
   width = 900,
   height = 640,
@@ -13,18 +13,35 @@ export default function ImageWithFallback({
   priority = false,
   className = ""
 }) {
-  const [imageSrc, setImageSrc] = useState(src || fallbackSrc);
+  const firstSrc = src || fallbackSrc || finalFallbackSrc;
+  const [imageSrc, setImageSrc] = useState(firstSrc);
+
+  useEffect(() => {
+    setImageSrc(firstSrc);
+  }, [firstSrc]);
+
+  function handleError() {
+    if (fallbackSrc && imageSrc !== fallbackSrc) {
+      setImageSrc(fallbackSrc);
+      return;
+    }
+
+    if (finalFallbackSrc && imageSrc !== finalFallbackSrc) {
+      setImageSrc(finalFallbackSrc);
+    }
+  }
 
   return (
-    <Image
+    <img
       className={className}
       src={imageSrc}
       alt={alt}
       width={width}
       height={height}
       sizes={sizes}
-      priority={priority}
-      onError={() => setImageSrc(fallbackSrc)}
+      loading={priority ? "eager" : "lazy"}
+      decoding="async"
+      onError={handleError}
     />
   );
 }

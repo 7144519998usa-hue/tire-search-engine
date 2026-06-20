@@ -9,6 +9,7 @@ export default function HeroTireVisual() {
           className="hero-tire-image"
           src={tireImages.road}
           fallbackSrc={localTireFallbacks.road}
+          finalFallbackSrc={localTireFallbacks.road}
           alt="Real tire product photo for tire comparison search"
           width={1200}
           height={900}
