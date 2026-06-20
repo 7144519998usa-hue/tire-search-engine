@@ -107,7 +107,14 @@ async function fetchApiProductsForKeyword(keyword) {
     throw new Error("CJ_PERSONAL_ACCESS_TOKEN is required for API import.");
   }
 
-  const endpoint = process.env.CJ_PRODUCT_SEARCH_ENDPOINT || "https://ads.api.cj.com/query";
+  const endpointCandidates = (process.env.CJ_PRODUCT_SEARCH_ENDPOINTS || process.env.CJ_PRODUCT_SEARCH_ENDPOINT || [
+    "https://ads.api.cj.com/query",
+    "https://product-search.api.cj.com/query",
+    "https://product.api.cj.com/query"
+  ].join(","))
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean);
   const queryFile = process.env.CJ_PRODUCT_SEARCH_QUERY_FILE;
   const query = queryFile
     ? readFileSync(resolve(queryFile), "utf8")
@@ -156,30 +163,41 @@ query TireSearchEngineProducts($companyId: ID!, $websiteId: ID!, $keywords: [Str
   }
 
   const limit = Number(process.env.CJ_PRODUCT_LIMIT || 1000);
-  const response = await fetch(endpoint, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      query,
-      variables: { keywords: [keyword], advertiserIds, partnerIds: advertiserIds, companyId, websiteId, limit }
-    })
-  });
+  const errors = [];
+  for (const endpoint of endpointCandidates) {
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          query,
+          variables: { keywords: [keyword], advertiserIds, partnerIds: advertiserIds, companyId, websiteId, limit }
+        })
+      });
 
-  const text = await response.text();
-  if (!response.ok) {
-    throw new Error(`CJ API returned ${response.status}: ${text.slice(0, 500)}`);
+      const text = await response.text();
+      if (!response.ok) {
+        errors.push(`${endpoint} returned ${response.status}: ${text.slice(0, 300)}`);
+        continue;
+      }
+
+      const payload = JSON.parse(text);
+      if (payload.errors?.length) {
+        errors.push(`${endpoint} errors: ${JSON.stringify(payload.errors).slice(0, 700)}`);
+        continue;
+      }
+
+      const arrays = extractArrays(payload.data);
+      return arrays.sort((a, b) => b.length - a.length)[0] || [];
+    } catch (error) {
+      errors.push(`${endpoint} failed: ${error.cause?.code || error.message}`);
+    }
   }
 
-  const payload = JSON.parse(text);
-  if (payload.errors?.length) {
-    throw new Error(`CJ API errors: ${JSON.stringify(payload.errors).slice(0, 1000)}`);
-  }
-
-  const arrays = extractArrays(payload.data);
-  return arrays.sort((a, b) => b.length - a.length)[0] || [];
+  throw new Error(`CJ API request failed for "${keyword}". ${errors.join(" | ").slice(0, 1400)}`);
 }
 
 async function fetchApiProducts() {
@@ -201,6 +219,11 @@ async function main() {
       : await fetchApiProducts();
 
   const normalized = normalizeCjProducts(records);
+  const minImportCount = Number(process.env.CJ_PRODUCT_MIN_IMPORT_COUNT || 100);
+  if (normalized.length < minImportCount) {
+    throw new Error(`CJ import returned only ${normalized.length} usable tire products. Refusing to overwrite ${outputPath}. Set CJ_PRODUCT_MIN_IMPORT_COUNT to a lower value only for intentional small imports.`);
+  }
+
   writeFileSync(outputPath, `const cjProductCatalog = ${JSON.stringify(normalized, null, 2)};\n\nexport default cjProductCatalog;\n`);
   console.log(`Imported ${normalized.length} CJ tire products to ${outputPath}`);
 }
