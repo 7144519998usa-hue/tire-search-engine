@@ -1,0 +1,71 @@
+name: CJ Tire Product Sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  sync-cj-products:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CJ_PERSONAL_ACCESS_TOKEN: ${{ secrets.CJ_PERSONAL_ACCESS_TOKEN }}
+      CJ_COMPANY_ID: ${{ secrets.CJ_COMPANY_ID }}
+      CJ_WEBSITE_ID: ${{ secrets.CJ_WEBSITE_ID }}
+      CJ_ADVERTISER_IDS: ${{ secrets.CJ_ADVERTISER_IDS }}
+      CJ_TIRE_RACK_ADVERTISER_ID: ${{ secrets.CJ_TIRE_RACK_ADVERTISER_ID }}
+      CJ_MAVIS_ADVERTISER_ID: ${{ secrets.CJ_MAVIS_ADVERTISER_ID }}
+      CJ_PRODUCT_SEARCH_ENDPOINT: ${{ secrets.CJ_PRODUCT_SEARCH_ENDPOINT }}
+      CJ_PRODUCT_SEARCH_ENDPOINTS: ${{ secrets.CJ_PRODUCT_SEARCH_ENDPOINTS }}
+      CJ_PRODUCT_BATCH_KEYWORDS: ${{ secrets.CJ_PRODUCT_BATCH_KEYWORDS }}
+      CJ_PRODUCT_LIMIT: ${{ secrets.CJ_PRODUCT_LIMIT }}
+      CJ_PRODUCT_MIN_IMPORT_COUNT: ${{ secrets.CJ_PRODUCT_MIN_IMPORT_COUNT }}
+      TSE_AMAZON_ASSOCIATE_TAG: ${{ secrets.TSE_AMAZON_ASSOCIATE_TAG }}
+      TSE_TIRE_RACK_CJ_CLICK_BASE: ${{ secrets.TSE_TIRE_RACK_CJ_CLICK_BASE }}
+      TSE_TIRE_RACK_CJ_TEXT_LINK: ${{ secrets.TSE_TIRE_RACK_CJ_TEXT_LINK }}
+      TSE_TIRE_RACK_AFFILIATE_URL_TEMPLATE: ${{ secrets.TSE_TIRE_RACK_AFFILIATE_URL_TEMPLATE }}
+      TSE_MAVIS_CJ_TEXT_LINK: ${{ secrets.TSE_MAVIS_CJ_TEXT_LINK }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+    steps:
+      - name: Checkout clean branch
+        uses: actions/checkout@v4
+        with:
+          ref: clean-main
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --no-fund --no-audit
+
+      - name: Import current CJ Tire Rack products
+        run: npm run import:cj
+
+      - name: Validate project
+        run: |
+          npm run typecheck
+          npm run build
+
+      - name: Commit refreshed CJ catalog
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          branch: clean-main
+          commit_message: "Refresh CJ Tire Rack product catalog"
+          file_pattern: app/lib/cjProductCatalog.js
+
+      - name: Deploy production when Vercel secrets are configured
+        if: ${{ env.VERCEL_TOKEN != '' && env.VERCEL_ORG_ID != '' && env.VERCEL_PROJECT_ID != '' }}
+        run: |
+          npx vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+          npx vercel build --prod --token="$VERCEL_TOKEN"
+          npx vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
