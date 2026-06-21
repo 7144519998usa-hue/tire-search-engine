@@ -15,8 +15,6 @@ const allowedHostsByMerchant = {
     "tqlkg.com",
     "www.tqlkg.com"
   ],
-  simpletire: ["simpletire.com", "www.simpletire.com"],
-  "priority-tire": ["prioritytire.com", "www.prioritytire.com"],
   mavis: ["mavis.com", "www.mavis.com", "dpbolvw.net", "www.dpbolvw.net"],
   amazon: ["amazon.com", "www.amazon.com"]
 };

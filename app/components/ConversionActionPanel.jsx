@@ -1,5 +1,5 @@
 import { buildGoUrl } from "../lib/redirects";
-import { buildAmazonUrl, buildMavisUrl, buildPriorityTireUrl, buildSimpleTireUrl, buildTireRackUrl } from "../lib/tireData";
+import { buildAmazonUrl, buildMavisInstallationUrl, buildMavisUrl, buildTireRackUrl } from "../lib/tireData";
 
 function moneyLabel({ productCount = 0, pricedCount = 0, commercial = false } = {}) {
   if (pricedCount > 0) {
@@ -30,23 +30,23 @@ export default function ConversionActionPanel({
     },
     {
       merchant: "Mavis",
-      label: commercial ? "Check Installed Options" : "Installed Options",
+      label: commercial ? "Mavis Tire Options" : "Mavis Installed Tires",
       href: buildMavisUrl({ query, size }),
-      note: "Local service path",
+      note: "Affiliate tire path",
       type: "secondary"
     },
     {
-      merchant: "SimpleTire",
-      label: "Compare Online",
-      href: buildSimpleTireUrl({ query, size }),
-      note: "Online tire retailer",
+      merchant: "Mavis",
+      label: "Find Installation",
+      href: buildMavisInstallationUrl({ query, size }),
+      note: "Store and installer path",
       type: "secondary"
     },
     {
       merchant: "Amazon",
-      label: "Marketplace Backup",
+      label: "Search Amazon",
       href: buildAmazonUrl({ query }),
-      note: "Extra selection",
+      note: "Marketplace affiliate path",
       type: "secondary"
     }
   ].filter((action) => action.href);
@@ -64,7 +64,7 @@ export default function ConversionActionPanel({
       <div className="conversion-actions">
         {actions.map((action) => (
           <a
-            key={action.merchant}
+            key={`${action.merchant}-${action.label}`}
             className={`merchant-button is-${action.type}`}
             href={buildGoUrl({ merchant: action.merchant, href: action.href, placement, tireSize: size })}
             rel="nofollow sponsored noopener"

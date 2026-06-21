@@ -7,8 +7,6 @@ const tireRackQuickLink = process.env.TSE_TIRE_RACK_CJ_TEXT_LINK || "";
 const defaultTireRackTemplate = `${tireRackClickBase}?url=https%3A%2F%2Fwww.tirerack.com%2Ftires%2Fresults.jsp%3Fwidth%3D{width}%26ratio%3D{ratio}%26diameter%3D{diameter}`;
 const tireRackTemplate = process.env.TSE_TIRE_RACK_AFFILIATE_URL_TEMPLATE || defaultTireRackTemplate;
 const mavisQuickLink = process.env.TSE_MAVIS_CJ_TEXT_LINK || "https://www.dpbolvw.net/click-101740681-15765842";
-const simpleTireBase = process.env.TSE_SIMPLETIRE_SEARCH_BASE || "https://simpletire.com/tire-sizes";
-const priorityTireBase = process.env.TSE_PRIORITYTIRE_SEARCH_BASE || "https://www.prioritytire.com/catalogsearch/result/";
 const amazonTag = process.env.TSE_AMAZON_ASSOCIATE_TAG || "";
 
 export const priorityPages = [
@@ -1015,22 +1013,6 @@ const retailerCatalogBrands = [
     urlBuilder: buildMavisUrl
   },
   {
-    brand: "SimpleTire",
-    model: "Online Tire Search",
-    merchant: "SimpleTire",
-    categoryPrefix: "Online tire retailer",
-    bestFor: "comparing online tire availability, shipped tire options, fitment checks, and current checkout pricing",
-    urlBuilder: buildSimpleTireUrl
-  },
-  {
-    brand: "Priority Tire",
-    model: "Value Tire Search",
-    merchant: "Priority Tire",
-    categoryPrefix: "Value-focused retailer",
-    bestFor: "checking value-focused tire listings, availability, shipping, and current checkout pricing",
-    urlBuilder: buildPriorityTireUrl
-  },
-  {
     brand: "Amazon",
     model: "Marketplace Tire Search",
     merchant: "Amazon",
@@ -1242,21 +1224,40 @@ export function buildAmazonUrl({ query = "" } = {}) {
   return `https://www.amazon.com/s?${params.toString()}`;
 }
 
-export function buildSimpleTireUrl({ query = "", size = "" } = {}) {
+function buildMavisDestination(path = "/shop-tires/", { query = "", size = "", intent = "" } = {}) {
+  const destination = new URL(path, "https://www.mavis.com");
   const parsed = parseTireSize(size);
-  if (parsed?.display) {
-    return `${simpleTireBase}/${encode(parsed.display.toLowerCase().replace("/", "-").replace("r", "-r"))}`;
-  }
-  return `${simpleTireBase}?q=${encode(query || "tires")}`;
+  const displaySize = parsed?.display || "";
+
+  if (displaySize) destination.searchParams.set("tireSize", displaySize);
+  if (query) destination.searchParams.set("q", query);
+  if (intent) destination.searchParams.set("intent", intent);
+
+  destination.searchParams.set("utm_source", "tiresearchengine");
+  destination.searchParams.set("utm_medium", "affiliate");
+  destination.searchParams.set("utm_campaign", path.includes("locations") ? "mavis_installation" : "mavis_tires");
+
+  return destination.toString();
 }
 
-export function buildPriorityTireUrl({ query = "", size = "" } = {}) {
-  const search = parseTireSize(size)?.display || query || "tires";
-  return `${priorityTireBase}?q=${encode(search)}`;
+function buildMavisAffiliateUrl(destination = "https://www.mavis.com/shop-tires/", sid = "") {
+  if (!mavisQuickLink) return destination;
+  if (mavisQuickLink.includes("url=")) return mavisQuickLink;
+
+  const separator = mavisQuickLink.includes("?") ? "&" : "?";
+  const params = new URLSearchParams({ url: destination });
+  if (sid) params.set("sid", sid);
+  return `${mavisQuickLink}${separator}${params.toString()}`;
 }
 
-export function buildMavisUrl({ query = "", size = "" } = {}) {
-  return mavisQuickLink || `https://www.mavis.com/search?q=${encode(parseTireSize(size)?.display || query || "tires")}`;
+export function buildMavisUrl({ query = "", size = "", intent = "" } = {}) {
+  const destination = buildMavisDestination("/shop-tires/", { query, size, intent });
+  return buildMavisAffiliateUrl(destination, "mavis-tires");
+}
+
+export function buildMavisInstallationUrl({ query = "", size = "", intent = "" } = {}) {
+  const destination = buildMavisDestination("/locations/", { query, size, intent });
+  return buildMavisAffiliateUrl(destination, "mavis-installation");
 }
 
 export function getMerchantOffers(product) {
@@ -1287,27 +1288,19 @@ export function getMerchantOffers(product) {
   }
 
   offers.push({
-    merchant: "SimpleTire",
-    label: "Compare SimpleTire",
-    href: buildSimpleTireUrl({ query, size: product.size }),
+    merchant: "Mavis",
+    label: "Shop Mavis Installed Tires",
+    href: buildMavisUrl({ query, size: product.size }),
     type: tireRackUrl ? "secondary" : "primary",
-    note: "Online tire retailer"
-  });
-
-  offers.push({
-    merchant: "Priority Tire",
-    label: "See Priority Tire",
-    href: buildPriorityTireUrl({ query, size: product.size }),
-    type: "secondary",
-    note: "Value-focused tire retailer"
+    note: "Mavis tires and installation"
   });
 
   offers.push({
     merchant: "Mavis",
-    label: "Installed at Mavis",
-    href: buildMavisUrl({ query, size: product.size }),
-    type: tireRackUrl ? "secondary" : "primary",
-    note: "Installed and local service"
+    label: "Find Mavis Installation",
+    href: buildMavisInstallationUrl({ query, size: product.size }),
+    type: "secondary",
+    note: "Store and installation path"
   });
 
   offers.push({

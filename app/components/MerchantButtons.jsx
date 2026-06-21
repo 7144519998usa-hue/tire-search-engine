@@ -5,7 +5,7 @@ export default function MerchantButtons({ product, placement = "product-card" })
     <div className="merchant-buttons">
       {product.offers.map((offer) => (
         <a
-          key={`${product.id}-${offer.merchant}`}
+          key={`${product.id}-${offer.merchant}-${offer.label}`}
           href={buildGoUrl({
             merchant: offer.merchant,
             href: offer.href,
@@ -22,4 +22,3 @@ export default function MerchantButtons({ product, placement = "product-card" })
     </div>
   );
 }
-

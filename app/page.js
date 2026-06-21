@@ -22,7 +22,7 @@ function formatPriorityLabel(href = "") {
 
 export const metadata = {
   title: "Compare Tire Prices by Size, Vehicle, Brand, or Truck Application",
-  description: "Search passenger, SUV, EV, pickup, and commercial truck tire options before visiting Tire Rack, SimpleTire, Mavis, Priority Tire, or Amazon fallback links.",
+  description: "Search passenger, SUV, EV, pickup, and commercial truck tire options before visiting Tire Rack, Mavis installation paths, or Amazon marketplace links.",
   alternates: { canonical: "/" }
 };
 
@@ -124,9 +124,9 @@ export default function HomePage() {
         </div>
         <div className="priority-grid retailer-paths">
           <a href="/tires/265-60-r18">Tire Rack tire deals</a>
-          <a href="/shop-tires">SimpleTire and Priority Tire paths</a>
           <a href="/shop-tires">Mavis installed tire options</a>
-          <a href="/deals">Amazon fallback marketplace links</a>
+          <a href="/shop-tires">Mavis store and installation lookup</a>
+          <a href="/deals">Amazon marketplace links</a>
         </div>
       </section>
 
@@ -152,7 +152,7 @@ export default function HomePage() {
           <article className="shopping-path-card">
             <span>Retailer price paths</span>
             <h3>Open retailer-ready tire pages.</h3>
-            <p>Use exact-size pages that collect Tire Rack, SimpleTire, Priority Tire, Mavis, and Amazon fallback links in one place.</p>
+            <p>Use exact-size pages that collect Tire Rack, Mavis tire and installation paths, and Amazon marketplace links in one place.</p>
             <div className="mini-link-row">
               <a href="/tires/265-60-r18">265/60R18 Tire Rack path</a>
               <a href="/tires/275-60-r20">275/60R20 truck tires</a>
