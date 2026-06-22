@@ -6,7 +6,9 @@ export const gaMeasurementId = process.env.GA_MEASUREMENT_ID || "";
 const configuredIndexable = process.env.INDEXABLE;
 export const isIndexable = configuredIndexable
   ? configuredIndexable === "true"
-  : process.env.VERCEL_ENV === "production";
+  : process.env.VERCEL_ENV
+    ? process.env.VERCEL_ENV === "production"
+    : true;
 export const canonicalHost = new URL(siteUrl).hostname;
 
 export function absoluteUrl(path = "/") {

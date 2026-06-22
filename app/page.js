@@ -21,8 +21,10 @@ function formatPriorityLabel(href = "") {
 }
 
 export const metadata = {
-  title: "Compare Tire Prices by Size, Vehicle, Brand, or Truck Application",
-  description: "Search passenger, SUV, EV, pickup, and commercial truck tire options before visiting Tire Rack, Mavis installation paths, or Amazon marketplace links.",
+  title: {
+    absolute: "Tire Search Engine | Compare Tire Prices, Truck Tires & Deals"
+  },
+  description: "Tire Search Engine helps shoppers compare passenger, SUV, EV, pickup, and commercial truck tire options before visiting Tire Rack, Mavis installation paths, or Amazon marketplace links.",
   alternates: { canonical: "/" }
 };
 
@@ -35,8 +37,8 @@ export default function HomePage() {
       <JsonLd data={itemListSchema({ title: "Commercial truck tire picks", products: homeTruckProducts, path: "/" })} />
       <section className="hero">
         <div className="hero-copy">
-          <p className="kicker">Tire comparison engine</p>
-          <h1>Compare tire prices by size, vehicle, brand, or truck application.</h1>
+          <p className="kicker">Tire Search Engine</p>
+          <h1>Tire Search Engine helps you compare tire prices by size, vehicle, brand, or truck application.</h1>
           <p>Search passenger, SUV, EV, pickup, and commercial truck tire options before visiting a retailer.</p>
           <SearchBox />
           <div className="search-tabs" aria-label="Popular tire search paths">

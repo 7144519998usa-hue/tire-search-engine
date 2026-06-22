@@ -62,6 +62,7 @@ export function webSiteSchema() {
     "@type": "WebSite",
     "@id": absoluteUrl("/#website"),
     name: siteName,
+    alternateName: ["TireSearchEngine", "tiresearchengine.com"],
     url: absoluteUrl("/"),
     potentialAction: {
       "@type": "SearchAction",
@@ -77,6 +78,7 @@ export function organizationSchema() {
     "@type": "Organization",
     "@id": absoluteUrl("/#organization"),
     name: siteName,
+    alternateName: ["TireSearchEngine", "tiresearchengine.com"],
     url: absoluteUrl("/"),
     sameAs: []
   };
