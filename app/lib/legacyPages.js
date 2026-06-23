@@ -97,6 +97,27 @@ export const legacyLandingPages = {
     intent: "drive",
     canonical: "/best-semi-truck-tires"
   },
+  "best-steer-tires-for-highway": {
+    title: "Best Steer Tires for Highway",
+    description: "Compare highway steer tires for semi trucks, long-haul stability, even wear, casing value, quote paths, and retailer availability.",
+    size: "295/75R22.5",
+    intent: "steer",
+    canonical: "/best-steer-tires-for-highway"
+  },
+  "best-semi-truck-steer-tires": {
+    title: "Best Semi Truck Steer Tires",
+    description: "Compare semi truck steer tires for highway control, regional hauling, load range, casing value, and commercial tire quote paths.",
+    size: "295/75R22.5",
+    intent: "steer",
+    canonical: "/best-semi-truck-steer-tires"
+  },
+  "best-steer-tires-for-semi-trucks": {
+    title: "Best Steer Tires for Semi Trucks",
+    description: "Compare steer-position semi truck tires by size, highway use, fleet replacement planning, casing value, and retailer options.",
+    size: "295/75R22.5",
+    intent: "steer",
+    canonical: "/best-steer-tires-for-semi-trucks"
+  },
   "best-drive-tires-for-semi-truck": {
     title: "Best Drive Tires for Semi Truck",
     description: "Compare semi truck drive tires for traction, long-haul mileage, regional work, and cost-per-mile planning.",
@@ -404,6 +425,13 @@ export const legacyLandingPages = {
     size: "275/60R20",
     intent: "truck",
     canonical: "/best-all-season-truck-tires"
+  },
+  "best-all-season-tires-for-trucks": {
+    title: "Best All-Season Tires for Trucks",
+    description: "Compare all-season truck tires for highway driving, towing, daily use, light all-terrain needs, and retailer checkout paths.",
+    size: "275/60R20",
+    intent: "truck",
+    canonical: "/best-all-season-tires-for-trucks"
   },
   "best-all-around-truck-tires": {
     title: "Best All-Around Truck Tires",

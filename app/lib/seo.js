@@ -6,6 +6,7 @@ import { vehicleDisplayName } from "./vehicleNames.js";
 
 export const tireIntentLabels = {
   "best": "Best",
+  "cheap": "Cheap",
   "budget": "Budget",
   "price": "Price",
   "comparison": "Comparison",
@@ -81,7 +82,8 @@ export function introForTireIntent(size = "", intent = "") {
 
 export function faqsForTireIntent(size = "", intent = "") {
   const label = labelForIntent(intent).toLowerCase();
-  return [
+  const commercial = isCommercialTireSize(size) || ["steer", "drive", "trailer", "regional-haul", "long-haul", "mixed-service"].includes(intent);
+  const baseFaqs = [
     {
       question: `What makes a ${label} ${size} tire page useful?`,
       answer: "The page should keep exact-size results separate, show retailer paths, explain the use case, and remind shoppers to confirm fitment before buying."
@@ -91,6 +93,76 @@ export function faqsForTireIntent(size = "", intent = "") {
       answer: "No. Related sizes are research links only. Confirm the exact tire size, load range, speed rating, and fitment with the placard, sidewall, retailer, or installer."
     }
   ];
+
+  if (commercial) {
+    return [
+      {
+        question: `What should I compare on ${size} ${label} truck tires?`,
+        answer: "Compare axle position, load range, application, casing value, expected mileage, retread policy, roadside availability, and current supplier pricing before ordering."
+      },
+      {
+        question: `Can ${size} steer, drive, and trailer tires be mixed?`,
+        answer: "Do not treat axle positions as interchangeable. Steer, drive, and trailer tires are built for different wear, traction, and handling needs, so confirm the correct position before purchase."
+      },
+      {
+        question: `Are ${size} commercial tire prices final on this page?`,
+        answer: "No. Commercial tire pricing can change by region, casing credit, installation, freight, tax, and fleet terms. Use the retailer or quote path to confirm the current total."
+      },
+      {
+        question: `What matters most for highway steer tires?`,
+        answer: "Highway steer tire shoppers should prioritize stability, even shoulder wear, casing quality, load rating, speed rating, and the correct commercial application for the route."
+      },
+      ...baseFaqs
+    ];
+  }
+
+  if (intent === "winter" || intent === "all-weather") {
+    return [
+      {
+        question: `What should I compare on ${size} ${label} tires?`,
+        answer: "Compare cold-weather traction, wet braking, road noise, tread life, speed rating, load rating, and whether the tire is a true winter tire, all-weather tire, or all-season tire."
+      },
+      {
+        question: `Are ${label} tires the same as all-season tires?`,
+        answer: "No. Winter tires focus on snow, ice, and cold temperatures. All-weather tires may carry severe-snow ratings while remaining usable year-round. All-season tires are usually less focused on deep winter traction."
+      },
+      {
+        question: `Should I buy four ${size} winter tires?`,
+        answer: "Most vehicles should use a matched set of four winter tires for balanced braking, steering, and stability. Confirm the recommendation for your vehicle and local conditions."
+      },
+      ...baseFaqs
+    ];
+  }
+
+  if (intent === "summer" || intent === "performance") {
+    return [
+      {
+        question: `What should I compare on ${size} ${label} tires?`,
+        answer: "Compare warm-weather grip, wet-road braking, steering response, ride comfort, treadwear, speed rating, and whether the tire fits your exact wheel and vehicle package."
+      },
+      {
+        question: `Can ${label} tires be used in winter?`,
+        answer: "Summer and many performance tires are not intended for snow, ice, or freezing temperatures. Use a winter or all-weather tire when cold-weather traction is the priority."
+      },
+      ...baseFaqs
+    ];
+  }
+
+  if (intent === "ev") {
+    return [
+      {
+        question: `What should I compare on ${size} EV tires?`,
+        answer: "Compare load rating, road noise, range impact, rolling resistance, tread life, rim protection, and whether the retailer confirms fitment for the exact EV trim."
+      },
+      {
+        question: `Do EVs need special ${size} tires?`,
+        answer: "Many EVs benefit from tires built for extra vehicle weight, quiet ride, and low rolling resistance, but the exact requirement depends on trim, wheel package, and manufacturer fitment."
+      },
+      ...baseFaqs
+    ];
+  }
+
+  return baseFaqs;
 }
 
 export function titleForVehicleModel(make = "", model = "") {

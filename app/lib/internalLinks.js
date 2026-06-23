@@ -62,12 +62,26 @@ export function getInternalLinks({ size = "", make = "", model = "", commercial 
       { href: `/tires/${sizeToSlug(size)}/best`, label: `Best ${size} tires` },
       { href: `/tires/${sizeToSlug(size)}/budget`, label: `Budget ${size} tires` },
       { href: commercial ? `/commercial-truck-tires/${sizeToSlug(size)}/drive` : `/tires/${sizeToSlug(size)}/all-season`, label: commercial ? `${size} drive tires` : `${size} all-season tires` },
-      { href: commercial ? `/commercial-truck-tires/${sizeToSlug(size)}/steer` : `/tires/${sizeToSlug(size)}/all-weather`, label: commercial ? `${size} steer tires` : `${size} all-weather tires` }
+      { href: commercial ? `/commercial-truck-tires/${sizeToSlug(size)}/steer` : `/tires/${sizeToSlug(size)}/all-weather`, label: commercial ? `${size} steer tires` : `${size} all-weather tires` },
+      ...(commercial
+        ? [
+          { href: "/best-steer-tires-for-highway", label: "Best steer tires for highway" },
+          { href: "/semi-truck-tire-replacement-cost", label: "Semi truck tire replacement cost" },
+          { href: "/semi-truck-tires", label: "Semi truck tires" }
+        ]
+        : [
+          { href: "/best-winter-tires", label: "Best winter tires" },
+          { href: "/best-snow-tires", label: "Best snow tires" },
+          { href: "/best-ev-tires", label: "Best EV tires" }
+        ])
     ]
     : [
       { href: "/best-truck-tires", label: "Best truck tires" },
       { href: "/best-winter-tires", label: "Best winter tires" },
-      { href: "/semi-truck-tires", label: "Semi truck tires" }
+      { href: "/best-snow-tires", label: "Best snow tires" },
+      { href: "/best-steer-tires-for-highway", label: "Best steer tires for highway" },
+      { href: "/semi-truck-tires", label: "Semi truck tires" },
+      { href: "/best-ev-tires", label: "Best EV tires" }
     ];
 
   return {

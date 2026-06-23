@@ -973,6 +973,36 @@ const seedProductCatalog = [
     tireRackUrl: "https://www.tirerack.com/tires/tires.jsp?partnum=755HR0WWAT2XL&tireMake=Goodyear&tireModel=Wrangler+Workhorse+AT2"
   },
   {
+    id: "bridgestone-weatherpeak-275-55r20",
+    brand: "Bridgestone",
+    model: "WeatherPeak",
+    size: "275/55R20",
+    category: "All-weather SUV and truck",
+    position: "all-weather",
+    bestFor: "275/55R20 all-weather tire shoppers comparing wet grip, light snow traction, highway comfort, and retailer checkout paths",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
+    id: "falken-wildpeak-at4w-285-70r17",
+    brand: "Falken",
+    model: "Wildpeak A/T4W",
+    size: "285/70R17",
+    category: "All-terrain truck",
+    position: "all-terrain",
+    bestFor: "Budget-minded 285/70R17 truck shoppers comparing all-terrain traction, winter capability, and retailer availability",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
+    id: "bfgoodrich-ko2-285-70r17",
+    brand: "BFGoodrich",
+    model: "All-Terrain T/A KO2",
+    size: "285/70R17",
+    category: "All-terrain truck",
+    position: "all-terrain",
+    bestFor: "285/70R17 truck and Jeep shoppers comparing all-terrain durability, stance, and retailer checkout paths",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
     id: "pirelli-scorpion-all-season-plus-3-255-55r20",
     brand: "Pirelli",
     model: "Scorpion All Season Plus 3",
@@ -1103,7 +1133,7 @@ function intentMatchesProduct(product, intent = "") {
     return true;
   }
 
-  if (normalizedIntent === "budget") {
+  if (normalizedIntent === "budget" || normalizedIntent === "cheap") {
     return true;
   }
 
