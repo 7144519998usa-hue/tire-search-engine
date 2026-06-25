@@ -60,6 +60,8 @@ export default function HomePage() {
         </div>
       </section>
 
+      <TireRackSpecialOffers />
+
       <section className="category-strip" aria-label="Tire shopping categories">
         <a href="/tires/225-65-r17">
           <TireCategoryImage type="passenger" alt="Passenger and SUV tire comparison visual" />
@@ -87,8 +89,6 @@ export default function HomePage() {
           <small>Compare retailer links, local-service paths, and marketplace choices.</small>
         </a>
       </section>
-
-      <TireRackSpecialOffers />
 
       <section className="section" aria-label="High-demand tire deal ads">
         <FeaturedTireDealAds

@@ -2195,15 +2195,15 @@ body {
 }
 
 .tire-rack-specials {
-  width: min(1180px, calc(100% - 32px));
-  margin: 18px auto 38px;
-  border-radius: 34px;
+  width: min(1280px, calc(100% - 24px));
+  margin: -8px auto 38px;
+  border-radius: 38px;
   border: 1px solid rgba(28, 52, 44, 0.12);
   background:
     linear-gradient(135deg, rgba(255, 247, 234, 0.96), rgba(245, 255, 247, 0.92)),
     radial-gradient(circle at 12% 8%, rgba(241, 109, 31, 0.14), transparent 32%);
   box-shadow: 0 28px 80px rgba(24, 34, 28, 0.12);
-  padding: 24px;
+  padding: 28px;
   overflow: hidden;
 }
 
@@ -2218,23 +2218,24 @@ body {
 .tire-rack-specials-heading h2 {
   margin: 4px 0 8px;
   color: var(--ink);
-  font-size: clamp(1.55rem, 3vw, 2.45rem);
+  font-size: clamp(1.9rem, 4vw, 3.2rem);
   line-height: 1.02;
   letter-spacing: -0.045em;
 }
 
 .tire-rack-specials-heading p {
   margin: 0;
-  max-width: 760px;
+  max-width: 820px;
   color: var(--muted);
+  font-size: 1.05rem;
   line-height: 1.55;
 }
 
 .tire-rack-specials-slider {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(270px, 330px);
-  gap: 16px;
+  grid-auto-columns: minmax(330px, 390px);
+  gap: 20px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x proximity;
@@ -2257,8 +2258,8 @@ body {
 
 .tire-rack-special-card {
   display: grid;
-  grid-template-rows: 180px 1fr;
-  min-height: 430px;
+  grid-template-rows: 230px 1fr;
+  min-height: 510px;
   scroll-snap-align: start;
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.95);
@@ -2322,13 +2323,13 @@ body {
 .tire-rack-special-card h3 {
   margin: 0;
   color: var(--ink);
-  font-size: 1.05rem;
+  font-size: 1.25rem;
   line-height: 1.22;
 }
 
 .tire-rack-special-card strong {
   color: #0f5132;
-  font-size: 1.35rem;
+  font-size: 1.7rem;
   font-weight: 1000;
   line-height: 1.1;
 }
@@ -2336,19 +2337,20 @@ body {
 .tire-rack-special-card p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.98rem;
 }
 
 .tire-rack-special-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 42px;
+  min-height: 52px;
   margin-top: auto;
   border-radius: 999px;
   background: #f16d1f;
   color: #ffffff;
   text-decoration: none;
+  font-size: 1rem;
   font-weight: 950;
   box-shadow: 0 12px 24px rgba(241, 109, 31, 0.24);
 }
@@ -2414,10 +2416,11 @@ body {
   }
 
   .tire-rack-specials-slider {
-    grid-auto-columns: minmax(238px, 82vw);
+    grid-auto-columns: minmax(282px, 86vw);
   }
 
   .tire-rack-special-card {
-    grid-template-rows: 160px 1fr;
+    grid-template-rows: 190px 1fr;
+    min-height: 470px;
   }
 }
