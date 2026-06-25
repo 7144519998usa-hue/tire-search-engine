@@ -1,13 +1,15 @@
 import { getTireRackSpecialOffers } from "../lib/tireRackSpecialOffers";
 import { getFeaturedTireDeals, trackedDealHref } from "../lib/featuredTireDeals";
+import { getMavisSpecialOffers } from "../lib/mavisSpecialOffers";
 import ProductImage from "./ProductImage";
 import TrackedDealLink from "./TrackedDealLink";
 
 export default function HeroTireRackDeals() {
   const offers = getTireRackSpecialOffers(4);
   const amazonDeals = getFeaturedTireDeals(5);
+  const mavisDeals = getMavisSpecialOffers(6);
 
-  if (!offers.length && !amazonDeals.length) return null;
+  if (!offers.length && !amazonDeals.length && !mavisDeals.length) return null;
 
   return (
     <div className="hero-tire-rack-deals" aria-label="Featured Tire Rack rebates">
@@ -70,6 +72,32 @@ export default function HeroTireRackDeals() {
                   <ProductImage product={deal.product} index={index + 10} />
                   <span>{deal.size}</span>
                   <strong>Search Amazon</strong>
+                </TrackedDealLink>
+              </article>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      {mavisDeals.length ? (
+        <div className="hero-mavis-deals">
+          <div className="hero-mavis-heading">
+            <p className="kicker">Mavis installed-tire deals</p>
+            <h3>Rebates and local installation paths.</h3>
+          </div>
+          <div className="hero-mavis-grid">
+            {mavisDeals.map((deal) => (
+              <article className={`hero-mavis-card is-${deal.tone}`} key={deal.placement}>
+                <TrackedDealLink
+                  href={deal.href}
+                  merchant="Mavis"
+                  placement={deal.placement}
+                  tireSize={deal.brand}
+                >
+                  <span>{deal.brand}</span>
+                  <strong>{deal.savings}</strong>
+                  <small>{deal.detail}</small>
+                  <em>{deal.expires}</em>
                 </TrackedDealLink>
               </article>
             ))}

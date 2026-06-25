@@ -2519,6 +2519,93 @@ body {
   font-weight: 950;
 }
 
+.hero-mavis-deals {
+  display: grid;
+  gap: 10px;
+}
+
+.hero-mavis-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.hero-mavis-heading h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1rem;
+  letter-spacing: -0.025em;
+}
+
+.hero-mavis-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.hero-mavis-card a {
+  display: grid;
+  gap: 4px;
+  min-height: 112px;
+  padding: 12px;
+  border-radius: 18px;
+  color: inherit;
+  text-decoration: none;
+  background:
+    radial-gradient(circle at top right, rgba(255, 221, 71, 0.36), transparent 48%),
+    linear-gradient(135deg, #004b5d, #047b82);
+  border: 1px solid rgba(4, 120, 120, 0.24);
+  box-shadow: 0 14px 30px rgba(3, 76, 89, 0.18);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.hero-mavis-card a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 38px rgba(3, 76, 89, 0.24);
+}
+
+.hero-mavis-card span {
+  color: #fff4b8;
+  font-size: 0.76rem;
+  font-weight: 1000;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hero-mavis-card strong {
+  color: #ffffff;
+  font-size: 1.04rem;
+  font-weight: 1000;
+  line-height: 1.04;
+}
+
+.hero-mavis-card small,
+.hero-mavis-card em {
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 0.78rem;
+  font-style: normal;
+  line-height: 1.25;
+}
+
+.hero-mavis-card.is-premium a {
+  background:
+    radial-gradient(circle at top right, rgba(255, 221, 71, 0.34), transparent 50%),
+    linear-gradient(135deg, #043f4b, #026970);
+}
+
+.hero-mavis-card.is-truck a {
+  background:
+    radial-gradient(circle at top right, rgba(255, 221, 71, 0.32), transparent 52%),
+    linear-gradient(135deg, #123f34, #087154);
+}
+
+.hero-mavis-card.is-value a {
+  background:
+    radial-gradient(circle at top right, rgba(255, 221, 71, 0.38), transparent 48%),
+    linear-gradient(135deg, #075985, #0284c7);
+}
+
 @media (max-width: 860px) {
   .tire-rack-specials-heading {
     align-items: start;
@@ -2531,6 +2618,10 @@ body {
 
   .shopping-path-grid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-mavis-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -2596,6 +2687,22 @@ body {
 
   .hero-amazon-card {
     min-width: 152px;
+    scroll-snap-align: start;
+  }
+
+  .hero-mavis-heading {
+    display: grid;
+  }
+
+  .hero-mavis-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding-bottom: 6px;
+  }
+
+  .hero-mavis-card {
+    min-width: 190px;
     scroll-snap-align: start;
   }
 
