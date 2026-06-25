@@ -97,7 +97,7 @@ export function faqsForTireIntent(size = "", intent = "") {
   if (commercial) {
     return [
       {
-        question: `What should I compare on ${size} ${label} truck tires?`,
+        question: `What should I compare on ${size} ${label} tire options?`,
         answer: "Compare axle position, load range, application, casing value, expected mileage, retread policy, roadside availability, and current supplier pricing before ordering."
       },
       {

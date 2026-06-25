@@ -202,6 +202,34 @@ export const legacyLandingPages = {
     intent: "truck",
     canonical: "/truck-tires-near-me"
   },
+  "truck-tires-near-dallas": {
+    title: "Truck Tires Near Dallas",
+    description: "Compare commercial truck tire replacement paths near Dallas, including steer, drive, trailer, local-service, and checkout options.",
+    size: "295/75R22.5",
+    intent: "truck",
+    canonical: "/truck-tires-near-dallas"
+  },
+  "truck-tires-near-houston": {
+    title: "Truck Tires Near Houston",
+    description: "Compare commercial truck tire replacement paths near Houston, including steer, drive, trailer, local-service, and checkout options.",
+    size: "295/75R22.5",
+    intent: "truck",
+    canonical: "/truck-tires-near-houston"
+  },
+  "truck-tires-near-chicago": {
+    title: "Truck Tires Near Chicago",
+    description: "Compare commercial truck tire replacement paths near Chicago, including steer, drive, trailer, local-service, and checkout options.",
+    size: "295/75R22.5",
+    intent: "truck",
+    canonical: "/truck-tires-near-chicago"
+  },
+  "truck-tires-near-los-angeles": {
+    title: "Truck Tires Near Los Angeles",
+    description: "Compare commercial truck tire replacement paths near Los Angeles, including steer, drive, trailer, local-service, and checkout options.",
+    size: "295/75R22.5",
+    intent: "truck",
+    canonical: "/truck-tires-near-los-angeles"
+  },
   "best-winter-tires": {
     title: "Best Winter Tires",
     description: "Compare winter tires, snow tire options, all-weather alternatives, and retailer checkout links.",
