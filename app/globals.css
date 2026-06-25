@@ -2452,6 +2452,73 @@ body {
   margin: 0;
 }
 
+.hero-amazon-deals {
+  display: grid;
+  gap: 10px;
+  padding-top: 2px;
+}
+
+.hero-amazon-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.hero-amazon-heading h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1rem;
+  letter-spacing: -0.025em;
+}
+
+.hero-amazon-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.hero-amazon-card a {
+  display: grid;
+  gap: 6px;
+  min-height: 132px;
+  padding: 9px;
+  border-radius: 18px;
+  color: inherit;
+  text-decoration: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 248, 235, 0.96)),
+    radial-gradient(circle at top, rgba(255, 153, 0, 0.2), transparent 60%);
+  border: 1px solid rgba(146, 64, 14, 0.14);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.hero-amazon-card a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.12);
+}
+
+.hero-amazon-card img {
+  width: 100%;
+  height: 58px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 12px rgba(18, 24, 21, 0.1));
+}
+
+.hero-amazon-card span {
+  color: #7c2d12;
+  font-size: 0.74rem;
+  font-weight: 1000;
+  letter-spacing: -0.02em;
+}
+
+.hero-amazon-card strong {
+  color: #111827;
+  font-size: 0.78rem;
+  font-weight: 950;
+}
+
 @media (max-width: 860px) {
   .tire-rack-specials-heading {
     align-items: start;
@@ -2513,6 +2580,22 @@ body {
 
   .hero-tire-rack-card {
     min-width: 240px;
+    scroll-snap-align: start;
+  }
+
+  .hero-amazon-heading {
+    display: grid;
+  }
+
+  .hero-amazon-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding-bottom: 6px;
+  }
+
+  .hero-amazon-card {
+    min-width: 152px;
     scroll-snap-align: start;
   }
 
