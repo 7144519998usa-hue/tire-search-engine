@@ -1,7 +1,7 @@
 import JsonLd from "./components/JsonLd";
-import HeroTireVisual from "./components/HeroTireVisual";
 import FeaturedTireDealAds from "./components/FeaturedTireDealAds";
 import HeroDealStrip from "./components/HeroDealStrip";
+import HeroTireRackDeals from "./components/HeroTireRackDeals";
 import ProductGrid from "./components/ProductGrid";
 import SearchBox from "./components/SearchBox";
 import TireCategoryImage from "./components/TireCategoryImage";
@@ -56,7 +56,7 @@ export default function HomePage() {
           <HeroDealStrip />
         </div>
         <div className="hero-panel hero-deal-panel">
-          <HeroTireVisual />
+          <HeroTireRackDeals />
         </div>
       </section>
 
