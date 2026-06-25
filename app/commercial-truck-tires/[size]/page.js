@@ -3,7 +3,8 @@ import ConversionActionPanel from "../../components/ConversionActionPanel";
 import ProductGrid from "../../components/ProductGrid";
 import RetailerSearchFallback from "../../components/RetailerSearchFallback";
 import CommercialLeadForm from "../../components/CommercialLeadForm";
-import { breadcrumbSchema, itemListSchema } from "../../lib/schema";
+import { breadcrumbSchema, faqSchema, itemListSchema } from "../../lib/schema";
+import { faqsForTireIntent } from "../../lib/seo";
 import { getRelatedProducts, getStrictProducts, sizeToSlug, slugToSize, tireSizes } from "../../lib/tireData";
 
 export function generateStaticParams() {
@@ -27,11 +28,13 @@ export default function CommercialSizePage({ params }) {
   const pricedCount = products.filter((product) => typeof product.price === "number").length;
   const relatedProducts = getRelatedProducts({ size, commercialOnly: true, limit: 6 });
   const path = `/commercial-truck-tires/${params.size}`;
+  const faqs = faqsForTireIntent(size, "truck");
 
   return (
     <>
       <JsonLd data={breadcrumbSchema([{ name: "Home", href: "/" }, { name: "Commercial Truck Tires", href: "/commercial-truck-tires" }, { name: `${size} Truck Tires` }])} />
       {products.length ? <JsonLd data={itemListSchema({ title: `${size} commercial truck tires`, products, path })} /> : null}
+      <JsonLd data={faqSchema(faqs)} />
       <section className="section page-shell">
         <div className="section-heading">
           <p className="kicker">Commercial truck tire size</p>
@@ -60,6 +63,19 @@ export default function CommercialSizePage({ params }) {
             <ProductGrid products={relatedProducts} placement="commercial-size-related" pageContext={{ size, isRelated: true }} />
           </section>
         ) : null}
+        <section className="section compact-section">
+          <div className="section-heading compact-heading">
+            <p className="kicker">FAQ</p>
+          </div>
+          <div className="faq-list">
+            {faqs.map((faq) => (
+              <details key={faq.question}>
+                <summary>{faq.question}</summary>
+                <p>{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
       </section>
     </>
   );

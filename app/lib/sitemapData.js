@@ -69,6 +69,10 @@ function commercialSizes() {
   return tireSizes.filter((size) => /r(17\.5|19\.5|22\.5|24\.5)$/i.test(size) || /^[0-9]{1,2}r/i.test(size));
 }
 
+function commercialPathEligible(path, products = []) {
+  return isSitemapEligible(productQualityContext({ products, path }));
+}
+
 export function sitemapPathsForSection(section) {
   const canonicalSection = sitemapSectionAliases[section] || section;
 
@@ -115,12 +119,20 @@ export function sitemapPathsForSection(section) {
       "/commercial-truck-tires",
       ...Object.keys(commercialPositions).map((position) => `/commercial-truck-tires/positions/${position}`),
       ...commercialStates.map((state) => `/commercial-truck-tires/states/${state.slug}`),
-      ...sizes.flatMap((size) => [
-        `/commercial-truck-tires/${sizeToSlug(size)}`,
-        `/commercial-truck-tires/${sizeToSlug(size)}/steer`,
-        `/commercial-truck-tires/${sizeToSlug(size)}/drive`,
-        `/commercial-truck-tires/${sizeToSlug(size)}/trailer`
-      ]).filter((path) => !path.includes("undefined"))
+      ...sizes.flatMap((size) => {
+        const slug = sizeToSlug(size);
+        const basePath = `/commercial-truck-tires/${slug}`;
+        const baseProducts = getStrictProducts({ size, commercialOnly: true, limit: 1 });
+        const paths = commercialPathEligible(basePath, baseProducts) ? [basePath] : [];
+
+        for (const position of ["steer", "drive", "trailer"]) {
+          const path = `/commercial-truck-tires/${slug}/${position}`;
+          const products = getStrictProducts({ size, intent: position, commercialOnly: true, position, limit: 1 });
+          if (commercialPathEligible(path, products)) paths.push(path);
+        }
+
+        return paths;
+      }).filter((path) => !path.includes("undefined"))
     ]);
   }
 

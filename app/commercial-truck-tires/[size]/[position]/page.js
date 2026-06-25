@@ -3,7 +3,8 @@ import ConversionActionPanel from "../../../components/ConversionActionPanel";
 import ProductGrid from "../../../components/ProductGrid";
 import RetailerSearchFallback from "../../../components/RetailerSearchFallback";
 import CommercialLeadForm from "../../../components/CommercialLeadForm";
-import { breadcrumbSchema, itemListSchema } from "../../../lib/schema";
+import { breadcrumbSchema, faqSchema, itemListSchema } from "../../../lib/schema";
+import { faqsForTireIntent } from "../../../lib/seo";
 import { getRelatedProducts, getStrictProducts, sizeToSlug, slugToSize, tireSizes } from "../../../lib/tireData";
 
 const positions = ["steer", "drive", "trailer"];
@@ -32,11 +33,13 @@ export default function CommercialSizePositionPage({ params }) {
   const relatedProducts = getRelatedProducts({ size, commercialOnly: true, limit: 6 });
   const label = params.position.replace(/-/g, " ");
   const path = `/commercial-truck-tires/${params.size}/${params.position}`;
+  const faqs = faqsForTireIntent(size, params.position);
 
   return (
     <>
       <JsonLd data={breadcrumbSchema([{ name: "Home", href: "/" }, { name: "Commercial Truck Tires", href: "/commercial-truck-tires" }, { name: `${size} Truck Tires`, href: `/commercial-truck-tires/${params.size}` }, { name: `${label} tires` }])} />
       {products.length ? <JsonLd data={itemListSchema({ title: `${size} ${label} commercial truck tires`, products, path })} /> : null}
+      <JsonLd data={faqSchema(faqs)} />
       <section className="section page-shell">
         <div className="section-heading">
           <p className="kicker">Commercial {label} tire comparison</p>
@@ -60,6 +63,19 @@ export default function CommercialSizePositionPage({ params }) {
             <ProductGrid products={relatedProducts} placement={`commercial-${params.position}-related`} pageContext={{ size, isRelated: true }} />
           </section>
         ) : null}
+        <section className="section compact-section">
+          <div className="section-heading compact-heading">
+            <p className="kicker">FAQ</p>
+          </div>
+          <div className="faq-list">
+            {faqs.map((faq) => (
+              <details key={faq.question}>
+                <summary>{faq.question}</summary>
+                <p>{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
       </section>
     </>
   );
