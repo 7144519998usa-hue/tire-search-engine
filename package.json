@@ -12,6 +12,7 @@
     "import:cj": "node scripts/import-cj-products.mjs",
     "audit:seo": "node scripts/audit-seo.cjs",
     "audit:affiliate": "node scripts/audit-affiliate-links.cjs",
+    "audit:indexing": "node scripts/audit-indexing-health.cjs",
     "qa:acceptance": "node scripts/qa-acceptance.js"
   },
   "dependencies": {

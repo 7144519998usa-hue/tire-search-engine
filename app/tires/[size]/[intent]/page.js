@@ -50,7 +50,7 @@ export default function TireIntentPage({ params }) {
 
   return (
     <>
-      <JsonLd data={breadcrumbSchema([{ name: "Home", href: "/" }, { name: `${size} Tires`, href: `/tires/${params.size}` }, { name: `${label} ${size} tires` }])} />
+      <JsonLd data={breadcrumbSchema([{ name: "Home", href: "/" }, { name: `${size} Tires`, href: `/tires/${params.size}` }, { name: `${label} ${size} tires`, href: path }])} />
       {products.length ? <JsonLd data={itemListSchema({ title: `${label} ${size} tires`, products, path })} /> : null}
       <JsonLd data={faqSchema(faqs)} />
       <section className="section page-shell">
