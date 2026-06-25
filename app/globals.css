@@ -2194,7 +2194,177 @@ body {
   color: #1f5b49;
 }
 
+.tire-rack-specials {
+  width: min(1180px, calc(100% - 32px));
+  margin: 18px auto 38px;
+  border-radius: 34px;
+  border: 1px solid rgba(28, 52, 44, 0.12);
+  background:
+    linear-gradient(135deg, rgba(255, 247, 234, 0.96), rgba(245, 255, 247, 0.92)),
+    radial-gradient(circle at 12% 8%, rgba(241, 109, 31, 0.14), transparent 32%);
+  box-shadow: 0 28px 80px rgba(24, 34, 28, 0.12);
+  padding: 24px;
+  overflow: hidden;
+}
+
+.tire-rack-specials-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 22px;
+  margin-bottom: 18px;
+}
+
+.tire-rack-specials-heading h2 {
+  margin: 4px 0 8px;
+  color: var(--ink);
+  font-size: clamp(1.55rem, 3vw, 2.45rem);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+.tire-rack-specials-heading p {
+  margin: 0;
+  max-width: 760px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.tire-rack-specials-slider {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(270px, 330px);
+  gap: 16px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  padding: 4px 2px 16px;
+}
+
+.tire-rack-specials-slider::-webkit-scrollbar {
+  height: 10px;
+}
+
+.tire-rack-specials-slider::-webkit-scrollbar-track {
+  background: rgba(31, 91, 73, 0.1);
+  border-radius: 999px;
+}
+
+.tire-rack-specials-slider::-webkit-scrollbar-thumb {
+  background: rgba(31, 91, 73, 0.42);
+  border-radius: 999px;
+}
+
+.tire-rack-special-card {
+  display: grid;
+  grid-template-rows: 180px 1fr;
+  min-height: 430px;
+  scroll-snap-align: start;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.09);
+  overflow: hidden;
+}
+
+.tire-rack-special-image {
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(135deg, #ffffff, #fff4e6),
+    radial-gradient(circle, rgba(241, 109, 31, 0.18), transparent 62%);
+  padding: 12px;
+}
+
+.tire-rack-special-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 18px rgba(18, 24, 21, 0.14));
+}
+
+.tire-rack-special-copy {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+}
+
+.tire-rack-special-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tire-rack-special-topline span,
+.tire-rack-special-topline small {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  border-radius: 999px;
+  padding: 0 9px;
+  font-size: 0.7rem;
+  font-weight: 950;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.tire-rack-special-topline span {
+  background: #1f5b49;
+  color: #ffffff;
+}
+
+.tire-rack-special-topline small {
+  background: #fff3e6;
+  color: #8a3d0d;
+}
+
+.tire-rack-special-card h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.05rem;
+  line-height: 1.22;
+}
+
+.tire-rack-special-card strong {
+  color: #0f5132;
+  font-size: 1.35rem;
+  font-weight: 1000;
+  line-height: 1.1;
+}
+
+.tire-rack-special-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.tire-rack-special-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  margin-top: auto;
+  border-radius: 999px;
+  background: #f16d1f;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 950;
+  box-shadow: 0 12px 24px rgba(241, 109, 31, 0.24);
+}
+
+.tire-rack-specials-disclaimer {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
 @media (max-width: 860px) {
+  .tire-rack-specials-heading {
+    align-items: start;
+    flex-direction: column;
+  }
+
   .vehicle-finder-form {
     grid-template-columns: 1fr 1fr;
   }
@@ -2235,5 +2405,19 @@ body {
   .hero-deal-card {
     min-width: 188px;
     scroll-snap-align: start;
+  }
+
+  .tire-rack-specials {
+    width: min(100% - 20px, 1180px);
+    border-radius: 24px;
+    padding: 16px;
+  }
+
+  .tire-rack-specials-slider {
+    grid-auto-columns: minmax(238px, 82vw);
+  }
+
+  .tire-rack-special-card {
+    grid-template-rows: 160px 1fr;
   }
 }

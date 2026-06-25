@@ -5,6 +5,7 @@ import HeroDealStrip from "./components/HeroDealStrip";
 import ProductGrid from "./components/ProductGrid";
 import SearchBox from "./components/SearchBox";
 import TireCategoryImage from "./components/TireCategoryImage";
+import TireRackSpecialOffers from "./components/TireRackSpecialOffers";
 import { itemListSchema, webSiteSchema } from "./lib/schema";
 import { commercialPriorityPages, getProducts, priorityPages } from "./lib/tireData";
 
@@ -86,6 +87,8 @@ export default function HomePage() {
           <small>Compare retailer links, local-service paths, and marketplace choices.</small>
         </a>
       </section>
+
+      <TireRackSpecialOffers />
 
       <section className="section" aria-label="High-demand tire deal ads">
         <FeaturedTireDealAds
