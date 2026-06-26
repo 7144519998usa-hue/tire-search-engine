@@ -14,9 +14,23 @@ export default function HeroDealStrip() {
         <a href="/deals">View all deals</a>
       </div>
       <div className="hero-deal-strip-grid">
-        {deals.map((deal, index) => (
+        {deals.map((deal, index) => {
+          const primaryHref = trackedDealHref({
+            deal,
+            merchant: deal.primaryMerchant,
+            href: deal.primaryUrl,
+            placement: `hero-deal-strip-${index + 1}-card`
+          });
+
+          return (
           <article className="hero-deal-card" key={deal.size}>
-            <a className="hero-deal-image-link" href={deal.internalHref} aria-label={`Open ${deal.size} tire page`}>
+            <a
+              className="card-click-target"
+              href={primaryHref}
+              aria-label={`Check ${deal.size} tire deal at ${deal.primaryMerchant}`}
+              rel="nofollow sponsored noopener"
+            />
+            <a className="hero-deal-image-link" href={primaryHref} aria-label={`Check ${deal.size} tire deal at ${deal.primaryMerchant}`} rel="nofollow sponsored noopener">
               <ProductImage product={deal.product} index={index} />
             </a>
             <div className="hero-deal-card-copy">
@@ -55,7 +69,8 @@ export default function HeroDealStrip() {
               </TrackedDealLink>
             </div>
           </article>
-        ))}
+        );
+        })}
       </div>
       <p>Ad links. Confirm final price, stock, shipping, installation, and fitment with the retailer.</p>
     </div>

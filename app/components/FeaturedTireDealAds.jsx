@@ -23,11 +23,25 @@ export default function FeaturedTireDealAds({
         </div>
       </div>
       <div className="featured-tire-deal-grid">
-        {deals.map((deal, index) => (
+        {deals.map((deal, index) => {
+          const primaryHref = trackedDealHref({
+            deal,
+            merchant: deal.primaryMerchant,
+            href: deal.primaryUrl,
+            placement: `${placementPrefix}-${index + 1}-card`
+          });
+
+          return (
           <article className="featured-tire-deal-card" key={deal.size}>
-            <div className="featured-tire-deal-media">
+            <a
+              className="card-click-target"
+              href={primaryHref}
+              aria-label={`${deal.primaryCta} for ${deal.size}`}
+              rel="nofollow sponsored noopener"
+            />
+            <a className="featured-tire-deal-media" href={primaryHref} aria-label={`Check ${deal.size} tire deal`} rel="nofollow sponsored noopener">
               <ProductImage product={deal.product} index={index} />
-            </div>
+            </a>
             <div className="featured-tire-deal-top">
               <strong>{deal.size}</strong>
               <span>{deal.badge}</span>
@@ -71,7 +85,8 @@ export default function FeaturedTireDealAds({
               </a>
             </div>
           </article>
-        ))}
+        );
+        })}
       </div>
       <p className="fitment-note">
         Advertisement disclosure: Tire Search Engine may earn from qualifying purchases through approved retailer links.

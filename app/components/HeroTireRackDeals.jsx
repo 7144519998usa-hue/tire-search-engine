@@ -31,18 +31,19 @@ export default function HeroTireRackDeals() {
             {offers.map((offer) => (
               <article className="hero-tire-rack-card" key={offer.promoId}>
                 <TrackedDealLink
+                  className="hero-tire-rack-card-link"
                   href={offer.href}
                   merchant="Tire Rack"
                   placement={`hero-tire-rack-card-${offer.promoId.toLowerCase()}`}
                   tireSize={offer.brand}
                 >
                   <img src={offer.image} alt={`${offer.brand} ${offer.savings} Tire Rack offer`} loading="lazy" />
+                  <div>
+                    <span>{offer.brand}</span>
+                    <strong>{offer.savings}</strong>
+                    <small>{offer.expires}</small>
+                  </div>
                 </TrackedDealLink>
-                <div>
-                  <span>{offer.brand}</span>
-                  <strong>{offer.savings}</strong>
-                  <small>{offer.expires}</small>
-                </div>
               </article>
             ))}
           </div>

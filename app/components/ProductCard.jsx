@@ -1,4 +1,4 @@
-import MerchantButtons from "./MerchantButtons";
+import MerchantButtons, { primaryMerchantHref } from "./MerchantButtons";
 import ProductImage from "./ProductImage";
 import { getTireBadges } from "../lib/badgeLogic";
 import { getMerchantOffers } from "../lib/tireData";
@@ -18,9 +18,19 @@ export default function ProductCard({ product, index = 0, placement = "product-c
     offers: getMerchantOffers(product)
   };
   const badges = getTireBadges(product, pageContext);
+  const primaryHref = primaryMerchantHref(productWithOffers, `${placement}-card`);
+  const primaryLabel = `Check ${product.brand} ${product.model} ${product.size} tire options`;
 
   return (
     <article className="product-card">
+      {primaryHref ? (
+        <a
+          className="card-click-target"
+          href={primaryHref}
+          aria-label={primaryLabel}
+          rel="nofollow sponsored noopener"
+        />
+      ) : null}
       <div className="product-media">
         <ProductImage product={product} index={index} />
         <span className="product-rank">{index + 1}</span>
