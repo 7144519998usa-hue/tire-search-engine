@@ -6,6 +6,13 @@ export const legacyLandingPages = {
     intent: "truck",
     canonical: "/best-truck-tires"
   },
+  "best-truck-tires-2026": {
+    title: "Best Truck Tires 2026",
+    description: "Compare truck tires for 2026 shoppers by size, all-terrain use, highway driving, towing needs, retailer checkout paths, and current deal options.",
+    size: "275/60R20",
+    intent: "truck",
+    canonical: "/best-truck-tires-2026"
+  },
   "best-truck-tire": {
     title: "Best Truck Tire",
     description: "Compare truck tire options for highway driving, all-terrain use, value, and retailer checkout links.",
@@ -181,6 +188,27 @@ export const legacyLandingPages = {
     intent: "price",
     canonical: "/semi-truck-tire-replacement-cost"
   },
+  "fuel-efficient-semi-tires": {
+    title: "Fuel-Efficient Semi Tires",
+    description: "Compare fuel-efficient semi tires for drive, steer, long-haul, regional, and fleet cost-per-mile planning before checking retailer availability.",
+    size: "295/75R22.5",
+    intent: "drive",
+    canonical: "/fuel-efficient-semi-tires"
+  },
+  "fuel-efficient-commercial-tires": {
+    title: "Fuel-Efficient Commercial Tires",
+    description: "Compare fuel-efficient commercial truck tire options by axle position, rolling-resistance needs, long-haul use, and replacement planning.",
+    size: "295/75R22.5",
+    intent: "drive",
+    canonical: "/fuel-efficient-commercial-tires"
+  },
+  "fuel-efficient-truck-tires": {
+    title: "Fuel-Efficient Truck Tires",
+    description: "Compare fuel-efficient truck tires for highway driving, towing, daily work use, and retailer checkout paths by tire size.",
+    size: "275/60R20",
+    intent: "truck",
+    canonical: "/fuel-efficient-truck-tires"
+  },
   "truck-tire-repair-near-me": {
     title: "Truck Tire Repair Near Me",
     description: "Compare truck tire repair and replacement options, commercial tire choices, roadside-focused searches, and retailer checkout links.",
@@ -236,6 +264,13 @@ export const legacyLandingPages = {
     size: "235/45R18",
     intent: "winter",
     canonical: "/best-winter-tires"
+  },
+  "best-winter-tires-2026": {
+    title: "Best Winter Tires 2026",
+    description: "Compare winter tires for 2026 shoppers by snow traction, cold-weather use, common sizes, retailer paths, and fitment checks.",
+    size: "235/45R18",
+    intent: "winter",
+    canonical: "/best-winter-tires-2026"
   },
   "winter-tires": {
     title: "Winter Tires",
@@ -335,6 +370,13 @@ export const legacyLandingPages = {
     intent: "summer",
     canonical: "/best-summer-tires"
   },
+  "best-summer-tires-2026": {
+    title: "Best Summer Tires 2026",
+    description: "Compare summer tires for 2026 shoppers by warm-weather grip, wet-road control, performance category, common sizes, and retailer paths.",
+    size: "225/45R17",
+    intent: "summer",
+    canonical: "/best-summer-tires-2026"
+  },
   "summer-tires": {
     title: "Summer Tires",
     description: "Compare summer tire options for performance, wet roads, warm weather, and retailer deals.",
@@ -369,6 +411,13 @@ export const legacyLandingPages = {
     size: "235/45R18",
     intent: "ev",
     canonical: "/best-ev-tires"
+  },
+  "best-ev-tires-2026": {
+    title: "Best EV Tires 2026",
+    description: "Compare EV tires for 2026 shoppers by quiet ride, range, tread wear, all-season use, Tesla fitment, and retailer checkout paths.",
+    size: "235/45R18",
+    intent: "ev",
+    canonical: "/best-ev-tires-2026"
   },
   "best-tires-for-electric-cars": {
     title: "Best Tires for Electric Cars",
@@ -481,6 +530,41 @@ export const legacyLandingPages = {
     size: "275/60R20",
     intent: "budget",
     canonical: "/cheap-truck-tires"
+  },
+  "delivery-van-tires": {
+    title: "Delivery Van Tires",
+    description: "Compare delivery van tire paths for cargo use, daily routes, load needs, replacement timing, and retailer checkout availability.",
+    size: "225/75R16",
+    intent: "price",
+    canonical: "/delivery-van-tires"
+  },
+  "delivery-van-tire": {
+    title: "Delivery Van Tire",
+    description: "Compare delivery van tire options by common cargo-van sizing, replacement use, load checks, and retailer paths before checkout.",
+    size: "225/75R16",
+    intent: "price",
+    canonical: "/delivery-van-tire"
+  },
+  "best-delivery-van-tires": {
+    title: "Best Delivery Van Tires",
+    description: "Compare delivery van tires for route work, cargo loads, durability, replacement value, and retailer checkout paths.",
+    size: "225/75R16",
+    intent: "price",
+    canonical: "/best-delivery-van-tires"
+  },
+  "commercial-cargo-van-tires": {
+    title: "Commercial Cargo Van Tires",
+    description: "Compare commercial cargo van tires by size, load needs, route use, installed options, and retailer checkout paths.",
+    size: "225/75R16",
+    intent: "price",
+    canonical: "/commercial-cargo-van-tires"
+  },
+  "best-commercial-cargo-van-tires": {
+    title: "Best Commercial Cargo Van Tires",
+    description: "Compare commercial cargo van tires for delivery fleets, trades, local routes, load checks, and replacement planning.",
+    size: "225/75R16",
+    intent: "price",
+    canonical: "/best-commercial-cargo-van-tires"
   },
   "best-tires-for-toyota-tacoma": {
     title: "Best Tires for Toyota Tacoma",
