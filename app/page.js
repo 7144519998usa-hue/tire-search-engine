@@ -1,5 +1,6 @@
 import JsonLd from "./components/JsonLd";
 import FeaturedTireDealAds from "./components/FeaturedTireDealAds";
+import AmazonProductGrid from "./components/AmazonProductGrid";
 import HeroDealStrip from "./components/HeroDealStrip";
 import HeroTireRackDeals from "./components/HeroTireRackDeals";
 import ProductGrid from "./components/ProductGrid";
@@ -7,6 +8,7 @@ import SearchBox from "./components/SearchBox";
 import TireCategoryImage from "./components/TireCategoryImage";
 import TireRackSpecialOffers from "./components/TireRackSpecialOffers";
 import { amazonStorefrontHref, homepageAmazonPicks } from "./lib/amazonStorefront";
+import { getFeaturedAmazonProducts } from "./lib/amazonProducts";
 import { itemListSchema, webSiteSchema } from "./lib/schema";
 import { commercialPriorityPages, getProducts, priorityPages } from "./lib/tireData";
 
@@ -32,6 +34,7 @@ export const metadata = {
 
 export default function HomePage() {
   const homeTruckProducts = getProducts({ commercialOnly: true, limit: 3 });
+  const amazonApiProducts = getFeaturedAmazonProducts(8);
 
   return (
     <>
@@ -122,6 +125,7 @@ export default function HomePage() {
             </a>
           ))}
         </div>
+        <AmazonProductGrid products={amazonApiProducts} placement="homepage-amazon-api" />
       </section>
 
       <section className="section">

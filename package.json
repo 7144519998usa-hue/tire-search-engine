@@ -10,6 +10,7 @@
     "lint": "node scripts/audit-seo.cjs",
     "typecheck": "node scripts/typecheck-js-project.cjs",
     "import:cj": "node scripts/import-cj-products.mjs",
+    "import:amazon": "node scripts/import-amazon-paapi.mjs",
     "audit:seo": "node scripts/audit-seo.cjs",
     "audit:affiliate": "node scripts/audit-affiliate-links.cjs",
     "audit:indexing": "node scripts/audit-indexing-health.cjs",

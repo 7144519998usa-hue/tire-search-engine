@@ -1,5 +1,7 @@
 import JsonLd from "../components/JsonLd";
+import AmazonProductGrid from "../components/AmazonProductGrid";
 import { amazonStorefrontHref, amazonStorefrontSections } from "../lib/amazonStorefront";
+import { getAmazonProductsForSection, hasAmazonApiProducts } from "../lib/amazonProducts";
 import { breadcrumbSchema, faqSchema } from "../lib/schema";
 
 export const metadata = {
@@ -28,6 +30,8 @@ const faqs = [
 ];
 
 export default function AmazonTiresPage() {
+  const hasApiProducts = hasAmazonApiProducts();
+
   return (
     <>
       <JsonLd data={breadcrumbSchema([{ name: "Home", href: "/" }, { name: "Amazon Tires & Wheels", href: "/amazon-tires" }])} />
@@ -61,6 +65,12 @@ export default function AmazonTiresPage() {
                   <p>{section.summary}</p>
                 </div>
               </div>
+              {hasApiProducts ? (
+                <AmazonProductGrid
+                  products={getAmazonProductsForSection(section.id, 8)}
+                  placement={`amazon-storefront-api-${section.id}`}
+                />
+              ) : null}
               <div className="amazon-storefront-grid">
                 {section.items.map((item, index) => (
                   <a
