@@ -1,7 +1,23 @@
+import { existsSync, readFileSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { createRequire } from "node:module";
 import { amazonStorefrontSections } from "../app/lib/amazonStorefront.js";
+
+function loadLocalEnv(filePath = ".env.local") {
+  if (!existsSync(filePath)) return;
+  const lines = readFileSync(filePath, "utf8").split(/\r?\n/);
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#") || !trimmed.includes("=")) continue;
+    const index = trimmed.indexOf("=");
+    const key = trimmed.slice(0, index).trim();
+    const value = trimmed.slice(index + 1).trim().replace(/^['"]|['"]$/g, "");
+    if (key && process.env[key] === undefined) process.env[key] = value;
+  }
+}
+
+loadLocalEnv();
 
 const credentialId = process.env.AMAZON_CREATORS_API_CLIENT_ID || process.env.AMAZON_CREATORS_CREDENTIAL_ID || "";
 const credentialSecret = process.env.AMAZON_CREATORS_API_CLIENT_SECRET || process.env.AMAZON_CREATORS_CREDENTIAL_SECRET || "";
@@ -87,6 +103,12 @@ function storefrontItems() {
 }
 
 async function loadSdk() {
+  try {
+    return await import("amazon-creators-api");
+  } catch {
+    // Fall back to the manually downloaded SDK if the npm package is unavailable.
+  }
+
   const resolvedSdkDir = path.resolve(sdkDir);
   const distPath = path.join(resolvedSdkDir, "dist", "index.js");
   try {
@@ -103,18 +125,58 @@ async function loadSdk() {
   return require(distPath);
 }
 
+async function createApiClient() {
+  const sdk = await loadSdk();
+  const apiClient = new sdk.ApiClient();
+  apiClient.credentialId = credentialId;
+  apiClient.credentialSecret = credentialSecret;
+  apiClient.version = version.replace(/^v/i, "");
+
+  return {
+    api: sdk.TypedDefaultApi ? new sdk.TypedDefaultApi(apiClient) : new sdk.DefaultApi(apiClient),
+    SearchItemsRequestContent: sdk.SearchItemsRequestContent,
+    SearchItemsResource: sdk.SearchItemsResource || null,
+    useWrappedRequest: !sdk.TypedDefaultApi
+  };
+}
+
+function resourceList(SearchItemsResource) {
+  const resources = [
+    "images.primary.medium",
+    "images.primary.large",
+    "itemInfo.title",
+    "itemInfo.features",
+    "offersV2.listings.availability",
+    "offersV2.listings.condition",
+    "offersV2.listings.merchantInfo",
+    "offersV2.listings.price"
+  ];
+
+  return SearchItemsResource
+    ? resources.map((resource) => SearchItemsResource.constructFromObject(resource))
+    : resources;
+}
+
+function describeError(error) {
+  return JSON.stringify(
+    {
+      message: error?.message || String(error),
+      status: error?.status || error?.response?.status || error?.response?.statusCode,
+      responseText: error?.response?.text || error?.response?.body || error?.body
+    },
+    null,
+    2
+  ).slice(0, 1400);
+}
+
 async function main() {
   if (!credentialId || !credentialSecret || !version || !partnerTag) {
     fail("Missing Amazon Creators API credentials. Required: AMAZON_CREATORS_API_CLIENT_ID, AMAZON_CREATORS_API_CLIENT_SECRET, AMAZON_CREATORS_API_VERSION, and AMAZON_CREATORS_PARTNER_TAG or TSE_AMAZON_ASSOCIATE_TAG.");
     return;
   }
 
-  const { ApiClient, DefaultApi, SearchItemsRequestContent } = await loadSdk();
-  const apiClient = new ApiClient();
-  apiClient.credentialId = credentialId;
-  apiClient.credentialSecret = credentialSecret;
-  apiClient.version = version;
-  const api = new DefaultApi(apiClient);
+  const { api, SearchItemsRequestContent, SearchItemsResource, useWrappedRequest } = await createApiClient();
+  const resources = resourceList(SearchItemsResource);
   const products = [];
 
   for (const { item, section } of storefrontItems()) {
@@ -123,31 +185,30 @@ async function main() {
     request.keywords = item.query;
     request.searchIndex = searchIndex;
     request.itemCount = itemCount;
-    request.resources = [
-      "images.primary.medium",
-      "images.primary.large",
-      "itemInfo.title",
-      "itemInfo.features",
-      "offersV2.listings.availability",
-      "offersV2.listings.condition",
-      "offersV2.listings.merchantInfo",
-      "offersV2.listings.price"
-    ];
+    request.resources = resources;
 
     try {
       console.log(`Fetching Amazon Creators API products for: ${item.query}`);
-      const response = await api.searchItems(marketplace, { searchItemsRequestContent: request });
+      const response = useWrappedRequest
+        ? await api.searchItems(marketplace, { searchItemsRequestContent: request })
+        : await api.searchItems(marketplace, request);
       const items = get(response, [["searchResult", "items"], ["SearchResult", "Items"], ["items"], ["Items"]]) || [];
       for (const raw of items) {
         const product = normalizeProduct(raw, item, section);
         if (product.asin && product.title && product.detailPageUrl) products.push(product);
       }
     } catch (error) {
-      console.warn(`Creators API error for "${item.query}": ${JSON.stringify(error, null, 2).slice(0, 900)}`);
+      console.warn(`Creators API error for "${item.query}": ${describeError(error)}`);
     }
   }
 
   const unique = [...new Map(products.map((product) => [product.asin, product])).values()];
+  if (!unique.length) {
+    console.error("Amazon Creators API returned zero products. Existing catalog was not changed.");
+    process.exitCode = 1;
+    return;
+  }
+
   const source = `const amazonProductCatalog = ${JSON.stringify(unique, null, 2)};\n\nexport default amazonProductCatalog;\n`;
   await fs.writeFile(outputPath, source, "utf8");
   console.log(`Wrote ${unique.length} Amazon Creators API products to ${outputPath}`);
