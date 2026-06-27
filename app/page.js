@@ -6,6 +6,7 @@ import ProductGrid from "./components/ProductGrid";
 import SearchBox from "./components/SearchBox";
 import TireCategoryImage from "./components/TireCategoryImage";
 import TireRackSpecialOffers from "./components/TireRackSpecialOffers";
+import { amazonStorefrontHref, homepageAmazonPicks } from "./lib/amazonStorefront";
 import { itemListSchema, webSiteSchema } from "./lib/schema";
 import { commercialPriorityPages, getProducts, priorityPages } from "./lib/tireData";
 
@@ -96,6 +97,31 @@ export default function HomePage() {
           summary="Fast ad links for 225/65R17, 205/55R16, 215/55R17, 225/60R18, and 195/65R15. Check final price, stock, installation, and fitment on the retailer page."
           placementPrefix="homepage-hot-size"
         />
+      </section>
+
+      <section className="section amazon-home-section" aria-label="Amazon tire and wheel storefront">
+        <div className="section-heading compact-heading">
+          <div>
+            <p className="kicker">Amazon tire and wheel searches</p>
+            <h2>Popular Amazon paths for tires, wheels, and accessories.</h2>
+            <p>Curated Amazon search links using the approved Tire Search Engine Associates store ID. Confirm final seller, fitment, price, shipping, and installation on Amazon.</p>
+          </div>
+          <a href="/amazon-tires">Open Amazon hub</a>
+        </div>
+        <div className="amazon-home-grid">
+          {homepageAmazonPicks.map((item, index) => (
+            <a
+              className="amazon-home-card"
+              href={amazonStorefrontHref(item, `homepage-amazon-${index + 1}`)}
+              key={`${item.label}-${index}`}
+              rel="nofollow sponsored noopener"
+            >
+              <span>{item.size || "Amazon"}</span>
+              <strong>{item.label}</strong>
+              <small>{item.intent}</small>
+            </a>
+          ))}
+        </div>
       </section>
 
       <section className="section">

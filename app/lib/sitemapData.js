@@ -163,6 +163,7 @@ export function sitemapPathsForSection(section) {
       "/",
       "/shop-tires",
       "/deals",
+      "/amazon-tires",
       "/ev-tires",
       "/models",
       "/contact",

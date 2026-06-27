@@ -53,6 +53,7 @@ export default function RootLayout({ children }) {
             <a href="/brands">Brands</a>
             <a href="/commercial-truck-tires">Commercial</a>
             <a href="/deals">Deals</a>
+            <a href="/amazon-tires">Amazon Tires</a>
             <a href="/tire-university">Tire University</a>
             <a className="nav-sale-link" href="/about/advertiser-disclosure">Affiliate Disclosure</a>
           </nav>
@@ -72,6 +73,7 @@ export default function RootLayout({ children }) {
             <a href="/tire-university">Tire University</a>
             <a href="/tires">Popular Tire Sizes</a>
             <a href="/commercial-truck-tires">Commercial Truck Tires</a>
+            <a href="/amazon-tires">Amazon Tires & Wheels</a>
             <a href="/contact">Contact</a>
           </nav>
           <p>Affiliate disclosure: some outbound links are sponsored affiliate links. Prices, availability, fitment, installation, and shipping must be confirmed on the retailer site before purchase.</p>

@@ -7,7 +7,7 @@ const tireRackQuickLink = process.env.TSE_TIRE_RACK_CJ_TEXT_LINK || "";
 const defaultTireRackTemplate = `${tireRackClickBase}?url=https%3A%2F%2Fwww.tirerack.com%2Ftires%2Fresults.jsp%3Fwidth%3D{width}%26ratio%3D{ratio}%26diameter%3D{diameter}`;
 const tireRackTemplate = process.env.TSE_TIRE_RACK_AFFILIATE_URL_TEMPLATE || defaultTireRackTemplate;
 const mavisQuickLink = process.env.TSE_MAVIS_CJ_TEXT_LINK || "https://www.dpbolvw.net/click-101740681-15765842";
-const amazonTag = process.env.TSE_AMAZON_ASSOCIATE_TAG || "";
+const amazonTag = process.env.TSE_AMAZON_ASSOCIATE_TAG || "tiresearch-20";
 
 export const priorityPages = [
   "/tires/225-65-r17",
