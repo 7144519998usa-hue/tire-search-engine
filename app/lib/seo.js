@@ -32,7 +32,34 @@ export const tireIntentLabels = {
 
 export const sitemapIntents = Object.keys(tireIntentLabels);
 
+const highValueSizeTitles = {
+  "195/65R15": "195/65R15 Tires | Compare Commuter Prices & All-Season Options",
+  "205/55R16": "205/55R16 Tires | Compare Prices, Brands & All-Season Options",
+  "215/55R17": "215/55R17 Tires | Compare Prices, All-Season & Winter Options",
+  "225/45R17": "225/45R17 Tires | Price, All-Season & Performance Options",
+  "225/65R17": "225/65R17 Tires | SUV All-Season Prices & Fitment",
+  "235/45R18": "235/45R18 Tires | Compare Prices, EV, Winter & All-Season Options",
+  "295/75R22.5": "295/75R22.5 Commercial Truck Tires | Steer, Drive & Price Guide",
+  "315/80R22.5": "315/80R22.5 Commercial Truck Tires | Steer & Highway Price Guide",
+  "385/65R22.5": "385/65R22.5 Trailer Tires | Commercial Prices & Fleet Options"
+};
+
+const highValueSizeDescriptions = {
+  "195/65R15": "Compare 195/65R15 tire prices, commuter all-season options, retailer paths, installed choices, and fitment notes before checkout.",
+  "205/55R16": "Compare 205/55R16 tire prices, high-volume commuter tire options, Tire Rack paths, installed options, and fitment checks before buying.",
+  "215/55R17": "Compare 215/55R17 tire prices, all-season and winter options, common brands, retailer paths, and fitment notes before checkout.",
+  "225/45R17": "Compare 225/45R17 tire prices, all-season, summer, winter, and performance options with retailer paths and fitment checks.",
+  "225/65R17": "Compare 225/65R17 SUV tire prices, RAV4, CR-V, Rogue, and Forester fitment notes, brands, and retailer checkout paths.",
+  "235/45R18": "Compare 235/45R18 tire prices, Tesla Model 3, Camry, Civic, EV, winter, and all-season options before checkout.",
+  "295/75R22.5": "Compare 295/75R22.5 commercial truck tires for steer, drive, price, quotes, casing value, haul type, and fleet replacement planning.",
+  "315/80R22.5": "Compare 315/80R22.5 commercial truck tires for highway steer use, load rating, supplier availability, quote paths, and fleet replacement.",
+  "385/65R22.5": "Compare 385/65R22.5 commercial trailer tires by price path, casing value, regional use, supplier availability, and fleet fitment."
+};
+
 export function titleForTireSize(size = "") {
+  if (highValueSizeTitles[size]) {
+    return humanizeCopy(highValueSizeTitles[size]);
+  }
   const commercial = isCommercialTireSize(size);
   return humanizeCopy(commercial
     ? `${size} Commercial Truck Tires | Steer, Drive & Fleet Prices`
@@ -40,6 +67,9 @@ export function titleForTireSize(size = "") {
 }
 
 export function descriptionForTireSize(size = "") {
+  if (highValueSizeDescriptions[size]) {
+    return humanizeCopy(highValueSizeDescriptions[size]);
+  }
   const commercial = isCommercialTireSize(size);
   return humanizeCopy(commercial
     ? `Compare ${size} commercial truck tire paths for steer, drive, trailer, fleet replacement, quotes, and retailer availability before buying.`
@@ -52,6 +82,18 @@ export function labelForIntent(intent = "") {
 
 export function titleForTireIntent(size = "", intent = "") {
   const label = labelForIntent(intent);
+  if (size === "295/75R22.5" && intent === "steer") {
+    return humanizeCopy("295/75R22.5 Steer Tires | Highway Steer Tire Prices & Quotes");
+  }
+  if (size === "295/75R22.5" && intent === "comparison") {
+    return humanizeCopy("295/75R22.5 Tire Comparison | Steer, Drive & Commercial Options");
+  }
+  if (size === "225/45R17" && intent === "price") {
+    return humanizeCopy("225/45R17 Tire Prices | Compare All-Season, Summer & Retailer Options");
+  }
+  if (size === "235/45R18" && intent === "best") {
+    return humanizeCopy("Best 235/45R18 Tires | EV, Winter & All-Season Options");
+  }
   if (isCommercialTireSize(size) || ["steer", "drive", "trailer"].includes(intent)) {
     return humanizeCopy(`${label} ${size} Truck Tires | Prices, Quotes & Fleet Options`);
   }
@@ -65,6 +107,12 @@ export function descriptionForTireIntent(size = "", intent = "") {
   }
   if (intent === "comparison") {
     return humanizeCopy(`Compare ${size} tire categories, common brands, retailer paths, and fitment notes without mixing unrelated tire sizes.`);
+  }
+  if (size === "295/75R22.5" && intent === "steer") {
+    return humanizeCopy("Compare 295/75R22.5 highway steer tires by load range, stability, casing value, quote path, supplier availability, and fleet replacement needs.");
+  }
+  if (size === "225/45R17" && intent === "price") {
+    return humanizeCopy("Compare 225/45R17 tire prices across all-season, summer, winter, and performance options with retailer and fitment checks.");
   }
   if (isCommercialTireSize(size) || ["steer", "drive", "trailer"].includes(intent)) {
     return humanizeCopy(`Compare ${label} ${size} commercial truck tires by axle position, load range, haul type, quote path, and supplier availability.`);

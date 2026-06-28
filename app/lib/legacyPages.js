@@ -300,6 +300,41 @@ export const legacyLandingPages = {
     intent: "all-weather",
     canonical: "/all-season-snow-tires"
   },
+  "best-all-season-tires-for-snow": {
+    title: "Best All-Season Tires for Snow",
+    description: "Compare all-season, all-weather, and winter tire options for snow-focused shoppers who still need daily-driving comfort.",
+    size: "225/65R17",
+    intent: "all-weather",
+    canonical: "/best-all-season-tires-for-snow"
+  },
+  "best-all-weather-tires-for-snow": {
+    title: "Best All-Weather Tires for Snow",
+    description: "Compare all-weather tires for snow, cold-weather use, year-round driving, retailer paths, and fitment checks.",
+    size: "225/65R17",
+    intent: "all-weather",
+    canonical: "/best-all-weather-tires-for-snow"
+  },
+  "best-winter-tires-for-cars": {
+    title: "Best Winter Tires for Cars",
+    description: "Compare winter tires for passenger cars by snow traction, cold-weather driving, common sizes, retailer paths, and fitment checks.",
+    size: "235/45R18",
+    intent: "winter",
+    canonical: "/best-winter-tires-for-cars"
+  },
+  "best-rated-snow-tires": {
+    title: "Best Rated Snow Tires",
+    description: "Compare snow tire options by winter use case, common tire size, brand path, retailer availability, and fitment checks.",
+    size: "235/45R18",
+    intent: "winter",
+    canonical: "/best-rated-snow-tires"
+  },
+  "snow-tire-ratings": {
+    title: "Snow Tire Ratings",
+    description: "Compare snow tire rating factors, winter traction needs, tire categories, and retailer paths before buying.",
+    size: "235/45R18",
+    intent: "winter",
+    canonical: "/snow-tire-ratings"
+  },
   "winter-tires-on-sale": {
     title: "Winter Tires on Sale",
     description: "Compare winter tire price paths, snow tire options, retailer checkout links, and fitment checks before buying.",

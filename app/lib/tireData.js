@@ -10,9 +10,14 @@ const mavisQuickLink = process.env.TSE_MAVIS_CJ_TEXT_LINK || "https://www.dpbolv
 const amazonTag = process.env.TSE_AMAZON_ASSOCIATE_TAG || "tiresearch-20";
 
 export const priorityPages = [
+  "/tires/235-45-r18",
+  "/tires/215-55-r17",
+  "/tires/225-45-r17/price",
   "/tires/225-65-r17",
   "/tires/205-55-r16",
+  "/tires/195-65-r15",
   "/tires/275-55-r20",
+  "/tires/255-50-r20",
   "/tires/245-60-r18",
   "/tires/235-60-r18",
   "/tires/265-60-r18",
@@ -23,6 +28,12 @@ export const priorityPages = [
 export const commercialPriorityPages = [
   "/tires/11r22-5",
   "/tires/295-75-r22-5",
+  "/tires/295-75-r22-5/comparison",
+  "/tires/315-80-r22-5",
+  "/tires/385-65-r22-5",
+  "/tires/12r22-5",
+  "/tires/9r22-5",
+  "/tires/11r24-5",
   "/tires/285-75-r24-5",
   "/tires/445-50-r22-5"
 ];
@@ -54,6 +65,15 @@ const seedVehicleFitments = [
     size: "255/45R19",
     intent: "all-season",
     focus: "EV tire replacement, quiet highway driving, and long-wear options"
+  },
+  {
+    make: "tesla",
+    model: "model-x",
+    year: "2026",
+    label: "Tesla Model X 2026",
+    size: "265/45R20",
+    intent: "all-season",
+    focus: "EV SUV replacement tires, quiet ride, load checks, and retailer checkout paths"
   },
   {
     make: "tesla",
@@ -263,8 +283,10 @@ const vehicleExpansionModels = [
   { make: "honda", model: "cr-v", years: ["2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"], size: "235/60R18", intent: "all-season", focus: "SUV replacement tires, touring comfort, and all-weather options" },
   { make: "ford", model: "f-150", years: ["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"], size: "275/60R20", intent: "all-terrain", focus: "pickup truck all-terrain, highway, and towing tire options" },
   { make: "chevrolet", model: "silverado", years: ["2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"], size: "275/60R20", intent: "all-terrain", focus: "pickup tire options for highway, towing, and all-terrain use" },
+  { make: "toyota", model: "tacoma", years: ["2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"], size: "265/70R17", intent: "all-terrain", focus: "Tacoma all-terrain, highway, and truck tire replacement paths" },
   { make: "nissan", model: "rogue", years: ["2018", "2019", "2020", "2021", "2022", "2023", "2024"], size: "225/65R17", intent: "all-season", focus: "crossover touring and all-weather tire replacement paths" },
   { make: "tesla", model: "model-3", years: ["2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"], size: "235/45R18", intent: "all-season", focus: "EV tire replacement options and quiet commuting" },
+  { make: "tesla", model: "model-x", years: ["2022", "2023", "2024", "2025", "2026"], size: "265/45R20", intent: "all-season", focus: "EV SUV tire replacement, load rating checks, and quiet highway driving" },
   { make: "tesla", model: "model-y", years: ["2020", "2021", "2022", "2023", "2024", "2025"], size: "255/45R19", intent: "all-season", focus: "EV SUV tire replacement, quiet highway driving, and long-wear options" },
   { make: "jeep", model: "wrangler", years: ["2018", "2019", "2020", "2021", "2022", "2023", "2024"], size: "265/70R17", intent: "all-terrain", focus: "all-terrain and mud-terrain tire paths for Wrangler shoppers" },
   { make: "ram", model: "1500", years: ["2019", "2020", "2021", "2022", "2023", "2024"], size: "275/60R20", intent: "all-terrain", focus: "pickup all-terrain, highway, and towing tire options" }
@@ -429,8 +451,8 @@ export const tireSizes = [
 
 export const commercialPositions = {
   steer: {
-    title: "Commercial Steer Tires",
-    subtitle: "Compare steer-position truck tires for highway stability, tread life, casing value, and fleet uptime.",
+    title: "Best Steer Tires for Highway",
+    subtitle: "Compare highway steer tires for 295/75R22.5, 11R22.5, and other commercial sizes by stability, tread life, casing value, quote path, and fleet uptime.",
     size: "295/75R22.5",
     intent: "steer"
   },
@@ -805,6 +827,36 @@ const seedProductCatalog = [
     priceSnapshot: "Live price at retailer checkout"
   },
   {
+    id: "michelin-x-multi-t-385-65r22-5",
+    brand: "Michelin",
+    model: "X Multi T",
+    size: "385/65R22.5",
+    category: "Commercial trailer",
+    position: "trailer",
+    bestFor: "385/65R22.5 trailer tire shoppers comparing regional haul durability and casing value",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
+    id: "bridgestone-r284-385-65r22-5",
+    brand: "Bridgestone",
+    model: "R284",
+    size: "385/65R22.5",
+    category: "Commercial trailer",
+    position: "trailer",
+    bestFor: "385/65R22.5 commercial trailer replacement searches focused on wear, casing, and fleet uptime",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
+    id: "goodyear-fuel-max-lht-315-80r22-5",
+    brand: "Goodyear",
+    model: "Fuel Max LHT",
+    size: "315/80R22.5",
+    category: "Commercial steer",
+    position: "steer",
+    bestFor: "315/80R22.5 steer tire shoppers comparing line-haul efficiency and highway stability",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
     id: "firestone-fs591-295-75r22-5",
     brand: "Firestone",
     model: "FS591",
@@ -892,6 +944,66 @@ const seedProductCatalog = [
     category: "Touring all-season",
     position: "all-season",
     bestFor: "Budget-minded commuter tire shoppers comparing 195/65R15 options",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
+    id: "michelin-defender2-205-55r16",
+    brand: "Michelin",
+    model: "Defender2",
+    size: "205/55R16",
+    category: "Touring all-season",
+    position: "all-season",
+    bestFor: "High-volume 205/55R16 commuter tire shoppers comparing tread life, comfort, and retailer checkout paths",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
+    id: "continental-truecontact-tour-205-55r16",
+    brand: "Continental",
+    model: "TrueContact Tour",
+    size: "205/55R16",
+    category: "Touring all-season",
+    position: "all-season",
+    bestFor: "205/55R16 shoppers comparing daily-driver value, wet-road confidence, and installed options",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
+    id: "goodyear-assurance-all-season-205-55r16",
+    brand: "Goodyear",
+    model: "Assurance All-Season",
+    size: "205/55R16",
+    category: "Touring all-season",
+    position: "all-season",
+    bestFor: "Budget-minded 205/55R16 tire shoppers comparing simple replacement options",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
+    id: "michelin-defender2-215-55r17",
+    brand: "Michelin",
+    model: "Defender2",
+    size: "215/55R17",
+    category: "Touring all-season",
+    position: "all-season",
+    bestFor: "215/55R17 sedan and crossover shoppers comparing comfort, tread life, and retailer availability",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
+    id: "bridgestone-weatherpeak-215-55r17",
+    brand: "Bridgestone",
+    model: "WeatherPeak",
+    size: "215/55R17",
+    category: "All-weather passenger",
+    position: "all-season",
+    bestFor: "215/55R17 shoppers comparing all-weather traction, snow-rated options, and checkout paths",
+    priceSnapshot: "Live price at retailer checkout"
+  },
+  {
+    id: "continental-truecontact-tour-215-55r17",
+    brand: "Continental",
+    model: "TrueContact Tour",
+    size: "215/55R17",
+    category: "Touring all-season",
+    position: "all-season",
+    bestFor: "215/55R17 tire shoppers comparing quiet daily driving and wet-road confidence",
     priceSnapshot: "Live price at retailer checkout"
   },
   {

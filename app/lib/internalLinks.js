@@ -56,6 +56,50 @@ export function getInternalLinks({ size = "", make = "", model = "", commercial 
     ]
     : [{ href: "/brands/michelin", label: "Michelin tires" }, { href: "/brands/bridgestone", label: "Bridgestone tires" }, { href: "/brands/goodyear", label: "Goodyear tires" }];
 
+  const searchConsoleLinkMap = {
+    "195/65R15": [
+      { href: "/tires/195-65-r15/all-season", label: "195/65R15 all-season tires" },
+      { href: "/best-winter-tires", label: "Best winter tires" }
+    ],
+    "205/55R16": [
+      { href: "/tires/205-55-r16/price", label: "205/55R16 tire prices" },
+      { href: "/tires/205-55-r16/budget", label: "Budget 205/55R16 tires" }
+    ],
+    "215/55R17": [
+      { href: "/tires/215-55-r17/all-season", label: "215/55R17 all-season tires" },
+      { href: "/tires/215-55-r17/budget", label: "Budget 215/55R17 tires" }
+    ],
+    "225/45R17": [
+      { href: "/tires/225-45-r17/price", label: "225/45R17 tire prices" },
+      { href: "/tires/225-45-r17/all-season", label: "225/45R17 all-season tires" },
+      { href: "/best-summer-tires", label: "Best summer tires" }
+    ],
+    "225/65R17": [
+      { href: "/tires/225-65-r17/price", label: "225/65R17 tire prices" },
+      { href: "/best-all-season-tires-for-trucks", label: "Best all-season tires for trucks" }
+    ],
+    "235/45R18": [
+      { href: "/tires/235-45-r18/best", label: "Best 235/45R18 tires" },
+      { href: "/tires/235-45-r18/winter", label: "235/45R18 winter tires" },
+      { href: "/tesla-model-3-tires", label: "Tesla Model 3 tires" }
+    ],
+    "295/75R22.5": [
+      { href: "/tires/295-75-r22-5/comparison", label: "295/75R22.5 tire comparison" },
+      { href: "/tires/295-75-r22-5/drive", label: "295/75R22.5 drive tires" },
+      { href: "/best-steer-tires-for-highway", label: "Best steer tires for highway" }
+    ],
+    "315/80R22.5": [
+      { href: "/tires/315-80-r22-5/price", label: "315/80R22.5 tire prices" },
+      { href: "/best-steer-tires-for-highway", label: "Best steer tires for highway" }
+    ],
+    "385/65R22.5": [
+      { href: "/tires/385-65-r22-5/best", label: "Best 385/65R22.5 tires" },
+      { href: "/best-trailer-tires", label: "Best trailer tires" }
+    ]
+  };
+
+  const searchConsoleLinks = size ? searchConsoleLinkMap[size] || [] : [];
+
   const moneyLinks = size
     ? [
       { href: `/tires/${sizeToSlug(size)}/price`, label: `${size} tire prices` },
@@ -72,16 +116,23 @@ export function getInternalLinks({ size = "", make = "", model = "", commercial 
         : [
           { href: "/best-winter-tires", label: "Best winter tires" },
           { href: "/best-snow-tires", label: "Best snow tires" },
-          { href: "/best-ev-tires", label: "Best EV tires" }
-        ])
+          { href: "/best-ev-tires", label: "Best EV tires" },
+          { href: "/best-truck-tires", label: "Best truck tires" },
+          { href: "/best-summer-tires", label: "Best summer tires" }
+        ]),
+      ...searchConsoleLinks
     ]
     : [
       { href: "/best-truck-tires", label: "Best truck tires" },
       { href: "/best-winter-tires", label: "Best winter tires" },
       { href: "/best-snow-tires", label: "Best snow tires" },
+      { href: "/best-summer-tires", label: "Best summer tires" },
+      { href: "/best-all-season-tires-for-trucks", label: "Best all-season tires for trucks" },
       { href: "/best-steer-tires-for-highway", label: "Best steer tires for highway" },
       { href: "/semi-truck-tires", label: "Semi truck tires" },
-      { href: "/best-ev-tires", label: "Best EV tires" }
+      { href: "/best-ev-tires", label: "Best EV tires" },
+      { href: "/tesla-model-3-tires", label: "Tesla Model 3 tires" },
+      { href: "/tacoma-tires", label: "Tacoma tires" }
     ];
 
   return {
