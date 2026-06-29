@@ -27,10 +27,34 @@ export async function getOutboundClicks(limit = 200) {
 }
 
 export async function recordOutboundClick(event = {}) {
+  let pagePath = clean(event.pagePath, 240);
+  try {
+    if (!pagePath && event.referrer) {
+      pagePath = clean(new URL(event.referrer).pathname, 240);
+    }
+  } catch {
+    pagePath = "";
+  }
+
+  let destinationHost = clean(event.destinationHost, 120);
+  try {
+    if (!destinationHost && event.destination) {
+      destinationHost = clean(new URL(event.destination).hostname, 120);
+    }
+  } catch {
+    destinationHost = "";
+  }
+
   const normalized = {
     merchant: clean(event.merchant, 80),
     placement: clean(event.placement, 120),
     tireSize: clean(event.tireSize, 40),
+    productId: clean(event.productId, 120),
+    offerLabel: clean(event.offerLabel, 120),
+    offerType: clean(event.offerType, 40),
+    targetKind: clean(event.targetKind, 80),
+    pagePath,
+    destinationHost,
     destination: clean(event.destination, 500),
     path: clean(event.path, 240),
     referrer: clean(event.referrer, 500),

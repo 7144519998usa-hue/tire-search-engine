@@ -8,7 +8,11 @@ export function primaryMerchantHref(product, placement = "product-card") {
     merchant: offer.merchant,
     href: offer.href,
     placement,
-    tireSize: product.size
+    tireSize: product.size,
+    productId: product.id,
+    offerLabel: offer.label,
+    offerType: offer.type,
+    targetKind: offer.targetKind
   });
 }
 
@@ -22,7 +26,11 @@ export default function MerchantButtons({ product, placement = "product-card" })
             merchant: offer.merchant,
             href: offer.href,
             placement,
-            tireSize: product.size
+            tireSize: product.size,
+            productId: product.id,
+            offerLabel: offer.label,
+            offerType: offer.type,
+            targetKind: offer.targetKind
           })}
           className={`merchant-button is-${offer.type}`}
           rel="nofollow sponsored noopener"

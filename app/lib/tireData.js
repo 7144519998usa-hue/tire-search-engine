@@ -1,6 +1,7 @@
 import { formatTireSize, normalizeTireSize, parseTireSize } from "./tireSizeParser.js";
 import { getRelatedSizes, isCommercialTireSize } from "./getRelatedSizes.js";
 import cjProductCatalog from "./cjProductCatalog.js";
+import { rankTireResults } from "./rankTireResults.js";
 
 const tireRackClickBase = process.env.TSE_TIRE_RACK_CJ_CLICK_BASE || "https://www.anrdoezrs.net/click-101740681-13697786";
 const tireRackQuickLink = process.env.TSE_TIRE_RACK_CJ_TEXT_LINK || "";
@@ -1316,6 +1317,14 @@ function isDirectTireRackUrl(url = "") {
   return /^https:\/\/(www\.)?tirerack\.com\//i.test(url);
 }
 
+function isExactTireRackProductUrl(url = "") {
+  return /tirerack\.com\/tires\/tires\.jsp/i.test(url);
+}
+
+function isCommercialProduct(product = {}) {
+  return isCommercialTireSize(product.size) || `${product.category} ${product.position}`.toLowerCase().includes("commercial");
+}
+
 export function ensureTireRackAffiliateUrl(url = "") {
   if (!url || isTireRackAffiliateUrl(url)) {
     return url;
@@ -1407,6 +1416,17 @@ export function getMerchantOffers(product) {
   const tireRackUrl = ensureTireRackAffiliateUrl(product.tireRackUrl || buildTireRackUrl({ query, size: product.size }));
   const offers = [];
 
+  if (isCommercialProduct(product)) {
+    offers.push({
+      merchant: "Quote",
+      label: "Get Commercial Tire Quote",
+      href: "#commercial-quote",
+      type: "primary",
+      note: "Fleet, owner-operator, and local supplier path",
+      targetKind: "commercial-quote"
+    });
+  }
+
   if (product.retailerSearch && product.merchantUrl) {
     const merchantUrl = product.brand === "Tire Rack" ? ensureTireRackAffiliateUrl(product.merchantUrl) : product.merchantUrl;
 
@@ -1414,18 +1434,21 @@ export function getMerchantOffers(product) {
       merchant: product.brand,
       label: product.brand === "Mavis" ? "Check Installed Options" : `Search ${product.brand}`,
       href: merchantUrl,
-      type: "primary",
-      note: product.brand === "Mavis" ? "Installed and local service" : "Retailer tire search"
+      type: offers.length ? "secondary" : "primary",
+      note: product.brand === "Mavis" ? "Installed and local service" : "Retailer tire search",
+      targetKind: product.brand === "Mavis" ? "mavis-installed-search" : "retailer-search"
     });
   }
 
   if (tireRackUrl) {
+    const exactProduct = isExactTireRackProductUrl(decodeURIComponent(tireRackUrl));
     offers.push({
       merchant: "Tire Rack",
-      label: typeof product.price === "number" ? "Check Tire Rack Price" : "Check Tire Rack Price",
+      label: exactProduct ? "View Exact Tire Rack Product" : "Check Tire Rack Price",
       href: tireRackUrl,
       type: offers.length ? "secondary" : "primary",
-      note: "Tire-focused retailer"
+      note: exactProduct ? "Direct product page" : "Tire-focused retailer",
+      targetKind: exactProduct ? "exact-product" : "size-search"
     });
   }
 
@@ -1434,7 +1457,8 @@ export function getMerchantOffers(product) {
     label: "Shop Mavis Installed Tires",
     href: buildMavisUrl({ query, size: product.size }),
     type: tireRackUrl ? "secondary" : "primary",
-    note: "Mavis tires and installation"
+    note: "Mavis tires and installation",
+    targetKind: "mavis-installed-search"
   });
 
   offers.push({
@@ -1442,7 +1466,8 @@ export function getMerchantOffers(product) {
     label: "Find Mavis Installation",
     href: buildMavisInstallationUrl({ query, size: product.size }),
     type: "secondary",
-    note: "Store and installation path"
+    note: "Store and installation path",
+    targetKind: "mavis-location"
   });
 
   offers.push({
@@ -1450,7 +1475,8 @@ export function getMerchantOffers(product) {
     label: "Search Amazon",
     href: buildAmazonUrl({ query }),
     type: "secondary",
-    note: "Marketplace selection"
+    note: "Marketplace selection",
+    targetKind: "amazon-search"
   });
 
   const seen = new Set();
@@ -1466,7 +1492,7 @@ export function getProducts({ size = "", intent = "", commercialOnly = false, li
   const normalizedSize = size ? slugToSize(sizeToSlug(size)).toLowerCase() : "";
   const normalizedIntent = String(intent || "").toLowerCase();
 
-  return productCatalog
+  const filtered = productCatalog
     .filter((product) => {
       if (commercialOnly && !product.category.toLowerCase().includes("commercial")) {
         return false;
@@ -1478,14 +1504,16 @@ export function getProducts({ size = "", intent = "", commercialOnly = false, li
         return false;
       }
       return true;
-    })
-    .slice(0, limit);
+    });
+
+  return rankTireResults(filtered, { size, intent, commercialOnly }).slice(0, limit);
 }
 
 export function getStrictProducts({ size = "", intent = "", commercialOnly = false, position = "", limit = 24 } = {}) {
-  return productCatalog
-    .filter((product) => validateProductForPage(product, { size, intent, commercialOnly, position }))
-    .slice(0, limit);
+  const filtered = productCatalog
+    .filter((product) => validateProductForPage(product, { size, intent, commercialOnly, position }));
+
+  return rankTireResults(filtered, { size, intent, commercialOnly, position }).slice(0, limit);
 }
 
 export function getRelatedProducts({ size = "", commercialOnly = false, limit = 8 } = {}) {
